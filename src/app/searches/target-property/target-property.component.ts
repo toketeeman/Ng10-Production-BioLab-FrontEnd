@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError, tap } from 'rxjs/operators';
-import { MatRadioChange, MatRadioButton } from '@angular/material';
+import { MatRadioChange, MatRadioButton } from '@angular/material/radio';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";

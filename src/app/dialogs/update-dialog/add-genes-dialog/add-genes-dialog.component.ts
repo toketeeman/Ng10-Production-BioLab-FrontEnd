@@ -1,22 +1,22 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   FormBuilder,
   FormArray,
   FormGroup,
   Validators
-} from "@angular/forms";
+} from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
-import { HttpClient } from "@angular/common/http";
-import { of } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 import {
   IFastaResponse,
   IFastaEntry,
   IGene
-} from "../../../protein-expression.interface";
-import { TargetRegistrationService } from "../../../services/target-registration.service";
-import { environment } from "../../../../environments/environment";
+} from '../../../protein-expression.interface';
+import { TargetRegistrationService } from '../../../services/target-registration.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: './add-genes-dialog.component.html',
@@ -44,11 +44,11 @@ export class AddGenesDialogComponent implements OnInit {
     this.targetAddGenesUrl = environment.urls.targetAddGenesUrl;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Construct the form to manage the fasta file upload request.
     this.dnaForm = this.fb.group({
-      dna: ["", Validators.required],
-      dna_filename: ["", Validators.required],
+      dna: ['', Validators.required],
+      dna_filename: ['', Validators.required],
       genes: this.fb.array([])
     });
 
@@ -151,7 +151,7 @@ export class AddGenesDialogComponent implements OnInit {
     .subscribe();
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close({ cancel: true });
   }
 

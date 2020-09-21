@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from "rxjs";
 import { map, take, takeUntil } from 'rxjs/operators';
-import { MatAccordion } from '@angular/material';
+import { MatAccordion } from '@angular/material/expansion';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module } from "@ag-grid-enterprise/all-modules";

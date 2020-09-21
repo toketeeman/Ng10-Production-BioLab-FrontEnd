@@ -17,6 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "hammerjs",
+              "file-saver"
+            ],
             "outputPath": "dist/protein-expression-front-end",
             "index": "src/index.html",
             "main": "src/main.ts",

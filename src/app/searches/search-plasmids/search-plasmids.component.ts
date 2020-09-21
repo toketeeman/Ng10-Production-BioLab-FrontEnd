@@ -8,7 +8,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { catchError } from 'rxjs/operators';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange } from '@angular/material/radio';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module, FirstDataRenderedEvent } from "@ag-grid-enterprise/all-modules";

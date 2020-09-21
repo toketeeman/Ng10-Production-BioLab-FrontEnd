@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable, of, Subject } from "rxjs";
 import { catchError, map, take, takeUntil, shareReplay } from 'rxjs/operators';
-import { MatAccordion } from '@angular/material';
+import { MatAccordion } from '@angular/material/expansion';
 
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { AllModules, Module, ValueGetterParams } from "@ag-grid-enterprise/all-modules";
