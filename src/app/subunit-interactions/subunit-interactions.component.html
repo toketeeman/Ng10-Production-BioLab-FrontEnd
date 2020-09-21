@@ -1,0 +1,249 @@
+<div style="padding-left: 5%">
+
+    <h3>Target: {{ target }}</h3>
+    <form [formGroup]="interactionForm">
+
+      <!-- SubUnit Interactions section -->
+      <h4>Subunit Interactions</h4>
+      <div>
+        <button mat-button (click)="addSubUnitInteraction()">Add New Interaction</button>
+      </div>
+
+      <div formArrayName="subunitsArray" *ngFor="let subunit of subunitsArray.controls; let i = index;">
+        <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="space-evenly center">
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Subunit Name
+            </div>
+
+            <div [ngClass]="{'subunit-subunit-one-align': !i}" style="padding-left: 0; padding-top: 0">
+              <select formControlName="subunit_one"
+                  (change)="updateCopyRange($event.target.value, i, subunitsArray, 'subunit_one_copy')">
+                <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Copy #
+            </div>
+
+            <div [ngClass]="{'subunit-copy-one-align': !i}" fxLayout="column" fxLayoutAlign="start start" style="padding-left: 0; padding-top: 0">
+              <div>
+                <input type="number" formControlName="subunit_one_copy">
+              </div>
+              <div *ngIf="subunit['controls'].subunit_one_copy.errors?.min" class="errorMessage">
+                Must be 1 or greater.
+              </div>
+              <div *ngIf="subunit['controls'].subunit_one_copy.errors?.max" class="errorMessage">
+                Range is 1 - {{ subunit['controls'].subunit_one_copy.errors?.max.max }}.
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Interaction
+            </div>
+
+            <div [ngClass]="{'subunit-interaction-align': !i}" style="padding-left: 0; padding-top: 0">
+              <select formControlName="interaction">
+                <option value="non-covalent">Non-covalent</option>
+              </select>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Subunit Name
+            </div>
+
+            <div [ngClass]="{'subunit-subunit-two-align': !i}" style="padding-left: 0; padding-top: 0">
+              <select formControlName="subunit_two"
+                  (change)="updateCopyRange($event.target.value, i, subunitsArray, 'subunit_two_copy')">
+                <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Copy #
+            </div>
+
+            <div [ngClass]="{'subunit-copy-two-align': !i}" fxLayout="column" fxLayoutAlign="start start" style="padding-left: 0; padding-top: 0">
+              <div>
+                <input type="number" formControlName="subunit_two_copy">
+              </div>
+              <div *ngIf="subunit['controls'].subunit_two_copy.errors?.min" class="errorMessage">
+                Must be 1 or greater.
+              </div>
+              <div *ngIf="subunit['controls'].subunit_two_copy.errors?.max" class="errorMessage">
+                Range is 1 - {{ subunit['controls'].subunit_two_copy.errors?.max.max }}.
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              &nbsp;
+            </div>
+
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="deleteInteraction('subunitsArray', i)">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                  class="icon-red" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PTM section -->
+
+      <h4>Post Translational Modifications</h4>
+
+      <div>
+        <button mat-button (click)="addPtm()">Add New PTM</button>
+      </div>
+
+      <div formArrayName="ptmsArray" *ngFor="let ptm of ptmsArray.controls; let i = index;">
+        <div [formGroupName]="i" fxLayout="row" fxLayoutAlign="space-evenly center">
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Subunit Name
+            </div>
+
+            <div [ngClass]="{'ptm-subunit-one-align': !i}" style="padding-left: 0; padding-top: 0">
+              <select formControlName="subunit_one"
+                  (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_one_copy', 'subunit_one_residue')">
+                <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Copy #
+            </div>
+
+            <div [ngClass]="{'ptm-copy-one-align': !i}" fxLayout="column" fxLayoutAlign="start start" style="padding-left: 0; padding-top: 0">
+              <div>
+                <input type="number" formControlName="subunit_one_copy">
+              </div>
+              <div *ngIf="ptm['controls'].subunit_one_copy.errors?.min" class="errorMessage">
+                Must be 1 or greater.
+              </div>
+              <div *ngIf="ptm['controls'].subunit_one_copy.errors?.max" class="errorMessage">
+                Range is 1 - {{ ptm['controls'].subunit_one_copy.errors?.max.max }}.
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Residue #
+            </div>
+
+            <div [ngClass]="{'ptm-residue-one-align': !i}" fxLayout="column" fxLayoutAlign="start start" style="padding-left: 0; padding-top: 0">
+              <div>
+                <input type="number" formControlName="subunit_one_residue">
+              </div>
+              <div *ngIf="ptm['controls'].subunit_one_residue.errors?.min" class="errorMessage">
+                Must be 1 or greater.
+              </div>
+              <div *ngIf="ptm['controls'].subunit_one_residue.errors?.max" class="errorMessage">
+                Range is 1 - {{ ptm['controls'].subunit_one_residue.errors?.max.max }}.
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Subunit Name
+            </div>
+
+            <div [ngClass]="{'ptm-subunit-two-align': !i}" style="padding-left: 0; padding-top: 0">
+              <select formControlName="subunit_two"
+                  (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_two_copy', 'subunit_two_residue')">
+                <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Copy #
+            </div>
+
+            <div [ngClass]="{'ptm-copy-two-align': !i}" fxLayout="column" fxLayoutAlign="start start" style="padding-left: 0; padding-top: 0">
+              <div>
+                <input type="number" formControlName="subunit_two_copy">
+              </div>
+              <div *ngIf="ptm['controls'].subunit_two_copy.errors?.min" class="errorMessage">
+                Must be 1 or greater.
+              </div>
+              <div *ngIf="ptm['controls'].subunit_two_copy.errors?.max" class="errorMessage">
+                Range is 1 - {{ ptm['controls'].subunit_two_copy.errors?.max.max }}.
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Residue #
+            </div>
+
+            <div [ngClass]="{'ptm-residue-two-align': !i}" fxLayout="column" fxLayoutAlign="start start" style="padding-left: 0; padding-top: 0">
+              <div>
+                <input type="number" formControlName="subunit_two_residue">
+              </div>
+              <div *ngIf="ptm['controls'].subunit_two_residue.errors?.min" class="errorMessage">
+                Must be 1 or greater.
+              </div>
+              <div *ngIf="ptm['controls'].subunit_two_residue.errors?.max" class="errorMessage">
+                Range is 1 - {{ ptm['controls'].subunit_two_residue.errors?.max.max }}.
+              </div>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              Modification
+            </div>
+
+            <div [ngClass]="{'ptm-modification-align': !i}" style="padding-left: 0; padding-top: 0">
+              <select formControlName="ptm">
+                <option value="disulfide_bond">Disulfide bond</option>
+              </select>
+            </div>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <div *ngIf="!i">
+              &nbsp;
+            </div>
+
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" (click)="deleteInteraction('ptmsArray', i)">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                  class="icon-red" />
+                <path d="M0 0h24v24H0z" fill="none" />
+              </svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+  <button mat-button (click)="onReset()">Cancel</button>
+  <!-- API call, on success navigates to success screen. on error, load form with data and error message alert -->
+  <button mat-button [disabled]="!interactionForm.valid" (click)="onSubmit()">Save</button>
+
+</div>

@@ -1,0 +1,224 @@
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable, of } from "rxjs";
+import { catchError, tap } from 'rxjs/operators';
+import { MatRadioChange, MatRadioButton } from '@angular/material';
+
+import { AgGridAngular } from "@ag-grid-community/angular";
+import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+
+import { ITargetProperties, ITargetPropertyList, IGridBioProperty } from "../../protein-expression.interface";
+import { environment } from "../../../environments/environment";
+import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+
+@Component({
+  templateUrl: './target-property.component.html',
+  styleUrls: ['./target-property.component.scss']
+})
+export class TargetPropertyComponent implements OnInit, AfterViewInit {
+  @ViewChild("proteinPropertiesButton", { static: false }) proteinPropertiesButton: MatRadioButton;
+  @ViewChild("targetPropertyGrid", { static: false }) targetPropertyGrid: AgGridAngular;
+
+  currentTargetId: string;
+  targetsPropertyUrl: string;
+  proteinName = '';
+  subunitNames: string[] = [];
+  propertySelectionMode: string;
+  propertyListGridData$: Observable<IGridBioProperty[]>;
+  public modules: Module[] = AllModules;
+  public domLayout;
+  propertyColumnDefs;
+  propertyLists: ITargetPropertyList[] = [];
+  isProteinAlone = true;
+
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient,
+    private errorDialogService: ErrorDialogService
+  ) { }
+
+  ngOnInit() {
+    this.currentTargetId = this.route.snapshot.paramMap.get('id');
+
+    if (environment.inMemoryData) {
+      this.targetsPropertyUrl = environment.urls.targetsPropertyUrl;
+    } else {
+      this.targetsPropertyUrl = environment.urls.targetsPropertyUrl + '?target_id=' + this.currentTargetId;
+    }
+
+    this.domLayout = 'autoHeight';
+
+    this.propertyColumnDefs = [
+      {
+        headerName: "Property",
+        headerClass: "target-property-header",
+        field: "name",
+        autoHeight: true,
+        width: 400,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Value",
+        headerClass: "target-property-header",
+        field: "value",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          'font-weight': 'bold',
+          width: '20%'
+        },
+        sortable: false,
+        menuTabs: []
+      },
+      {
+        headerName: "Unit",
+        headerClass: "target-property-header",
+        field: "unit",
+        autoHeight: true,
+        cellStyle: {
+          'white-space': 'normal',
+          'overflow-wrap': 'break-word',
+          width: '25%'
+        },
+        sortable: false,
+        menuTabs: []
+      }
+    ];
+
+    this.http.get<ITargetProperties>(this.targetsPropertyUrl)
+      .pipe(
+        tap((response: ITargetProperties) => {
+          this.activatePropertyListSelection(response);
+        }),
+        catchError(error => {
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['message'],
+            "Biophysical properties for this target could not be found."
+          );
+          const noResult: ITargetProperties = null;
+          return of(noResult);
+        })
+      ).subscribe();
+  }
+
+  ngAfterViewInit() {
+    // Responsive window behavior, with debouncing.
+    this.targetPropertyGrid.api.sizeColumnsToFit();
+    let timeout;
+    window.onresize = () => {
+      if (timeout) {
+        window.cancelAnimationFrame(timeout);
+      }
+      timeout = window.requestAnimationFrame(
+        () => {
+          this.targetPropertyGrid.api.sizeColumnsToFit();
+        }
+      );
+    };
+  }
+
+  activatePropertyListSelection(response: ITargetProperties) {
+    this.propertyLists[0] = response.protein;
+    let propListButtonId = 'propList' + 0;
+    const proteinRadioButtonElement = document.getElementById(propListButtonId);
+    proteinRadioButtonElement.style.visibility = 'visible';
+
+    if (response.subunits.length >= 2) {
+      this.isProteinAlone = false;
+      let subunitIndex = 1;
+      for ( const subunitPropertyList of response.subunits ) {
+        this.propertyLists[subunitIndex] = subunitPropertyList;
+        propListButtonId = 'propList' + subunitIndex++;
+        document.getElementById(propListButtonId).style.visibility = 'visible';
+      }
+    }
+
+    this.proteinPropertiesButton.checked = true;
+    const change: MatRadioChange = new MatRadioChange(null, null);
+    change.value = '0';
+    this.OnPropertyListSelectionChange(change);
+  }
+
+  OnPropertyListSelectionChange(change: MatRadioChange) {
+    const propertyListIndex = +change.value;
+    const propertyList = this.propertyLists[propertyListIndex];
+
+    const gridPropertyList: IGridBioProperty[] = [];
+    gridPropertyList.push({ name: 'Average Molecular Weight (Oxidized)',
+                            value: propertyList.avg_molecular_weight_ox,
+                            unit: 'Da'});
+    gridPropertyList.push({ name: 'Average Molecular Weight (Reduced)',
+                            value: propertyList.avg_molecular_weight_red,
+                            unit: 'Da'});
+    gridPropertyList.push({ name: 'Monoisotopic Molecular Weight (Oxidized)',
+                            value: propertyList.monoisotopic_weight_ox,
+                            unit: 'Da'});
+    gridPropertyList.push({ name: 'Monoisotopic Molecular Weight (Reduced)',
+                            value: propertyList.monoisotopic_weight_red,
+                            unit: 'Da'});
+    gridPropertyList.push({ name: 'Isoelectric Point',
+                            value: propertyList.isoelectric_point,
+                            unit: 'pH'});
+    gridPropertyList.push({ name: 'Average Hydropathy (Gravy)',
+                            value: propertyList.gravy,
+                            unit: 'Average hydropathy (Kyte-Doolittle)'});
+    gridPropertyList.push({ name: 'Aromaticity',
+                            value: propertyList.aromaticity,
+                            unit: 'Relative % of Phe+Trp+Tyr'});
+    gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 280nm (Oxidized)',
+                            value: propertyList.e280_mass_ox,
+                            unit: 'm^2 kg^(-1)'});
+    gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 280nm (Reduced)',
+                            value: propertyList.e280_mass_red,
+                            unit: 'm^2 kg^(-1)'});
+    gridPropertyList.push({ name: 'Mass Extinction Coefficient @ 214nm',
+                            value: propertyList.e214_mass,
+                            unit: 'm^2 kg^(-1)'});
+    gridPropertyList.push({ name: 'Molar Extinction Coefficient @ 280nm (Oxidized)',
+                            value: propertyList.e280_molar_ox,
+                            unit: 'M^(-1) cm^(-1)'});
+    gridPropertyList.push({ name: 'Molar Extinction Coefficient @ 280nm (Reduced)',
+                            value: propertyList.e280_molar_red,
+                            unit: 'M^(-1) cm^(-1)'});
+    gridPropertyList.push({ name: 'Molar Extinction Coefficient @ 214nm',
+                            value: propertyList.e214_molar,
+                            unit: 'M^(-1) cm^(-1)'});
+    gridPropertyList.push({ name: null,     // Work-around to avoid ag-Grid's flickering/obscuring the last data row.
+                            value: null,
+                            unit: null});
+
+    this.propertyListGridData$ = of(gridPropertyList);
+
+    // Change the property value column header appropriately.
+    if (!this.isProteinAlone) {
+      const columnDef = this.targetPropertyGrid.api.getColumnDef('value');
+      if (!propertyListIndex) {
+        columnDef.headerName = 'Value for ALL copies';
+      } else {
+        columnDef.headerName = 'Value for THIS copy';
+      }
+      this.targetPropertyGrid.api.refreshHeader();
+    }
+  }
+
+  // Go back to the current target search.
+  onBackToSearch() {
+    this.router.navigateByUrl("/home/search-targets/back");
+  }
+
+  // Go back to the current target details.
+  onBackToDetails() {
+    this.router.navigateByUrl("/home/target-detail/" + this.currentTargetId);
+  }
+
+}

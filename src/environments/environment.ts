@@ -2,8 +2,36 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// This the "default" operating mode: using the in-memory mock database
+// and Angular development mode. This is equivalent to dev.local mode.
+//
+// The app is built and served with the simple command:
+//
+//   >ng serve
+//
+
 export const environment = {
-  production: false
+  production: false,    // Means app is NOT deployed.
+  inMemoryData: true,   // Means app is running in Angular development mode.
+  configuration: "dev.local",   // For logging during start-up and automated testing.
+
+  urls: {
+    loginUrl: "api/login",
+    proteinClassesUrl: "api/proteinClasses",
+    targetUrl: "api/target-registration/",
+    targetAddGenesUrl: "api/gene-registration/",
+    fastaUrl: "api/v1/absci-targets/fasta-file-parser/",
+    interactionsUrl: "api/v1/absci-targets/subunit-interaction/",
+    ptmsUrl: "api/v1/absci-targets/subunit-ptm/",
+    plasmidsUrl: "api/plasmids",              // tslint objects to "plasmid-view" in back-end. No bother. (or use get() interceptor)
+    plasmidsDetailUrl: "api/plasmidsDetail",
+    targetsUrl: "api/targets",                // tslint objects to "target-view" in back-end. No bother. (or use get() interceptor)
+    targetsDetailUrl: "api/targetsDetail",
+    targetsPropertyUrl: "api/targetsProperty",
+    partsUrl: "api/parts",
+    plasmidSequenceDownloadUrl: "api/plasmid-sequence-download",
+    currentRolesUrl: "api/currentRoles"
+  }
 };
 
 /*

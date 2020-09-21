@@ -1,0 +1,87 @@
+[formControlName]:disabled {
+  cursor: default;
+}
+
+[formControlName] {
+  cursor: pointer;
+}
+
+.errorMessage {
+  color: red!important;
+  font-size: 0.8rem;
+}
+
+.subunit-subunit-one-align {
+  margin-left: -1px;
+}
+
+.subunit-copy-one-align {
+  margin-left: -1px;
+}
+
+.subunit-interaction-align {
+  margin-left: 1px;
+}
+
+.subunit-subunit-two-align {
+  margin-left: 0px;
+}
+
+.subunit-copy-two-align {
+  margin-left: -2px;
+}
+
+.ptm-subunit-one-align {
+  margin-left: 2px;
+}
+
+.ptm-copy-one-align {
+  margin-left: -1px;
+}
+
+.ptm-residue-one-align {
+  margin-left: 0px;
+}
+
+.ptm-subunit-two-align {
+  margin-left: -9px;
+}
+
+.ptm-copy-two-align {
+  margin-left: 0px;
+}
+
+.ptm-residue-two-align {
+  margin-left: 0px;
+}
+
+.ptm-modification-align {
+  margin-left: -8px;
+}
+
+select {
+  width: 150px;
+}
+
+input {
+  width: 60px;
+}
+
+button[mat-button] {
+  margin: 30px 20px 20px 0px;
+  background-color: #b3b3b3;
+  font-weight: bold;
+}
+
+button[mat-button]:disabled {
+  opacity: 0.5;
+}
+
+h4 {
+  margin-top: 40px;
+  margin-bottom: -10px;
+}
+
+form {
+  margin-bottom: 30px;
+}

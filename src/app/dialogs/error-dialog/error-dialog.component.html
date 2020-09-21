@@ -1,0 +1,17 @@
+<header class="flex">
+		<div>Error</div>
+</header>
+
+<section class="flex">
+	<div *ngFor="let errorMessage of errorMessages">
+		<span>
+			{{ errorMessage }}
+		</span>
+	</div>
+</section>
+
+<footer class="flex">
+	<button mat-primary-button (click)="close()">
+		Close
+	</button>
+</footer>

@@ -1,0 +1,28 @@
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #c3c3c3;
+  padding: 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-weight: normal;
+  margin: 0;
+}
+
+button:first-child {
+  margin-top: -5px;
+}
+
+button:last-child {
+  margin-top: -5px;
+  margin-right: 40px;
+}
+
+.title-phrase {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-left: 20px;
+}

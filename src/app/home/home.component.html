@@ -1,0 +1,31 @@
+<header class="flex">
+  <button id="e2e-mat-menu" class="btn-mat-menu" mat-button [matMenuTriggerFor]="menu">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+      <path d="M0 0h24v24H0z" fill="none" />
+      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" /></svg>
+  </button>
+  <ng-container [ngSwitch]="url">
+    <h1 *ngSwitchCase="'/home'" class="header-title">Welcome to the Protein Target Database</h1>
+    <h1 *ngSwitchCase="'/home/add-target'" class="header-title">Add a New Target</h1>
+    <h1 *ngSwitchCase="'/home/search-plasmids'" class="header-title">Search for Plasmids <span class="title-phrase">{{ titlePhrase$ | async }}</span></h1>
+    <h1 *ngSwitchCase="'/home/plasmid-detail'" class="header-title">Plasmid Details</h1>
+    <h1 *ngSwitchCase="'/home/search-targets'" class="header-title">Search for Targets</h1>
+    <h1 *ngSwitchCase="'/home/target-detail'" class="header-title">Target Details</h1>
+    <h1 *ngSwitchCase="'/home/target-property'" class="header-title">Target Biophysical Properties</h1>
+    <h1 *ngSwitchCase="'/home/subunit-interactions'" class="header-title">Add Subunit Interactions for Target</h1>
+    <h1 *ngSwitchCase="'/home/success'" class="header-title">New Target Registration Details</h1>
+    <h1 *ngSwitchCase="'/home/search-parts'" class="header-title">Search for Parts</h1>
+    <h1 *ngSwitchDefault class="header-title">Welcome to the Protein Target Database</h1>
+  </ng-container>
+  <button class="btn btn-nav" (click)="logout()">Log Out</button>
+</header>
+
+<mat-menu #menu="matMenu">
+  <!-- <button mat-menu-item routerLink="/">Home</button> -->
+  <button mat-menu-item (click)="goToRegisterNewTarget()" [disabled]="disableForNonSubmitter()">Register New Target</button>
+  <button mat-menu-item (click)="goToSearchTargets()" [disabled]="disableForNonViewer()">Search Targets</button>
+  <button mat-menu-item (click)="goToSearchPlasmids()" [disabled]="disableForNonViewer()">Search Plasmids</button>
+  <button mat-menu-item (click)="goToSearchParts()" [disabled]="disableForNonViewer()">Search Parts</button>
+</mat-menu>
+
+<router-outlet></router-outlet>

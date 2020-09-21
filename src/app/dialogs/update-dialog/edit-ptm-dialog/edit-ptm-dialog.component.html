@@ -1,0 +1,115 @@
+<header class="flex">
+  <div>Edit PTM</div>
+</header>
+
+<section>
+  <form [formGroup]="editPtmForm">
+    <div formArrayName="ptmsArray" *ngFor="let ptm of ptmsArray.controls; let i = index;">
+      <div [formGroupName]="i" fxLayout="column" fxLayoutAlign="start center">
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div style="width: 30%">Subunit Name</div>
+          <div style="width: 30%">
+            <select formControlName="subunit_one"
+                (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_one_copy', 'subunit_one_residue')">
+              <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start" style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 38%">Copy #</div>
+            <div>
+              <input style="width: 37%" type="number" formControlName="subunit_one_copy">
+            </div>
+          </div>
+          <div *ngIf="ptm['controls'].subunit_one_copy.errors?.min" class="errorMessage">
+            Must be 1 or greater.
+          </div>
+          <div *ngIf="ptm['controls'].subunit_one_copy.errors?.max" class="errorMessage">
+            Range is 1 - {{ ptm['controls'].subunit_one_copy.errors?.max.max }}.
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start" style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 38%">Residue #</div>
+            <div>
+              <input style="width: 37%" type="number" formControlName="subunit_one_residue">
+            </div>
+          </div>
+          <div *ngIf="ptm['controls'].subunit_one_residue.errors?.min" class="errorMessage">
+            Must be 1 or greater.
+          </div>
+          <div *ngIf="ptm['controls'].subunit_one_residue.errors?.max" class="errorMessage">
+            Range is 1 - {{ ptm['controls'].subunit_one_residue.errors?.max.max }}.
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div style="width: 30%">Subunit Name</div>
+          <div style="width: 30%">
+            <select formControlName="subunit_two"
+                (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_two_copy', 'subunit_two_residue')">
+              <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start"  style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 38%">Copy #</div>
+            <div>
+              <input style="width: 37%" type="number" formControlName="subunit_two_copy">
+            </div>
+          </div>
+          <div *ngIf="ptm['controls'].subunit_two_copy.errors?.min" class="errorMessage">
+            Must be 1 or greater.
+          </div>
+          <div *ngIf="ptm['controls'].subunit_two_copy.errors?.max" class="errorMessage">
+            Range is 1 - {{ ptm['controls'].subunit_two_copy.errors?.max.max }}.
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start" style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 38%">Residue #</div>
+            <div>
+              <input style="width: 37%" type="number" formControlName="subunit_two_residue">
+            </div>
+          </div>
+          <div *ngIf="ptm['controls'].subunit_two_residue.errors?.min" class="errorMessage">
+            Must be 1 or greater.
+          </div>
+          <div *ngIf="ptm['controls'].subunit_two_residue.errors?.max" class="errorMessage">
+            Range is 1 - {{ ptm['controls'].subunit_two_residue.errors?.max.max }}.
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div style="width: 30%">PTM Type</div>
+          <div style="width: 30%">
+            <select formControlName="ptm">
+              <option value="disulfide_bond">Disulfide bond</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</section>
+
+<footer class="flex">
+  <button
+    mat-primary-button
+    [disabled]="!editPtmForm.valid"
+    [ngClass]="{'defaultCursor': !editPtmForm.valid}"
+    (click)="onSavePtm()">
+    Save
+  </button>
+  <button mat-secondary-button (click)="onCancel()">
+    Cancel
+  </button>
+</footer>

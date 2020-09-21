@@ -1,0 +1,85 @@
+<header class="flex">
+  <div>Edit Interaction</div>
+</header>
+
+<section>
+  <form [formGroup]="editInteractionForm">
+    <div formArrayName="interactionsArray" *ngFor="let interaction of interactionsArray.controls; let i = index;">
+      <div [formGroupName]="i" fxLayout="column" fxLayoutAlign="start center">
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div style="width: 30%">Subunit Name</div>
+          <div style="width: 30%">
+            <select formControlName="subunit_one" (change)="updateCopyRange($event.target.value, i, interactionsArray, 'subunit_one_copy')">
+              <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start" style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 38%">Copy #</div>
+            <div>
+              <input style="width: 37%" type="number" formControlName="subunit_one_copy">
+            </div>
+          </div>
+          <div *ngIf="interaction['controls'].subunit_one_copy.errors?.min" class="errorMessage">
+            Must be 1 or greater.
+          </div>
+          <div *ngIf="interaction['controls'].subunit_one_copy.errors?.max" class="errorMessage">
+            Range is 1 - {{ interaction['controls'].subunit_one_copy.errors?.max.max }}.
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div style="width: 30%">Interaction Type</div>
+          <div style="width: 30%">
+            <select formControlName="interaction">
+              <option value="non-covalent">Non-covalent</option>
+              <option value="covalent">Covalent</option>
+            </select>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div style="width: 30%">Subunit Name</div>
+          <div style="width: 30%">
+            <select formControlName="subunit_two" (change)="updateCopyRange($event.target.value, i, interactionsArray, 'subunit_two_copy')">
+              <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start"  style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 38%">Copy #</div>
+            <div>
+              <input style="width: 37%" type="number" formControlName="subunit_two_copy">
+            </div>
+          </div>
+          <div *ngIf="interaction['controls'].subunit_two_copy.errors?.min" class="errorMessage">
+            Must be 1 or greater.
+          </div>
+          <div *ngIf="interaction['controls'].subunit_two_copy.errors?.max" class="errorMessage">
+            Range is 1 - {{ interaction['controls'].subunit_two_copy.errors?.max.max }}.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</section>
+
+<footer class="flex">
+  <button
+    mat-primary-button
+    [disabled]="!editInteractionForm.valid"
+    [ngClass]="{'defaultCursor': !editInteractionForm.valid}"
+    (click)="onSaveInteraction()">
+    Save
+  </button>
+  <button mat-secondary-button (click)="onCancel()">
+    Cancel
+  </button>
+</footer>
+

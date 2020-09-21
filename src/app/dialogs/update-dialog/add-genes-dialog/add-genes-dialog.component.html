@@ -1,0 +1,36 @@
+<header class="flex">
+  <div>Add Genes to {{ subunitName }}</div>
+</header>
+
+<section class="flex">
+
+  <form class="flex container" [formGroup]="dnaForm">
+    <div>
+      <label class="file-upload-label" for="dnaFile">
+        Add codon optimized DNA FASTA file
+      </label>
+      <br>
+      <input id="dnaFile" type="file" accept=".FASTA" formControlName="dna" (change)="onFileChange($event)"/>
+      <span *ngIf="dnaForm.get('dna').valid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path fill="#5ab059" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+        </svg>
+      </span>
+    </div>
+  </form>
+
+</section>
+
+<footer class="flex">
+  <button
+    mat-primary-button
+    [disabled]="!addButtonIsActivated"
+    [ngClass]="{'defaultCursor': !addButtonIsActivated}"
+    (click)="onAddGenes()">
+    Add
+  </button>
+  <button mat-secondary-button (click)="onCancel()">
+    Cancel
+  </button>
+</footer>
