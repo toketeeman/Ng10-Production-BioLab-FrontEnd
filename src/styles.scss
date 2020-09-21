@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap");
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "./node_modules/@ag-grid-community/all-modules/dist/styles/ag-grid.scss";
-@import "./node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-balham/sass/ag-theme-balham.scss";
+@import "./node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-balham/sass/legacy/ag-theme-balham-v22-compat.scss";
 
 /* global styles */
 * {

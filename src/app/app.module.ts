@@ -159,22 +159,6 @@ if (!environment.production && environment.inMemoryData) {
       multi: true
     }
   ],
-  bootstrap: [AppComponent],
-  // entryComponents: [
-  //   ErrorDialogComponent,
-  //   AddGenesDialogComponent,
-  //   AddInteractionDialogComponent,
-  //   EditInteractionDialogComponent,
-  //   DeleteInteractionDialogComponent,
-  //   AddPtmDialogComponent,
-  //   EditPtmDialogComponent,
-  //   DeletePtmDialogComponent,
-  //   FeatureQualifierRenderer,
-  //   PlasmidCountRenderer,
-  //   PlasmidsRenderer,
-  //   InteractionAddDeleteRenderer,
-  //   PtmAddDeleteRenderer,
-  //   InteractionEditRenderer,
-  //   PtmEditRenderer]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

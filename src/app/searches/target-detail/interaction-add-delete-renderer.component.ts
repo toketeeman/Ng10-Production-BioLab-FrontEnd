@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ICellRendererAngularComp } from "@ag-grid-community/angular";
+import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 
 import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.service';
@@ -18,7 +18,7 @@ export class InteractionAddDeleteRenderer implements ICellRendererAngularComp {
   constructor(private updateDialogService: UpdateDialogService) { }
 
   refresh(params: any): boolean {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   agInit(params: ICellRendererParams): void {
@@ -28,8 +28,8 @@ export class InteractionAddDeleteRenderer implements ICellRendererAngularComp {
     this.refreshTargetDetails = this.params.context.refreshTargetDetails; // Grab callback for refreshing target-details page after change.
   }
 
-  afterGuiAttached?(params?: import("@ag-grid-community/all-modules").IAfterGuiAttachedParams): void {
-    throw new Error("Method not implemented.");
+  afterGuiAttached?(params?: import('@ag-grid-community/all-modules').IAfterGuiAttachedParams): void {
+    throw new Error('Method not implemented.');
   }
 
   onAddInteraction() {
