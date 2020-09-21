@@ -5,16 +5,16 @@ import {
   FormArray,
   FormGroup,
   Validators
-} from "@angular/forms";
+} from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
-import { HttpClient } from "@angular/common/http";
-import { of } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 
-import { environment } from "../../../../environments/environment";
+import { environment } from '../../../../environments/environment';
 import { ISubunit, ISubunitInteraction } from 'src/app/protein-expression.interface';
-import { ValidateNumberInput } from "../../../validators/numberInput.validator";
+import { ValidateNumberInput } from '../../../validators/numberInput.validator';
 
 @Component({
   selector: 'app-edit-interaction-dialog',
@@ -31,8 +31,8 @@ export class EditInteractionDialogComponent implements OnInit {
   subunitOneId: string;
   subunitTwoId: string;
 
-  get interactionsArray() {
-    return this.editInteractionForm.get("interactionsArray") as FormArray;
+  get interactionsArray(): FormArray {
+    return this.editInteractionForm.get('interactionsArray') as FormArray;
   }
 
   constructor(
@@ -49,7 +49,7 @@ export class EditInteractionDialogComponent implements OnInit {
     this.interactionsUrl = environment.urls.interactionsUrl + this.params.node.data.subunit_interaction_id + '/';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Grab the respective subunit ids of the subunits involved in the interaction
     // in order to do immediate activation of complete validation because
     // the data will already be present in the form.
@@ -101,14 +101,14 @@ export class EditInteractionDialogComponent implements OnInit {
     subunitId: string,
     index: number,
     controlArray: FormArray,
-    controlName: "subunit_one_copy" | "subunit_two_copy"
-  ) {
+    controlName: 'subunit_one_copy' | 'subunit_two_copy'
+  ): void {
     const id = parseInt(subunitId, 10);
     const copyNumber = this.subunits.filter(unit => unit.subunit_id === id)[0]
       .copies;
 
     // Set the maximum range of the appropriate copy number control to the subunit's number of copies.
-    const controlsKey = "controls";
+    const controlsKey = 'controls';
     const control = controlArray.at(index)[controlsKey][controlName];
     control.setValidators([
       ValidateNumberInput,
@@ -138,7 +138,7 @@ export class EditInteractionDialogComponent implements OnInit {
     .subscribe();
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close({ cancel: true });
   }
 

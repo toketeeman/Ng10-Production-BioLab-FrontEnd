@@ -2,11 +2,11 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
-import { Observable, of } from "rxjs";
+import { Observable } from 'rxjs';
 
 import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 
-import { IGene } from "../../protein-expression.interface";
+import { IGene } from '../../protein-expression.interface';
 import { AddGenesDialogComponent } from './add-genes-dialog/add-genes-dialog.component';
 import { AddInteractionDialogComponent } from './add-interaction-dialog/add-interaction-dialog.component';
 import { EditInteractionDialogComponent } from './edit-interaction-dialog/edit-interaction-dialog.component';
@@ -14,7 +14,7 @@ import { DeleteInteractionDialogComponent } from './delete-interaction-dialog/de
 import { AddPtmDialogComponent } from './add-ptm-dialog/add-ptm-dialog.component';
 import { EditPtmDialogComponent } from './edit-ptm-dialog/edit-ptm-dialog.component';
 import { DeletePtmDialogComponent } from './delete-ptm-dialog/delete-ptm-dialog.component';
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class UpdateDialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'standard-modalbox';
-    dialogConfig.width = "400px";
+    dialogConfig.width = '400px';
     dialogConfig.data = {
      subunitName,
      genes
@@ -51,7 +51,7 @@ export class UpdateDialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'standard-modalbox';
-    dialogConfig.width = "500px";
+    dialogConfig.width = '500px';
     dialogConfig.data = {
      params
     };
@@ -67,7 +67,7 @@ export class UpdateDialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'standard-modalbox';
-    dialogConfig.width = "500px";
+    dialogConfig.width = '500px';
     dialogConfig.data = {
      params
     };
@@ -83,7 +83,7 @@ export class UpdateDialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'standard-modalbox';
-    dialogConfig.width = "400px";
+    dialogConfig.width = '400px';
     dialogConfig.data = {
      params
     };
@@ -99,7 +99,7 @@ export class UpdateDialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'standard-modalbox';
-    dialogConfig.width = "500px";
+    dialogConfig.width = '500px';
     dialogConfig.data = {
      params
     };
@@ -115,7 +115,7 @@ export class UpdateDialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'standard-modalbox';
-    dialogConfig.width = "500px";
+    dialogConfig.width = '500px';
     dialogConfig.data = {
      params
     };
@@ -131,7 +131,7 @@ export class UpdateDialogService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'standard-modalbox';
-    dialogConfig.width = "400px";
+    dialogConfig.width = '400px';
     dialogConfig.data = {
      params
     };

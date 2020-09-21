@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { catchError, tap } from 'rxjs/operators';
-import { HttpClient } from "@angular/common/http";
-import { of } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 
-import { environment } from "../../../../environments/environment";
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-delete-interaction-dialog',
@@ -29,7 +29,7 @@ export class DeleteInteractionDialogComponent implements OnInit {
     this.interactionsUrl = environment.urls.interactionsUrl + this.params.node.data.subunit_interaction_id + '/';
    }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // No form to construct.
   }
 
@@ -53,7 +53,7 @@ export class DeleteInteractionDialogComponent implements OnInit {
     .subscribe();
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close({ cancel: true });
   }
 

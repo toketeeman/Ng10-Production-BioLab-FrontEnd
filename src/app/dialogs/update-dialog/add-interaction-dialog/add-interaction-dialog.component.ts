@@ -6,16 +6,16 @@ import {
   FormGroup,
   Validators,
   FormControl
-} from "@angular/forms";
+} from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
-import { HttpClient } from "@angular/common/http";
-import { of } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 
-import { environment } from "../../../../environments/environment";
+import { environment } from '../../../../environments/environment';
 import { ISubunit } from 'src/app/protein-expression.interface';
-import { ValidateNumberInput } from "../../../validators/numberInput.validator";
+import { ValidateNumberInput } from '../../../validators/numberInput.validator';
 
 @Component({
   selector: 'app-add-interaction-dialog',
@@ -29,8 +29,8 @@ export class AddInteractionDialogComponent implements OnInit {
   addButtonIsActivated = true;
   interactionsUrl: string;
 
-  get interactionsArray() {
-    return this.addInteractionForm.get("interactionsArray") as FormArray;
+  get interactionsArray(): FormArray {
+    return this.addInteractionForm.get('interactionsArray') as FormArray;
   }
 
   constructor(
@@ -46,19 +46,19 @@ export class AddInteractionDialogComponent implements OnInit {
     this.interactionsUrl = environment.urls.interactionsUrl;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Construct the form to manage the adding-interaction request.
     this.addInteractionForm = this.fb.group({
       interactionsArray: this.fb.array([this.createInteractionGroup()])
     });
   }
 
-  createInteractionGroup() {
+  createInteractionGroup(): FormGroup {
     return this.fb.group({
-      subunit_one: ["", Validators.required],
+      subunit_one: ['', Validators.required],
       subunit_one_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
-      interaction: ["", Validators.required],
-      subunit_two: ["", Validators.required],
+      interaction: ['', Validators.required],
+      subunit_two: ['', Validators.required],
       subunit_two_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
     });
   }
@@ -66,14 +66,14 @@ export class AddInteractionDialogComponent implements OnInit {
   updateCopyRange(
     subunitId: string,
     index: number,
-    controlName: "subunit_one_copy" | "subunit_two_copy"
-  ) {
+    controlName: 'subunit_one_copy' | 'subunit_two_copy'
+  ): void {
     const id = parseInt(subunitId, 10);
     const copyNumber = this.subunits.filter(unit => unit.subunit_id === id)[0]
       .copies;
 
     // Set the maximum range of the appropriate copy number control to the subunit's number of copies.
-    const controlsKey = "controls";
+    const controlsKey = 'controls';
     const control = this.interactionsArray.at(index)[controlsKey][controlName];
     control.enable();
     control.setValidators([
@@ -103,7 +103,7 @@ export class AddInteractionDialogComponent implements OnInit {
     .subscribe();
   }
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close({ cancel: true });
   }
 

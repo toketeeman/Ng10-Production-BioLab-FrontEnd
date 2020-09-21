@@ -15,10 +15,10 @@ export class ErrorDialogComponent implements OnInit {
       this.errorMessages = data.errorMessages;
     }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  close() {
+  close(): void {
     this.dialogRef.close();
   }
 

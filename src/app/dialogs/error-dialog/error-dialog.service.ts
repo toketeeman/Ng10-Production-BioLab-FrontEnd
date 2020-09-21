@@ -20,7 +20,7 @@ export class ErrorDialogService {
     dialogConfig.data = {
       errorMessages: combinedMessages
     };
-    dialogConfig.width = "400px";
+    dialogConfig.width = '400px';
 
     this.dialog.open(ErrorDialogComponent, dialogConfig);
   }
@@ -46,7 +46,7 @@ export class ErrorDialogService {
     dialogConfig.data = {
       errorMessages: combinedMessages
     };
-    dialogConfig.width = "400px";
+    dialogConfig.width = '400px';
 
     this.dialog.open(ErrorDialogComponent, dialogConfig);
   }

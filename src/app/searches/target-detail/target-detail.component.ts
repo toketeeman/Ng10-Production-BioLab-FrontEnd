@@ -79,7 +79,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isSubmitter = this.authenticationService.hasSubmitterRole();
 
     this.currentTargetId = this.route.snapshot.paramMap.get('id');
