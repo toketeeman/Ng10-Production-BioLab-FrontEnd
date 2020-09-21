@@ -1,105 +1,105 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { NewTargetComponent } from "./new-target/new-target.component";
-import { SubunitInteractionsComponent } from "./subunit-interactions/subunit-interactions.component";
-import { LoginFormComponent } from "./auth/login-form/login-form.component";
-import { HomeComponent } from "./home/home.component";
-import { AuthGuard } from "./guards/auth.guard";
-import { SignedOutGuard } from "./guards/signed-out.guard";
+import { NewTargetComponent } from './new-target/new-target.component';
+import { SubunitInteractionsComponent } from './subunit-interactions/subunit-interactions.component';
+import { LoginFormComponent } from './auth/login-form/login-form.component';
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './guards/auth.guard';
+import { SignedOutGuard } from './guards/signed-out.guard';
 import { RegistrationSummaryComponent } from './registration-summary/registration-summary.component';
-import { UnsavedChangesGuard } from "./guards/unsaved-changes.guard";
-import { CanAccessGuard } from "./guards/can-access.guard";
-import { SubmitAccessGuard } from "./guards/submit-access.guard";
-import { ViewAccessGuard } from "./guards/view-access.guard";
-import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
-import { SearchPlasmidsComponent } from "./searches/search-plasmids/search-plasmids.component";
+import { UnsavedChangesGuard } from './guards/unsaved-changes.guard';
+import { CanAccessGuard } from './guards/can-access.guard';
+import { SubmitAccessGuard } from './guards/submit-access.guard';
+import { ViewAccessGuard } from './guards/view-access.guard';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SearchPlasmidsComponent } from './searches/search-plasmids/search-plasmids.component';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
-import { SearchTargetsComponent } from "./searches/search-targets/search-targets.component";
+import { SearchTargetsComponent } from './searches/search-targets/search-targets.component';
 import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
 import { TargetPropertyComponent } from './searches/target-property/target-property.component';
 import { SearchPartsComponent } from './searches/search-parts/search-parts.component';
 
 const routes: Routes = [
   {
-    path: "login",
+    path: 'login',
     component: LoginFormComponent,
     canActivate: [SignedOutGuard]
   },
   {
-    path: "home",
+    path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
       {
-        path: "add-target",
+        path: 'add-target',
         component: NewTargetComponent,
         canActivate: [SubmitAccessGuard],
         canDeactivate: [UnsavedChangesGuard]
       },
       {
-        path: "subunit-interactions",
+        path: 'subunit-interactions',
         component: SubunitInteractionsComponent,
         canActivate: [CanAccessGuard],
         canDeactivate: [UnsavedChangesGuard]
       },
       {
-        path: "success",
+        path: 'success',
         component: RegistrationSummaryComponent,
         canActivate: [CanAccessGuard],
         canDeactivate: [CanAccessGuard]
       },
       {
-        path: "search-plasmids/back",
+        path: 'search-plasmids/back',
         canActivate: [ViewAccessGuard],
         component: SearchPlasmidsComponent
       },
       {
-        path: "search-plasmids/by-part/:partName",
+        path: 'search-plasmids/by-part/:partName',
         canActivate: [ViewAccessGuard],
         component: SearchPlasmidsComponent
       },
       {
-        path: "search-plasmids/by-target/:targetName",
+        path: 'search-plasmids/by-target/:targetName',
         canActivate: [ViewAccessGuard],
         component: SearchPlasmidsComponent
       },
       {
-        path: "search-plasmids",
+        path: 'search-plasmids',
         canActivate: [ViewAccessGuard],
         component: SearchPlasmidsComponent
       },
       {
-        path: "plasmid-detail/:id",
+        path: 'plasmid-detail/:id',
         component: PlasmidDetailComponent
       },
       {
-        path: "search-targets/back",
+        path: 'search-targets/back',
         canActivate: [ViewAccessGuard],
         component: SearchTargetsComponent
       },
       {
-        path: "search-targets",
+        path: 'search-targets',
         canActivate: [ViewAccessGuard],
         component: SearchTargetsComponent
       },
       {
-        path: "target-detail/:id",
+        path: 'target-detail/:id',
         component: TargetDetailComponent
       },
       {
-        path: "target-property/:id",
+        path: 'target-property/:id',
         component: TargetPropertyComponent
       },
       {
-        path: "search-parts",
+        path: 'search-parts',
         canActivate: [ViewAccessGuard],
         component: SearchPartsComponent
       },
     ]
   },
-  { path: "", redirectTo: "home/add-target", pathMatch: "full" },
-  { path: "**", component: PageNotFoundComponent }
+  { path: '', redirectTo: 'home/add-target', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
