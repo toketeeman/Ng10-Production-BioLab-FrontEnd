@@ -9,7 +9,7 @@ import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.s
   templateUrl: './interaction-add-delete-renderer.component.html',
   styleUrls: ['./interaction-add-delete-renderer.component.scss']
 })
-export class InteractionAddDeleteRenderer implements ICellRendererAngularComp {
+export class InteractionAddDeleteRendererComponent implements ICellRendererAngularComp {
   showAddButton = false;
   showDeleteButton = false;
   refreshTargetDetails: any;  // The passed target-detail page refresh callback.

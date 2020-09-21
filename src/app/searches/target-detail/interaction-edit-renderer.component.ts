@@ -9,7 +9,7 @@ import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.s
   templateUrl: './interaction-edit-renderer.component.html',
   styleUrls: ['./interaction-edit-renderer.component.scss']
 })
-export class InteractionEditRenderer implements ICellRendererAngularComp {
+export class InteractionEditRendererComponent implements ICellRendererAngularComp {
   showEditButton = false;
   refreshTargetDetails: any;    // The passed target-detail page refresh callback.
   params: ICellRendererParams;

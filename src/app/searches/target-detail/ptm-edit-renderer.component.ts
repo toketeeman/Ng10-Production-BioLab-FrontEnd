@@ -9,7 +9,7 @@ import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.s
   templateUrl: './ptm-edit-renderer.component.html',
   styleUrls: ['./ptm-edit-renderer.component.scss']
 })
-export class PtmEditRenderer implements ICellRendererAngularComp {
+export class PtmEditRendererComponent implements ICellRendererAngularComp {
   showEditButton = false;
   refreshTargetDetails: any;
   params: ICellRendererParams;

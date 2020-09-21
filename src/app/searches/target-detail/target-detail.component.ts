@@ -27,10 +27,10 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
 import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.service';
 import { environment } from "../../../environments/environment";
-import { InteractionEditRenderer } from './interaction-edit-renderer.component';
-import { PtmEditRenderer } from './ptm-edit-renderer.component';
-import { InteractionAddDeleteRenderer } from './interaction-add-delete-renderer.component';
-import { PtmAddDeleteRenderer } from './ptm-add-delete-renderer.component';
+import { InteractionEditRendererComponent } from './interaction-edit-renderer.component';
+import { PtmEditRendererComponent } from './ptm-edit-renderer.component';
+import { InteractionAddDeleteRendererComponent } from './interaction-add-delete-renderer.component';
+import { PtmAddDeleteRendererComponent } from './ptm-add-delete-renderer.component';
 
 @Component({
   templateUrl: './target-detail.component.html',
@@ -251,7 +251,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         maxWidth: 70,
         sortable: false,
         menuTabs: [],
-        cellRendererFramework: InteractionEditRenderer
+        cellRendererFramework: InteractionEditRendererComponent
       },
       {
         headerName: "",
@@ -262,7 +262,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         maxWidth: 70,
         sortable: false,
         menuTabs: [],
-        cellRendererFramework: InteractionAddDeleteRenderer
+        cellRendererFramework: InteractionAddDeleteRendererComponent
       }
     ];
 
@@ -373,7 +373,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         maxWidth: 70,
         sortable: false,
         menuTabs: [],
-        cellRendererFramework: PtmEditRenderer
+        cellRendererFramework: PtmEditRendererComponent
       },
       {
         headerName: "",
@@ -385,7 +385,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         maxWidth: 70,
         sortable: false,
         menuTabs: [],
-        cellRendererFramework: PtmAddDeleteRenderer
+        cellRendererFramework: PtmAddDeleteRendererComponent
       }
     ];
 

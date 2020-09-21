@@ -42,10 +42,10 @@ import { SearchPlasmidsComponent } from './searches/search-plasmids/search-plasm
 import { SearchTargetsComponent } from './searches/search-targets/search-targets.component';
 import { AutoFocusDirective } from './directives/auto-focus.directive';
 import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
-import { InteractionAddDeleteRenderer } from './searches/target-detail/interaction-add-delete-renderer.component';
-import { PtmAddDeleteRenderer } from './searches/target-detail/ptm-add-delete-renderer.component';
-import { InteractionEditRenderer } from './searches/target-detail/interaction-edit-renderer.component';
-import { PtmEditRenderer } from './searches/target-detail/ptm-edit-renderer.component';
+import { InteractionAddDeleteRendererComponent } from './searches/target-detail/interaction-add-delete-renderer.component';
+import { PtmAddDeleteRendererComponent } from './searches/target-detail/ptm-add-delete-renderer.component';
+import { InteractionEditRendererComponent } from './searches/target-detail/interaction-edit-renderer.component';
+import { PtmEditRendererComponent } from './searches/target-detail/ptm-edit-renderer.component';
 import { RegistrationSummaryComponent } from './registration-summary/registration-summary.component';
 import { TargetPropertyComponent } from './searches/target-property/target-property.component';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
@@ -92,10 +92,10 @@ const appImports = [
     FeatureQualifierRenderer,
     PlasmidCountRenderer,
     PlasmidsRenderer,
-    InteractionAddDeleteRenderer,
-    PtmAddDeleteRenderer,
-    InteractionEditRenderer,
-    PtmEditRenderer
+    InteractionAddDeleteRendererComponent,
+    PtmAddDeleteRendererComponent,
+    InteractionEditRendererComponent,
+    PtmEditRendererComponent
   ]),
   FileSaverModule
 ];
@@ -136,10 +136,10 @@ if (!environment.production && environment.inMemoryData) {
     PlasmidCountRenderer,
     PlasmidsRenderer,
     TargetDetailComponent,
-    InteractionAddDeleteRenderer,
-    PtmAddDeleteRenderer,
-    InteractionEditRenderer,
-    PtmEditRenderer,
+    InteractionAddDeleteRendererComponent,
+    PtmAddDeleteRendererComponent,
+    InteractionEditRendererComponent,
+    PtmEditRendererComponent,
     RegistrationSummaryComponent,
     TargetPropertyComponent,
     AddGenesDialogComponent,

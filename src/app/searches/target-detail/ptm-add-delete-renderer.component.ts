@@ -9,7 +9,7 @@ import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.s
   templateUrl: './ptm-add-delete-renderer.component.html',
   styleUrls: ['./ptm-add-delete-renderer.component.scss']
 })
-export class PtmAddDeleteRenderer implements ICellRendererAngularComp {
+export class PtmAddDeleteRendererComponent implements ICellRendererAngularComp {
   showAddButton = false;
   showDeleteButton = false;
   refreshTargetDetails: any;
