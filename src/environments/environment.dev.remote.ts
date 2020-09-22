@@ -9,23 +9,23 @@
 export const environment = {
   production: false,    // Means app is NOT deployed.
   inMemoryData: false,  // Means app is running in Angular production mode.
-  configuration: "dev.remote",   // For logging during start-up and automated testing.
+  configuration: 'dev.remote',   // For logging during start-up and automated testing.
 
   urls: {
-    loginUrl: "https://ptdb-dev.intranet.absci.com/api/v1/auth/login/",
-    proteinClassesUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/protein-class/",
-    targetUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-registration/",
-    targetAddGenesUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/gene-registration/",
-    fastaUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/fasta-file-parser/",
-    interactionsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/subunit-interaction/",
-    ptmsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/subunit-ptm/",
-    plasmidsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-view/",
-    plasmidsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-detail-view/",
-    targetsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-view/",
-    targetsDetailUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-detail-view/",
-    targetsPropertyUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-biophysical-properties-view/",
-    partsUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/parts-view/",
-    plasmidSequenceDownloadUrl: "https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-sequence-download/",
-    currentRolesUrl: "https://ptdb-dev.intranet.absci.com/api/v1/users/current-user-permissions/"
+    loginUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/auth/login/',
+    proteinClassesUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/protein-class/',
+    targetUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-registration/',
+    targetAddGenesUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/gene-registration/',
+    fastaUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/fasta-file-parser/',
+    interactionsUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/subunit-interaction/',
+    ptmsUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/subunit-ptm/',
+    plasmidsUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-view/',
+    plasmidsDetailUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-detail-view/',
+    targetsUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-view/',
+    targetsDetailUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-detail-view/',
+    targetsPropertyUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/target-biophysical-properties-view/',
+    partsUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/parts-view/',
+    plasmidSequenceDownloadUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/absci-targets/plasmid-sequence-download/',
+    currentRolesUrl: 'https://ptdb-dev.intranet.absci.com/api/v1/users/current-user-permissions/'
   }
 };

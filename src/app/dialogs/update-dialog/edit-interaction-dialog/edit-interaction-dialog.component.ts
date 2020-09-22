@@ -75,11 +75,11 @@ export class EditInteractionDialogComponent implements OnInit {
 
   createAndPopulateInteractionGroup(): FormGroup {
     const interactionGroup = this.fb.group({
-      subunit_one: ["", Validators.required],
-      subunit_one_copy: ["", [Validators.required, ValidateNumberInput]],
-      interaction: ["", Validators.required],
-      subunit_two: ["", Validators.required],
-      subunit_two_copy: ["", [Validators.required, ValidateNumberInput]]
+      subunit_one: ['', Validators.required],
+      subunit_one_copy: ['', [Validators.required, ValidateNumberInput]],
+      interaction: ['', Validators.required],
+      subunit_two: ['', Validators.required],
+      subunit_two_copy: ['', [Validators.required, ValidateNumberInput]]
     });
 
     const nodeData = this.params.node.data;

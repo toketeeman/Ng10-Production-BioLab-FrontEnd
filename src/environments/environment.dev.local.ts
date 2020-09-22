@@ -16,23 +16,23 @@
 export const environment = {
   production: false,    // Means app is NOT deployed.
   inMemoryData: true,   // Means app is running in Angular development mode.
-  configuration: "dev.local",   // For logging during start-up and automated testing.
+  configuration: 'dev.local',   // For logging during start-up and automated testing.
 
   urls: {
-    loginUrl: "api/login",
-    proteinClassesUrl: "api/proteinClasses",
-    targetUrl: "api/target-registration/",
-    targetAddGenesUrl: "api/gene-registration/",
-    fastaUrl: "api/v1/absci-targets/fasta-file-parser/",
-    interactionsUrl: "api/v1/absci-targets/subunit-interaction/",
-    ptmsUrl: "api/v1/absci-targets/subunit-ptm/",
-    plasmidsUrl: "api/plasmids",
-    plasmidsDetailUrl: "api/plasmidsDetail",
-    targetsUrl: "api/targets",
-    targetsDetailUrl: "api/targetsDetail",
-    targetsPropertyUrl: "api/targetsProperty",
-    partsUrl: "api/parts",
-    plasmidSequenceDownloadUrl: "api/plasmid-sequence-download",
-    currentRolesUrl: "api/currentRoles"
+    loginUrl: 'api/login',
+    proteinClassesUrl: 'api/proteinClasses',
+    targetUrl: 'api/target-registration/',
+    targetAddGenesUrl: 'api/gene-registration/',
+    fastaUrl: 'api/v1/absci-targets/fasta-file-parser/',
+    interactionsUrl: 'api/v1/absci-targets/subunit-interaction/',
+    ptmsUrl: 'api/v1/absci-targets/subunit-ptm/',
+    plasmidsUrl: 'api/plasmids',
+    plasmidsDetailUrl: 'api/plasmidsDetail',
+    targetsUrl: 'api/targets',
+    targetsDetailUrl: 'api/targetsDetail',
+    targetsPropertyUrl: 'api/targetsProperty',
+    partsUrl: 'api/parts',
+    plasmidSequenceDownloadUrl: 'api/plasmid-sequence-download',
+    currentRolesUrl: 'api/currentRoles'
   }
 };
