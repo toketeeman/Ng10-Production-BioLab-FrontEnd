@@ -290,6 +290,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_one_copy',
         autoHeight: true,
+        width: 150,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
@@ -303,6 +304,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_one_residue',
         autoHeight: true,
+        width: 200,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
@@ -330,6 +332,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_two_copy',
         autoHeight: true,
+        width: 150,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
@@ -343,6 +346,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_two_residue',
         autoHeight: true,
+        width: 200,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
