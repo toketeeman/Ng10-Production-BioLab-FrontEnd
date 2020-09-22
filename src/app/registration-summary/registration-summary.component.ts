@@ -7,12 +7,12 @@ import {
   ChangeDetectionStrategy,  // Needed only to handle ngu-carousel Github issue #83.
   ChangeDetectorRef         // Needed only to handle ngu-carousel Github issue #83.
 } from '@angular/core';
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject } from 'rxjs';
 import { map, take, takeUntil } from 'rxjs/operators';
 import { MatAccordion } from '@angular/material/expansion';
 
-import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { AllModules, Module } from '@ag-grid-enterprise/all-modules';
 import { NguCarouselConfig } from '@ngu/carousel';
 
 import {
@@ -21,8 +21,8 @@ import {
   ISubunitInteraction,
   ITargetDetailHeader,
   IPostTranslationalModification
-} from "../protein-expression.interface";
-import { TargetDetailStoreService } from "../services/target-detail-store.service";
+} from '../protein-expression.interface';
+import { TargetDetailStoreService } from '../services/target-detail-store.service';
 
 @Component({
   templateUrl: './registration-summary.component.html',
@@ -30,9 +30,9 @@ import { TargetDetailStoreService } from "../services/target-detail-store.servic
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
-  @ViewChild("subunitInteractionsGrid", { static: false }) subunitInteractionsGrid: AgGridAngular;
-  @ViewChild("ptmsGrid", { static: false }) ptmsGrid: AgGridAngular;
+  @ViewChild('targetHeaderGrid', { static: false }) targetHeaderGrid: AgGridAngular;
+  @ViewChild('subunitInteractionsGrid', { static: false }) subunitInteractionsGrid: AgGridAngular;
+  @ViewChild('ptmsGrid', { static: false }) ptmsGrid: AgGridAngular;
   @ViewChild('dnaSeqAccordion', { static: false }) dnaSeqAccordion: MatAccordion;
 
   private destroyed$ = new Subject();
@@ -65,15 +65,15 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.domLayout = 'autoHeight';
 
     // Configure target header grid.
     this.targetHeaderColumnDefs = [
       {
-        headerName: "Target Name",
-        headerClass: "target-detail-header",
-        field: "target_name",
+        headerName: 'Target Name',
+        headerClass: 'target-detail-header',
+        field: 'target_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -85,9 +85,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Partner",
-        headerClass: "target-detail-header",
-        field: "partner",
+        headerName: 'Partner',
+        headerClass: 'target-detail-header',
+        field: 'partner',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -99,9 +99,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: [],
       },
       {
-        headerName: "Protein Class",
-        headerClass: "target-detail-header",
-        field: "protein_class_name",
+        headerName: 'Protein Class',
+        headerClass: 'target-detail-header',
+        field: 'protein_class_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -113,9 +113,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Project Name",
-        headerClass: "target-detail-header",
-        field: "project_name",
+        headerName: 'Project Name',
+        headerClass: 'target-detail-header',
+        field: 'project_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -127,9 +127,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Notes",
-        headerClass: "target-detail-header",
-        field: "notes",
+        headerName: 'Notes',
+        headerClass: 'target-detail-header',
+        field: 'notes',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -145,9 +145,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
     // Configure subunit interactions grid.
     this.subunitInteractionsColumnDefs = [
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_one_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -159,9 +159,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_one_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -173,9 +173,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Interaction Type",
-        headerClass: "target-detail-header",
-        field: "interaction",
+        headerName: 'Interaction Type',
+        headerClass: 'target-detail-header',
+        field: 'interaction',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -187,9 +187,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_two_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -201,9 +201,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_two_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -219,9 +219,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
     // Configure post translational modifications grid.
     this.ptmsColumnDefs = [
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_one_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -231,9 +231,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         }
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_one_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -245,9 +245,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Residue Number",
-        headerClass: "target-detail-header",
-        field: "subunit_one_residue",
+        headerName: 'Residue Number',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_residue',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -259,9 +259,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_two_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -273,9 +273,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_two_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -287,9 +287,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "Residue Number",
-        headerClass: "target-detail-header",
-        field: "subunit_two_residue",
+        headerName: 'Residue Number',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_residue',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -301,9 +301,9 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         menuTabs: []
       },
       {
-        headerName: "PTM",
-        headerClass: "target-detail-header",
-        field: "ptm",
+        headerName: 'PTM',
+        headerClass: 'target-detail-header',
+        field: 'ptm',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -386,7 +386,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
     this.subunitsAreHovered = false;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // Responsive window behavior.
     this.targetHeaderGrid.api.sizeColumnsToFit();
     this.subunitInteractionsGrid.api.sizeColumnsToFit();

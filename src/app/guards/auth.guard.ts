@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   Router,
   CanActivate,
   CanActivateChild
-} from "@angular/router";
-import { Observable } from "rxjs";
+} from '@angular/router';
+import { Observable } from 'rxjs';
 
-import { AuthenticationService } from "../services/authentication.service";
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   state$: Observable<any>;
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivate(): boolean {
     if (!this.authenticationService.getToken()) {
-      this.router.navigate(["/login"]);
+      this.router.navigate(['/login']);
 
       return false;
     }

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   Router,
   CanActivate,
@@ -6,12 +6,12 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree
-} from "@angular/router";
-import { Observable } from "rxjs";
-import { RegistrationSummaryComponent } from "../registration-summary/registration-summary.component";
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { RegistrationSummaryComponent } from '../registration-summary/registration-summary.component';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class CanAccessGuard
   implements CanActivate, CanDeactivate<RegistrationSummaryComponent> {
@@ -24,8 +24,8 @@ export class CanAccessGuard
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.router.url === "/") {
-      this.router.navigateByUrl("/home/add-target");
+    if (this.router.url === '/') {
+      this.router.navigateByUrl('/home/add-target');
       return false;
     }
     return true;
@@ -36,10 +36,10 @@ export class CanAccessGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
     next: RouterStateSnapshot
-  ) {
+  ): boolean {
     if (
-      state.url === "/home/success" &&
-      next.url === "/home/subunit-interactions"
+      state.url === '/home/success' &&
+      next.url === '/home/subunit-interactions'
     ) {
       return false;
     }

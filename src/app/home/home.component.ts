@@ -1,16 +1,16 @@
-import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AuthenticationService } from "../services/authentication.service";
-import { TargetSearchStoreService } from "../services/target-search-store.service";
-import { PlasmidSearchStoreService } from "../services/plasmid-search-store.service";
-import { PlasmidTitlePhraseService } from "../services/plasmid-title-phrase.service";
+import { AuthenticationService } from '../services/authentication.service';
+import { TargetSearchStoreService } from '../services/target-search-store.service';
+import { PlasmidSearchStoreService } from '../services/plasmid-search-store.service';
+import { PlasmidTitlePhraseService } from '../services/plasmid-title-phrase.service';
 
 
 @Component({
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"]
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
   url = '';
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     private plasmidTitlePhraseService: PlasmidTitlePhraseService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isAuthenticated = !!this.authenticationService.getToken();
 
     this.titlePhrase$ = this.plasmidTitlePhraseService.getPlasmidTitlePhrase();
@@ -66,30 +66,30 @@ export class HomeComponent implements OnInit {
 
   logout(): void {
     this.authenticationService.logOut();
-    this.router.navigateByUrl("/login");
+    this.router.navigateByUrl('/login');
   }
 
-  goToRegisterNewTarget() {
+  goToRegisterNewTarget(): void {
     this.resetStores();
-    this.router.navigateByUrl("/home/add-target");
+    this.router.navigateByUrl('/home/add-target');
   }
 
-  goToSearchTargets() {
+  goToSearchTargets(): void {
     this.resetStores();
-    this.router.navigateByUrl("/home/search-targets");
+    this.router.navigateByUrl('/home/search-targets');
   }
 
-  goToSearchPlasmids() {
+  goToSearchPlasmids(): void {
     this.resetStores();
-    this.router.navigateByUrl("/home/search-plasmids");
+    this.router.navigateByUrl('/home/search-plasmids');
   }
 
-  goToSearchParts() {
+  goToSearchParts(): void {
     this.resetStores();
-    this.router.navigateByUrl("/home/search-parts");
+    this.router.navigateByUrl('/home/search-parts');
   }
 
-  resetStores() {
+  resetStores(): void {
     this.targetSearchStoreService.resetTargetSearchSetState();
     this.targetSearchStoreService.resetTargetLastSearchedState();
     this.plasmidSearchStoreService.resetPlasmidSearchSetState();

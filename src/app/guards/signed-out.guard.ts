@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   Router,
   CanActivate
-} from "@angular/router";
+} from '@angular/router';
 
-import { AuthenticationService } from "../services/authentication.service";
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class SignedOutGuard implements CanActivate {
   constructor(
@@ -19,7 +19,7 @@ export class SignedOutGuard implements CanActivate {
     // If we have been routed to the login page but are already logged in,
     // then we instead go direct to the add-new-target page.
     if (this.authenticationService.getToken()) {
-      this.router.navigate(["/home/add-target"]);
+      this.router.navigate(['/home/add-target']);
       return false;
     }
     return true;

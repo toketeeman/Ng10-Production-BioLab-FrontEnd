@@ -1,29 +1,29 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormArray,
   FormGroup,
   Validators,
   FormControl
-} from "@angular/forms";
-import { Observable, Subscription, of } from "rxjs";
+} from '@angular/forms';
+import { Observable, Subscription, of } from 'rxjs';
 
-import { TargetRegistrationService } from "../services/target-registration.service";
-import { TargetDetailStoreService } from "../services/target-detail-store.service";
-import { AlertService } from "../services/alert.service";
+import { TargetRegistrationService } from '../services/target-registration.service';
+import { TargetDetailStoreService } from '../services/target-detail-store.service';
+import { AlertService } from '../services/alert.service';
 import {
   IProteinClass,
   IFastaResponse,
   ITargetDetailHeader
 } from '../protein-expression.interface';
-import { ValidateNumberInput } from "../validators/numberInput.validator";
-import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
-import { ProteinClassesService } from "../services/protein-classes.service";
+import { ValidateNumberInput } from '../validators/numberInput.validator';
+import { ErrorDialogService } from '../dialogs/error-dialog/error-dialog.service';
+import { ProteinClassesService } from '../services/protein-classes.service';
 import { tap, catchError } from 'rxjs/operators';
 
 @Component({
-  templateUrl: "./new-target.component.html",
-  styleUrls: ["./new-target.component.scss"]
+  templateUrl: './new-target.component.html',
+  styleUrls: ['./new-target.component.scss']
 })
 export class NewTargetComponent implements OnInit {
   targetForm: FormGroup;
@@ -34,23 +34,23 @@ export class NewTargetComponent implements OnInit {
 
   /** getters allow the new-target form template to refer to individual controls by variable name
    */
-  get subunits() {
-    return this.targetForm.get("subunits") as FormArray;
+  get subunits(): FormArray {
+    return this.targetForm.get('subunits') as FormArray;
   }
-  get target() {
-    return this.targetForm.get("target_name") as FormControl;
+  get target(): FormControl {
+    return this.targetForm.get('target_name') as FormControl;
   }
-  get partner() {
-    return this.targetForm.get("partner") as FormControl;
+  get partner(): FormControl {
+    return this.targetForm.get('partner') as FormControl;
   }
-  get project() {
-    return this.targetForm.get("project_name") as FormControl;
+  get project(): FormControl {
+    return this.targetForm.get('project_name') as FormControl;
   }
-  get protein_class_pk() {
-    return this.targetForm.get("protein_class_pk") as FormControl;
+  get protein_class_pk(): FormControl {
+    return this.targetForm.get('protein_class_pk') as FormControl;
   }
-  get notes() {
-    return this.targetForm.get("notes") as FormControl;
+  get notes(): FormControl {
+    return this.targetForm.get('notes') as FormControl;
   }
 
   constructor(
@@ -62,13 +62,13 @@ export class NewTargetComponent implements OnInit {
     private targetDetailStoreService: TargetDetailStoreService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.targetForm = this.fb.group({
-      target_name: ["", Validators.required],
-      partner: ["", Validators.required],
-      protein_class_pk: ["", Validators.required],
-      notes: [""],
-      project_name: ["", Validators.required],
+      target_name: ['', Validators.required],
+      partner: ['', Validators.required],
+      protein_class_pk: ['', Validators.required],
+      notes: [''],
+      project_name: ['', Validators.required],
       subunits: this.fb.array([this.createSubunit()])
     });
 
@@ -86,17 +86,17 @@ export class NewTargetComponent implements OnInit {
 
   createSubunit(): FormGroup {
     return this.fb.group({
-      subunit_name: ["", Validators.required],
+      subunit_name: ['', Validators.required],
       copies: [
-        "",
+        '',
         [Validators.required, ValidateNumberInput, Validators.min(1)]
       ],
-      amino_acid: ["", Validators.required],
-      amino_acid_fileName: [""],
-      amino_acid_fasta_description: [""],
-      amino_acid_sequence: [""],
-      dna: ["", Validators.required],
-      dna_fileName: [""],
+      amino_acid: ['', Validators.required],
+      amino_acid_fileName: [''],
+      amino_acid_fasta_description: [''],
+      amino_acid_sequence: [''],
+      dna: ['', Validators.required],
+      dna_fileName: [''],
       genes: this.fb.array([])
     });
   }
@@ -109,16 +109,16 @@ export class NewTargetComponent implements OnInit {
   }
 
   // Add new instance of subunit formGroup to the subunits formArray.
-  addSubunit() {
+  addSubunit(): void {
     this.subunits.push(this.createSubunit());
   }
 
  // Remove subunit formGroup at provided index of subunits FormArray.
-  deleteSubunit(index: number) {
+  deleteSubunit(index: number): void {
     this.subunits.removeAt(index);
   }
 
-  onFileChange(type: "amino_acid" | "dna", event: any, index: number) {
+  onFileChange(type: 'amino_acid' | 'dna', event: any, index: number): void {
     const subunit = this.subunits.get(index.toString());
     const control = subunit.get(type);
 
@@ -127,7 +127,7 @@ export class NewTargetComponent implements OnInit {
 
       this.targetRegistrationService.uploadFastaFile(type, file).subscribe(
         (response: IFastaResponse) => {
-          if (type === "amino_acid") {
+          if (type === 'amino_acid') {
             const fastaEntry = response.fasta_entries[0];
             subunit.patchValue({
               amino_acid_fileName: file.name,
@@ -135,7 +135,7 @@ export class NewTargetComponent implements OnInit {
               amino_acid_sequence: fastaEntry.sequence
             });
           }
-          if (type === "dna") {
+          if (type === 'dna') {
             subunit.patchValue({
               dna_fileName: file.name,
             });
@@ -150,18 +150,18 @@ export class NewTargetComponent implements OnInit {
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['non_field_errors'],
-            type === "amino_acid" ? "Invalid FASTA Amino Acid file." : "Invalid FASTA DNA file."
+            type === 'amino_acid' ? 'Invalid FASTA Amino Acid file.' : 'Invalid FASTA DNA file.'
           );
         }
       );
     }
   }
 
-  canDeactivate() {
+  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
     if (this.targetForm.untouched || this.disableDeactivateGuard) {
       return true;
     }
-    return this.alertService.confirmDeactivation("Discard changes?");
+    return this.alertService.confirmDeactivation('Discard changes?');
   }
 
   onSubmit(): void {
@@ -180,13 +180,13 @@ export class NewTargetComponent implements OnInit {
             subunits: targetResponseData.subunits
           };
 
-          this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, "/home/subunit-interactions");
+          this.targetDetailStoreService.storeTargetDetailHeader(targetUpdate, '/home/subunit-interactions');
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['non_field_errors', 'target', 'detail', 'errors'],
-            "This target cannot be registered."
+            'This target cannot be registered.'
           );
           return of(null);
         })
