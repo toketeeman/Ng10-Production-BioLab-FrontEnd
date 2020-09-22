@@ -1,6 +1,7 @@
 # ProteinExpressionFrontEnd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+It has since been upgraded to version 10.1.2.
 
 ## Development server
 
@@ -21,6 +22,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Note: There is NO application-specific end-to-end testing implemented other than the default one provided by the Angular CLI.
 
 ## Further help
 
