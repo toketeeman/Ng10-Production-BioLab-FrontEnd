@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import {
   IProteinClass,
@@ -9,12 +9,12 @@ import {
   IFastaResponse,
   ISubunitInteraction,
   IPostTranslationalModification
-} from "../protein-expression.interface";
-import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
-import { environment } from "../../environments/environment";
+} from '../protein-expression.interface';
+import { ErrorDialogService } from '../dialogs/error-dialog/error-dialog.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class TargetRegistrationService {
   proteinClassesUrl: string;
@@ -37,7 +37,7 @@ export class TargetRegistrationService {
   retrieveProteinClasses(): Observable<IProteinClass[]> {
     return this.http.get<IProteinClass[]>(this.proteinClassesUrl)
       .pipe(
-        catchError(error => {
+        catchError(_ => {
           // This is the first database back-end access after login.
           this.errorDialogService.openDialogForMessages('You do not have database access. Contact admin.');
           const noClasses: IProteinClass[] = [];
@@ -47,7 +47,7 @@ export class TargetRegistrationService {
   }
 
   uploadFastaFile(
-    type: "amino_acid" | "dna",
+    type: 'amino_acid' | 'dna',
     file: any
   ): Observable<IFastaResponse> {
     const formData = new FormData();

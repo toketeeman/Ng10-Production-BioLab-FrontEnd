@@ -9,7 +9,7 @@ export class PlasmidSearchStoreService {
 
   constructor() { }
 
-  resetPlasmidSearchSetState() {
+  resetPlasmidSearchSetState(): void {
     this.searchSetState = [];
   }
 
@@ -21,15 +21,15 @@ export class PlasmidSearchStoreService {
     this.searchSetState = searchSet;
   }
 
-  resetPlasmidLastSearchedState() {
+  resetPlasmidLastSearchedState(): void {
     this.lastSearchedPageNumberState = 0;
   }
 
-  retrievePlasmidLastSearchedState() {
+  retrievePlasmidLastSearchedState(): number {
     return this.lastSearchedPageNumberState;
   }
 
-  storePlasmidLastSearchedState(lastSearchedPageNumber: number) {
+  storePlasmidLastSearchedState(lastSearchedPageNumber: number): void {
     this.lastSearchedPageNumberState = lastSearchedPageNumber;
   }
 }

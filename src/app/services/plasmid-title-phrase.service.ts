@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class PlasmidTitlePhraseService {
 
   constructor() {}
 
-  resetPlasmidTitlePhrase() {
+  resetPlasmidTitlePhrase(): void {
     this.plasmidTitlePhraseSubject.next('');
   }
 

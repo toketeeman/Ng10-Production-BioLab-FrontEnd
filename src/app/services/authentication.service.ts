@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
-import { environment } from "../../environments/environment";
+import { environment } from '../../environments/environment';
 import { ICurrentRoles } from '../protein-expression.interface';
-import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
-import { AppSettings } from "../appsettings/appsettings";
+import { ErrorDialogService } from '../dialogs/error-dialog/error-dialog.service';
+import { AppSettings } from '../appsettings/appsettings';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AuthenticationService {
   redirectUrl: string;
@@ -28,14 +28,14 @@ export class AuthenticationService {
 
   // Returns token (or null) from browser's SESSION storage.
   getToken(): string {
-    return sessionStorage.getItem("token");
+    return sessionStorage.getItem('token');
   }
 
   logIn(username: string, password: string): Observable<any> {
     return this.http.post<any>(this.loginUrl, { username, password })
       .pipe(
         tap( (user) => {
-          sessionStorage.setItem("token", user.key);
+          sessionStorage.setItem('token', user.key);
         })
       );
   }
@@ -50,11 +50,11 @@ export class AuthenticationService {
           }
 
           // Put (only) the array of roles for the user into session storage.
-          sessionStorage.setItem("currentRoles", JSON.stringify(roles));
+          sessionStorage.setItem('currentRoles', JSON.stringify(roles));
         }),
         catchError(error => {
           this.errorDialogService.openDialogForMessages(
-            "Roles database is not available. See admin."
+            'Roles database is not available. See admin.'
           );
           return of(null);
         })
@@ -62,15 +62,15 @@ export class AuthenticationService {
       .subscribe((currentRoles) => {
         if (currentRoles) {
           if (this.hasSubmitterRole()) {
-            this.router.navigateByUrl("/home/add-target");
+            this.router.navigateByUrl('/home/add-target');
           }
           else if (this.hasViewerRole()) {
-            this.router.navigateByUrl("/home/search-targets");
+            this.router.navigateByUrl('/home/search-targets');
           }
           else {
-            this.router.navigateByUrl("/login");
+            this.router.navigateByUrl('/login');
             this.errorDialogService.openDialogForMessages(
-              "No roles appropriate for this app have been approved for you. See admin."
+              'No roles appropriate for this app have been approved for you. See admin.'
             );
           }
         }
@@ -79,17 +79,17 @@ export class AuthenticationService {
   }
 
   hasSubmitterRole(): boolean {
-    const currentRoles: string[] = JSON.parse(sessionStorage.getItem("currentRoles"));
+    const currentRoles: string[] = JSON.parse(sessionStorage.getItem('currentRoles'));
     return currentRoles.includes(AppSettings.SUBMITTER_ROLE);
   }
 
   hasViewerRole(): boolean {
-    const currentRoles: string[] = JSON.parse(sessionStorage.getItem("currentRoles"));
+    const currentRoles: string[] = JSON.parse(sessionStorage.getItem('currentRoles'));
     return currentRoles.includes(AppSettings.VIEWER_ROLE);
   }
 
-  logOut() {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("currentRoles");
+  logOut(): void {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('currentRoles');
   }
 }

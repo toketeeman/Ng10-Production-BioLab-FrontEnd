@@ -8,7 +8,7 @@ export class PlasmidsByPartStoreService {
 
   constructor() { }
 
-  resetPlasmidsByPartState() {
+  resetPlasmidsByPartState(): void {
     this.plasmidsByPartState = [];
   }
 

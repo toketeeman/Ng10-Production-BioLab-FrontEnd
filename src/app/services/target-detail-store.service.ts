@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 import {
   ITargetDetail,
@@ -49,7 +49,7 @@ export class TargetDetailStoreService {
     }
   }
 
-  resetTargetDetailStore() {
+  resetTargetDetailStore(): void {
     this.lastTargetDetail = {};
     this.targetDetailStoreSubject.next( null);
   }

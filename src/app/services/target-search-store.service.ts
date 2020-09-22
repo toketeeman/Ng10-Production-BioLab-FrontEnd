@@ -9,7 +9,7 @@ export class TargetSearchStoreService {
 
   constructor() { }
 
-  resetTargetSearchSetState() {
+  resetTargetSearchSetState(): void {
     this.searchSetState = [];
   }
 
@@ -21,15 +21,15 @@ export class TargetSearchStoreService {
     this.searchSetState = searchSet;
   }
 
-  resetTargetLastSearchedState() {
+  resetTargetLastSearchedState(): void {
     this.lastSearchedPageNumberState = 0;
   }
 
-  retrieveTargetLastSearchedState() {
+  retrieveTargetLastSearchedState(): number {
     return this.lastSearchedPageNumberState;
   }
 
-  storeTargetLastSearchedState(lastSearchedPageNumber: number) {
+  storeTargetLastSearchedState(lastSearchedPageNumber: number): void {
     this.lastSearchedPageNumberState = lastSearchedPageNumber;
   }
 }

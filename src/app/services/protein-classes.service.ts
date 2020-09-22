@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { IProteinClass } from '../protein-expression.interface';
-import { environment } from "../../environments/environment";
-import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
+import { environment } from '../../environments/environment';
+import { ErrorDialogService } from '../dialogs/error-dialog/error-dialog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class ProteinClassesService {
             this.proteinClassesSubject.next(classes);
             this.proteinClasses = classes;
           }),
-          catchError(error => {
+          catchError(_ => {
             this.errorDialogService.openDialogForMessages('Protein class selection is not available. Contact admin.');
             const noClasses: IProteinClass[] = [];
             return of(noClasses);
@@ -48,7 +48,7 @@ export class ProteinClassesService {
         .subscribe(
           classes => {
             if (!classes.length) {
-              this.router.navigateByUrl("/login");
+              this.router.navigateByUrl('/login');
             }
           }
         );

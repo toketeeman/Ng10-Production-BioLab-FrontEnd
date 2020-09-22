@@ -8,7 +8,7 @@ export class PartSearchStoreService {
 
   constructor() { }
 
-  resetPartSearchSetState() {
+  resetPartSearchSetState(): void {
     this.searchSetState = [];
   }
 

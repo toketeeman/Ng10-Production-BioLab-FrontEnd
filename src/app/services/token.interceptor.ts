@@ -1,12 +1,12 @@
-import { Injectable, Injector } from "@angular/core";
+import { Injectable, Injector } from '@angular/core';
 import {
   HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest
-} from "@angular/common/http";
-import { Observable } from "rxjs";
-import { AuthenticationService } from "./authentication.service";
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -25,7 +25,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
       request = request.clone({
         setHeaders: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       });
     } else if (request.url.includes('/fasta-file-parser')) {
@@ -42,7 +42,7 @@ export class TokenInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Token ${token}`,
-          Accept: "*/*"
+          Accept: '*/*'
         }
       });
     } else {
@@ -51,7 +51,7 @@ export class TokenInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Token ${token}`,
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         }
       });
     }
