@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormArray,
   Validators,
   FormControl
-} from "@angular/forms";
-import { forkJoin, of } from "rxjs";
+} from '@angular/forms';
+import { forkJoin, Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import {
@@ -14,16 +14,16 @@ import {
   ISubunit,
   ISubunitInteraction,
   IPostTranslationalModification
-} from "../protein-expression.interface";
-import { ValidateNumberInput } from "../validators/numberInput.validator";
-import { AlertService } from "../services/alert.service";
-import { ErrorDialogService } from "../dialogs/error-dialog/error-dialog.service";
-import { TargetRegistrationService } from "../services/target-registration.service";
-import { TargetDetailStoreService } from "../services/target-detail-store.service";
+} from '../protein-expression.interface';
+import { ValidateNumberInput } from '../validators/numberInput.validator';
+import { AlertService } from '../services/alert.service';
+import { ErrorDialogService } from '../dialogs/error-dialog/error-dialog.service';
+import { TargetRegistrationService } from '../services/target-registration.service';
+import { TargetDetailStoreService } from '../services/target-detail-store.service';
 
 @Component({
-  templateUrl: "./subunit-interactions.component.html",
-  styleUrls: ["./subunit-interactions.component.scss"]
+  templateUrl: './subunit-interactions.component.html',
+  styleUrls: ['./subunit-interactions.component.scss']
 })
 export class SubunitInteractionsComponent implements OnInit {
   interactionForm: FormGroup;
@@ -32,11 +32,11 @@ export class SubunitInteractionsComponent implements OnInit {
   disableDeactivateGuard = false;
 
   // Getters allow the subunit interactions form template to refer to dynamic formArrays by variable name.
-  get subunitsArray() {
-    return this.interactionForm.get("subunitsArray") as FormArray;
+  get subunitsArray(): FormArray {
+    return this.interactionForm.get('subunitsArray') as FormArray;
   }
-  get ptmsArray() {
-    return this.interactionForm.get("ptmsArray") as FormArray;
+  get ptmsArray(): FormArray {
+    return this.interactionForm.get('ptmsArray') as FormArray;
   }
 
   constructor(
@@ -47,7 +47,7 @@ export class SubunitInteractionsComponent implements OnInit {
     private targetDetailStoreService: TargetDetailStoreService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.interactionForm = this.fb.group({
       subunitsArray: this.fb.array([this.createSubUnitInteraction()]),
       ptmsArray: this.fb.array([this.createPtm()])
@@ -60,34 +60,34 @@ export class SubunitInteractionsComponent implements OnInit {
       });
   }
 
-  createSubUnitInteraction() {
+  createSubUnitInteraction(): FormGroup {
     return this.fb.group({
-      subunit_one: ["", Validators.required],
+      subunit_one: ['', Validators.required],
       subunit_one_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
-      interaction: ["", Validators.required],
-      subunit_two: ["", Validators.required],
+      interaction: ['', Validators.required],
+      subunit_two: ['', Validators.required],
       subunit_two_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
     });
   }
 
-  createPtm() {
+  createPtm(): FormGroup {
     return this.fb.group({
-      subunit_one: ["", Validators.required],
+      subunit_one: ['', Validators.required],
       subunit_one_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
       subunit_one_residue: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
-      subunit_two: ["", Validators.required],
+      subunit_two: ['', Validators.required],
       subunit_two_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
       subunit_two_residue: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
-      ptm: ["", Validators.required]
+      ptm: ['', Validators.required]
     });
   }
 
-  addSubUnitInteraction() {
+  addSubUnitInteraction(): void {
     // Adds new instance of subunitInteraction formGroup to subunitInteractions formArray.
     this.subunitsArray.push(this.createSubUnitInteraction());
   }
 
-  addPtm() {
+  addPtm(): void {
     // Adds new instance of ptm formGroup to ptms formArray.
     this.ptmsArray.push(this.createPtm());
   }
@@ -96,14 +96,14 @@ export class SubunitInteractionsComponent implements OnInit {
     subunitId: string,
     index: number,
     controlArray: FormArray,
-    controlName: "subunit_one_copy" | "subunit_two_copy"
-  ) {
+    controlName: 'subunit_one_copy' | 'subunit_two_copy'
+  ): void {
     const id = parseInt(subunitId, 10);
     const copyNumber = this.subunits.filter(unit => unit.subunit_id === id)[0]
       .copies;
 
     // Set the maximum range of the appropriate copy number control to the subunit's number of copies.
-    const controlsKey = "controls";
+    const controlsKey = 'controls';
     const control = controlArray.at(index)[controlsKey][controlName] as FormControl;
     control.enable();
     control.setValidators([
@@ -117,15 +117,15 @@ export class SubunitInteractionsComponent implements OnInit {
     subunitId: string,
     index: number,
     controlArray: FormArray,
-    controlName: "subunit_one_residue" | "subunit_two_residue"
-  ) {
+    controlName: 'subunit_one_residue' | 'subunit_two_residue'
+  ): void {
     const id = parseInt(subunitId, 10);
     const residueLength = this.subunits.filter(
       unit => unit.subunit_id === id
     )[0].amino_acid_sequence.length;
 
     // Set the maximum range of the appropriate residue number control to the length of the subunit's AA sequence.
-    const controlsKey = "controls";
+    const controlsKey = 'controls';
     const control = controlArray.at(index)[controlsKey][controlName] as FormControl;
     control.enable();
     control.setValidators([
@@ -139,14 +139,14 @@ export class SubunitInteractionsComponent implements OnInit {
     subunitId: string,
     index: number,
     controlArray: FormArray,
-    copyControlName: "subunit_one_copy" | "subunit_two_copy",
-    residueControlName: "subunit_one_residue" | "subunit_two_residue"
-  ) {
+    copyControlName: 'subunit_one_copy' | 'subunit_two_copy',
+    residueControlName: 'subunit_one_residue' | 'subunit_two_residue'
+  ): void {
     this.updateCopyRange(subunitId, index, controlArray, copyControlName);
     this.updateResidueRange(subunitId, index, controlArray, residueControlName);
   }
 
-  deleteInteraction(arrayName: "subunitsArray" | "ptmsArray", index: number) {
+  deleteInteraction(arrayName: 'subunitsArray' | 'ptmsArray', index: number): void {
     // Removes instance of formGroup at specified index from specified formArray.
     this[arrayName].removeAt(index);
   }
@@ -194,20 +194,20 @@ export class SubunitInteractionsComponent implements OnInit {
 
                 // Report the interactions failure.
                 this.errorDialogService.openDialogForMessages(
-                  "The interaction(s) cannot be registered. So your ptm(s) and target registrations will be cancelled."
+                  'The interaction(s) cannot be registered. So your ptm(s) and target registrations will be cancelled.'
                 );
               } else {
                 // TODO: Undo the interactions registration here.
 
                 // Report the ptms failure.
                 this.errorDialogService.openDialogForMessages(
-                  "The PTMs cannot be registered. So your interaction(s) and target registrations will be cancelled."
+                  'The PTMs cannot be registered. So your interaction(s) and target registrations will be cancelled.'
                 );
               }
             } else {
               // Report the mutual interactions and ptms failures.
               this.errorDialogService.openDialogForMessages(
-                "Both the interaction(s) and the PTM(s) cannot be registered. So your target registration will be cancelled."
+                'Both the interaction(s) and the PTM(s) cannot be registered. So your target registration will be cancelled.'
               );
             }
             // TODO: Undo parent target registration here.
@@ -246,14 +246,14 @@ export class SubunitInteractionsComponent implements OnInit {
             this.targetDetailStoreService.storeTargetDetailInteractionsAndPtms(
               subunitInteractionsUpdate,
               ptmsUpdate,
-              "/home/success");
+              '/home/success');
           }
         })
       )
       .subscribe();
   }
 
-  onReset() {
+  onReset(): void {
     this.interactionForm.reset();
     this.interactionForm.markAsPristine();
     this.interactionForm.markAsUntouched();
@@ -275,13 +275,13 @@ export class SubunitInteractionsComponent implements OnInit {
     }
   }
 
-  canDeactivate() {
+  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
     // TODO: Need logic here to handle option to cancel the parent target registration!
 
     if (this.interactionForm.untouched || this.disableDeactivateGuard) {
       return true;
     }
-    return this.alertService.confirmDeactivation("Discard changes?");
+    return this.alertService.confirmDeactivation('Discard changes?');
   }
 
 }
