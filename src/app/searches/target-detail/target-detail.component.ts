@@ -104,11 +104,11 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'target_name',
         autoHeight: true,
+        width: 300,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -121,8 +121,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: [],
@@ -135,8 +134,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -149,8 +147,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -182,6 +179,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_one_name',
         autoHeight: true,
+        width: 300,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
@@ -221,6 +219,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_two_name',
         autoHeight: true,
+        width: 300,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
@@ -277,6 +276,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_one_name',
         autoHeight: true,
+        width: 300,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
@@ -299,7 +299,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: 'Residue Number',
+        headerName: 'Residue #',
         headerClass: 'target-detail-header',
         field: 'subunit_one_residue',
         autoHeight: true,
@@ -316,6 +316,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         headerClass: 'target-detail-header',
         field: 'subunit_two_name',
         autoHeight: true,
+        width: 300,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
@@ -338,7 +339,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: 'Residue Number',
+        headerName: 'Residue #',
         headerClass: 'target-detail-header',
         field: 'subunit_two_residue',
         autoHeight: true,
