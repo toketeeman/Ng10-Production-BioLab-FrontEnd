@@ -51,10 +51,10 @@ import { TargetPropertyComponent } from './searches/target-property/target-prope
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { AddGenesDialogComponent } from './dialogs/update-dialog/add-genes-dialog/add-genes-dialog.component';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
-import { FeatureQualifierRenderer } from './searches/plasmid-detail/feature-qualifier-renderer.component';
+import { FeatureQualifierRendererComponent } from './searches/plasmid-detail/feature-qualifier-renderer.component';
 import { PlasmidCountRenderer } from './searches/search-targets/plasmid-count-renderer.component';
 import { SearchPartsComponent } from './searches/search-parts/search-parts.component';
-import { PlasmidsRenderer } from './searches/search-parts/plasmids-renderer.component';
+import { PlasmidsRendererComponent } from './searches/search-parts/plasmids-renderer.component';
 import { AddInteractionDialogComponent } from './dialogs/update-dialog/add-interaction-dialog/add-interaction-dialog.component';
 import { EditInteractionDialogComponent } from './dialogs/update-dialog/edit-interaction-dialog/edit-interaction-dialog.component';
 import { DeleteInteractionDialogComponent } from './dialogs/update-dialog/delete-interaction-dialog/delete-interaction-dialog.component';
@@ -89,9 +89,9 @@ const appImports = [
   NguCarouselModule,
   AgGridModule.withComponents([
     BrowserAnimationsModule,
-    FeatureQualifierRenderer,
+    FeatureQualifierRendererComponent,
     PlasmidCountRenderer,
-    PlasmidsRenderer,
+    PlasmidsRendererComponent,
     InteractionAddDeleteRendererComponent,
     PtmAddDeleteRendererComponent,
     InteractionEditRendererComponent,
@@ -132,9 +132,9 @@ if (!environment.production && environment.inMemoryData) {
     AutoFocusDirective,
     ErrorDialogComponent,
     PlasmidDetailComponent,
-    FeatureQualifierRenderer,
+    FeatureQualifierRendererComponent,
     PlasmidCountRenderer,
-    PlasmidsRenderer,
+    PlasmidsRendererComponent,
     TargetDetailComponent,
     InteractionAddDeleteRendererComponent,
     PtmAddDeleteRendererComponent,

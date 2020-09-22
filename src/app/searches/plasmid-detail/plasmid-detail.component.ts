@@ -1,26 +1,26 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { IGridPlasmidDetail } from "../../protein-expression.interface";
-import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
-import { FeatureQualifierRenderer } from './feature-qualifier-renderer.component';
-import { environment } from "../../../environments/environment";
+import { IGridPlasmidDetail } from '../../protein-expression.interface';
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { AllModules, Module } from '@ag-grid-enterprise/all-modules';
+import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
+import { FeatureQualifierRendererComponent } from './feature-qualifier-renderer.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   templateUrl: './plasmid-detail.component.html',
   styleUrls: ['./plasmid-detail.component.scss']
 })
 export class PlasmidDetailComponent implements OnInit, AfterViewInit {
-  @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
+  @ViewChild('agGrid', { static: false }) agGrid: AgGridAngular;
 
   public modules: Module[] = AllModules;
   rowData$: Observable<IGridPlasmidDetail[]>;
-  rowSelection = "multiple";
+  rowSelection = 'multiple';
   currentPlasmidId: string;
   plasmidsDetailUrl: string;
   defaultColDef;
@@ -33,7 +33,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     private errorDialogService: ErrorDialogService,
     private route: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.currentPlasmidId = this.route.snapshot.paramMap.get('id');
 
     if (environment.inMemoryData) {
@@ -52,8 +52,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
         children:
           [
             {
-              headerName: "Feature Name",
-              field: "name",
+              headerName: 'Feature Name',
+              field: 'name',
               autoHeight: true,
               cellStyle: {
                 'white-space': 'normal',
@@ -62,11 +62,11 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
               },
               sortable: true,
               filter: true,
-              cellClass: "text-is-wrapped"
+              cellClass: 'text-is-wrapped'
             },
             {
-              headerName: "Feature Type",
-              field: "feature_type",
+              headerName: 'Feature Type',
+              field: 'feature_type',
               autoHeight: true,
               cellStyle: {
                 'white-space': 'normal',
@@ -75,11 +75,11 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
               },
               sortable: true,
               filter: true,
-              cellClass: "text-is-wrapped"
+              cellClass: 'text-is-wrapped'
             },
             {
-              headerName: "Position",
-              field: "sequence_span",
+              headerName: 'Position',
+              field: 'sequence_span',
               autoHeight: true,
               cellStyle: {
                 'white-space': 'normal',
@@ -88,11 +88,11 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
               },
               sortable: true,
               filter: true,
-              cellClass: "text-is-wrapped"
+              cellClass: 'text-is-wrapped'
             },
             {
-              headerName: "Strand",
-              field: "strand",
+              headerName: 'Strand',
+              field: 'strand',
               autoHeight: true,
               cellStyle: {
                 'white-space': 'normal',
@@ -101,11 +101,11 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
               },
               sortable: true,
               filter: true,
-              cellClass: "text-is-wrapped"
+              cellClass: 'text-is-wrapped'
             },
             {
-              headerName: "Sequence",
-              field: "dna_sequence",
+              headerName: 'Sequence',
+              field: 'dna_sequence',
               autoHeight: true,
               width: 400,
               cellStyle: {
@@ -117,11 +117,11 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
               },
               sortable: true,
               filter: true,
-              cellClass: ["text-is-wrapped", "dna-sequence-font"]
+              cellClass: ['text-is-wrapped', 'dna-sequence-font']
             },
             {
-              headerName: "Feature Qualifier",
-              field: "feature_qualifier",
+              headerName: 'Feature Qualifier',
+              field: 'feature_qualifier',
               autoHeight: true,
               width: 400,
               cellStyle: {
@@ -129,8 +129,8 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
                 'overflow-wrap': 'break-word',
                 width: '25%'
               },
-              cellRendererFramework: FeatureQualifierRenderer,
-              cellClass: "text-is-wrapped"
+              cellRendererFramework: FeatureQualifierRendererComponent,
+              cellClass: 'text-is-wrapped'
             }
           ]
       }
@@ -139,12 +139,12 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     this.statusBar = {
       statusPanels: [
         {
-          statusPanel: "agTotalAndFilteredRowCountComponent",
-          align: "left"
+          statusPanel: 'agTotalAndFilteredRowCountComponent',
+          align: 'left'
         },
         {
-          statusPanel: "agTotalRowCountComponent",
-          align: "left"
+          statusPanel: 'agTotalRowCountComponent',
+          align: 'left'
         }
       ]
     };
@@ -155,7 +155,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
                           this.errorDialogService.openDialogForErrorResponse(
                             error,
                             ['message'],
-                            "Details for this plasmid could not be found."
+                            'Details for this plasmid could not be found.'
                           );
                           const noResults: IGridPlasmidDetail[] = [];
                           return of(noResults);
@@ -163,7 +163,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
                       );
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // Grid options can finally be set at this point.
     this.agGrid.gridOptions.animateRows = true;
 
@@ -175,29 +175,29 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
 
     this.agGrid.gridOptions.excelStyles = [
       {
-        id: "header",   // This specific id is required here for the headers.
+        id: 'header',   // This specific id is required here for the headers.
         font: {
           bold: true,
           size: 20
         }
       },
       {
-        id: "text-is-wrapped",
+        id: 'text-is-wrapped',
         alignment: {
           wrapText: true,
-          vertical: "Top",
-          horizontal: "Left"
+          vertical: 'Top',
+          horizontal: 'Left'
         }
       },
       {
-        id: "dna-sequence-font",
+        id: 'dna-sequence-font',
         font: {
           bold: true,
           size: 10
         }
       },
       {
-        id: "plasmid-detail-title",
+        id: 'plasmid-detail-title',
         font: {
           bold: true,
           size: 30
@@ -212,7 +212,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     };
   }
 
-  onBackToSearch() {
+  onBackToSearch(): void {
     this.router.navigateByUrl('/home/search-plasmids/back');
   }
 
@@ -220,9 +220,9 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     if (params.column.colDef.field === 'feature_qualifier' && params.value ) {
       const qualifiers = params.value;
       if (qualifiers instanceof Array && qualifiers.length > 0) {
-        let convertedQualifiers = "";
+        let convertedQualifiers = '';
         for ( const qualifier of qualifiers ) {
-          convertedQualifiers = convertedQualifiers.concat(qualifier.type + ": " + qualifier.value + "\n");
+          convertedQualifiers = convertedQualifiers.concat(qualifier.type + ': ' + qualifier.value + '\n');
         }
         return convertedQualifiers;
       }
@@ -231,7 +231,7 @@ export class PlasmidDetailComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onExcelExport() {
+  onExcelExport(): void {
     const exportParams: any = {
       fileName: this.currentPlasmidId,
       onlySelected: true,

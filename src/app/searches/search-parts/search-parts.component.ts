@@ -6,32 +6,32 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import { HttpClient } from "@angular/common/http";
-import { Observable, of, Subject } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
-import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module, FirstDataRenderedEvent, CellClickedEvent } from "@ag-grid-enterprise/all-modules";
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { AllModules, Module, FirstDataRenderedEvent, CellClickedEvent } from '@ag-grid-enterprise/all-modules';
 
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
-import { PartSearchStoreService } from "../../services/part-search-store.service";
-import { IGridPart } from "../../protein-expression.interface";
-import { PlasmidsRenderer } from './plasmids-renderer.component';
-import { environment } from "../../../environments/environment";
-import { PlasmidsByPartStoreService } from "../../services/plasmids-by-part-store.service";
+import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
+import { PartSearchStoreService } from '../../services/part-search-store.service';
+import { IGridPart } from '../../protein-expression.interface';
+import { PlasmidsRendererComponent } from './plasmids-renderer.component';
+import { environment } from '../../../environments/environment';
+import { PlasmidsByPartStoreService } from '../../services/plasmids-by-part-store.service';
 
 @Component({
   templateUrl: './search-parts.component.html',
   styleUrls: ['./search-parts.component.scss']
 })
 export class SearchPartsComponent implements OnInit, AfterViewInit {
-  @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
+  @ViewChild('agGrid', { static: false }) agGrid: AgGridAngular;
 
   public modules: Module[] = AllModules;
   searchSet: string[] = [];
   rowData$: Observable<IGridPart[]>;
-  rowSelection = "multiple";
+  rowSelection = 'multiple';
   partsUrl: string;
   paginationPagesize: number;
   columnDefs;
@@ -45,7 +45,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     private plasmidsByPartStoreService: PlasmidsByPartStoreService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.partsUrl = environment.urls.partsUrl;
 
     this.defaultColDef = {
@@ -54,8 +54,8 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
 
     this.columnDefs = [
       {
-        headerName: "Part Name",
-        field: "part_name",
+        headerName: 'Part Name',
+        field: 'part_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -68,11 +68,11 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"]
+        menuTabs: ['filterMenuTab']
       },
       {
-        headerName: "Part Type",
-        field: "part_type",
+        headerName: 'Part Type',
+        field: 'part_type',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -85,11 +85,11 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"]
+        menuTabs: ['filterMenuTab']
       },
       {
-        headerName: "Plasmids (Distinct)",
-        field: "plasmids",
+        headerName: 'Plasmids (Distinct)',
+        field: 'plasmids',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -102,8 +102,8 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellRendererFramework: PlasmidsRenderer
+        menuTabs: ['filterMenuTab'],
+        cellRendererFramework: PlasmidsRendererComponent
       }
     ];
 
@@ -116,7 +116,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
         this.errorDialogService.openDialogForErrorResponse(
           error,
           ['message'],
-          "The parts inventory is not available."
+          'The parts inventory is not available.'
         );
         const noResults: IGridPart[] = [];
         return of(noResults);
@@ -140,7 +140,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     if (!this.searchSet.length) {
       return true;
     }
-    const cleanNodeField = nodeField.replace(/\s/g, "").toLowerCase();
+    const cleanNodeField = nodeField.replace(/\s/g, '').toLowerCase();
     for ( const searchValue of this.searchSet as string[] ) {
       if (cleanNodeField === searchValue) {
         return true;
@@ -149,7 +149,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  onReturnKeySearch(event: KeyboardEvent) {
+  onReturnKeySearch(event: KeyboardEvent): void {
     event.stopPropagation();
     event.preventDefault();
     const searchArgs = (event.target as HTMLInputElement).value;
@@ -161,7 +161,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     const rawSet: string[] = searchArgs.split(',');
     this.searchSet = [];
     for ( const value of rawSet as string[]) {
-      const cleanedValue = value.replace(/\s/g, "").toLowerCase();
+      const cleanedValue = value.replace(/\s/g, '').toLowerCase();
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
@@ -178,7 +178,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
-  onRefresh() {
+  onRefresh(): void {
     // Reset the search args to "show me everything".
     this.searchSet = [];
     this.partSearchStoreService.resetPartSearchSetState();
@@ -191,7 +191,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
-  onRestore(_: FirstDataRenderedEvent) {
+  onRestore(_: FirstDataRenderedEvent): void {
     // Retrieve the last search state and set it here.
     this.searchSet = this.partSearchStoreService.retrievePartSearchState();
 
@@ -200,7 +200,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // Grid options can finally be set at this point.
     this.agGrid.gridOptions.animateRows = true;
 
@@ -231,7 +231,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     };
   }
 
-  onCellClicked(event: CellClickedEvent) {
+  onCellClicked(event: CellClickedEvent): void {
     const columnId = event.column.getColId();
     if (columnId === 'plasmids') {
       // Plasmids column has been clicked. Collect the plasmids array,

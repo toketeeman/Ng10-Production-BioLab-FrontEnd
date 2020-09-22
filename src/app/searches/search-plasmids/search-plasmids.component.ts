@@ -3,36 +3,36 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit
-} from "@angular/core";
-import { HttpClient, HttpResponse } from "@angular/common/http";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Observable, of } from "rxjs";
+} from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatRadioChange } from '@angular/material/radio';
 
-import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module, FirstDataRenderedEvent } from "@ag-grid-enterprise/all-modules";
-import { FileSaverService } from "ngx-filesaver";
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { AllModules, Module, FirstDataRenderedEvent } from '@ag-grid-enterprise/all-modules';
+import { FileSaverService } from 'ngx-filesaver';
 
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
-import { PlasmidSearchStoreService } from "../../services/plasmid-search-store.service";
-import { IGridPlasmid } from "../../protein-expression.interface";
-import { environment } from "../../../environments/environment";
-import { AlertService } from "../../services/alert.service";
-import { PlasmidTitlePhraseService } from "../../services/plasmid-title-phrase.service";
-import { PlasmidsByPartStoreService } from "../../services/plasmids-by-part-store.service";
+import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
+import { PlasmidSearchStoreService } from '../../services/plasmid-search-store.service';
+import { IGridPlasmid } from '../../protein-expression.interface';
+import { environment } from '../../../environments/environment';
+import { AlertService } from '../../services/alert.service';
+import { PlasmidTitlePhraseService } from '../../services/plasmid-title-phrase.service';
+import { PlasmidsByPartStoreService } from '../../services/plasmids-by-part-store.service';
 
 @Component({
-  templateUrl: "./search-plasmids.component.html",
-  styleUrls: ["./search-plasmids.component.scss"]
+  templateUrl: './search-plasmids.component.html',
+  styleUrls: ['./search-plasmids.component.scss']
 })
 export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
-  @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
+  @ViewChild('agGrid', { static: false }) agGrid: AgGridAngular;
 
   public modules: Module[] = AllModules;
   searchSet: string[] = [];
   rowData$: Observable<IGridPlasmid[]>;
-  rowSelection = "multiple";
+  rowSelection = 'multiple';
   plasmidsUrl: string;
   plasmidSequenceDownloadUrl: string;
   paginationPagesize: number;
@@ -56,7 +56,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     private plasmidTitlePhraseService: PlasmidTitlePhraseService,
     private plasmidsByPartStoreService: PlasmidsByPartStoreService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.plasmidsUrl = environment.urls.plasmidsUrl;
     this.plasmidSequenceDownloadUrl = environment.urls.plasmidSequenceDownloadUrl;
 
@@ -66,8 +66,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
     this.columnDefs = [
       {
-        headerName: "Plasmid Id",
-        field: "plasmid_id",
+        headerName: 'Plasmid Id',
+        field: 'plasmid_id',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -80,12 +80,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Description",
-        field: "description",
+        headerName: 'Description',
+        field: 'description',
         valueFormatter: this.longValueFormatter,
         autoHeight: true,
         width: 300,
@@ -99,12 +99,12 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Selectable Markers",
-        field: "marker",
+        headerName: 'Selectable Markers',
+        field: 'marker',
         valueFormatter: this.longValueFormatter,
         autoHeight: true,
         width: 200,
@@ -118,11 +118,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
-      { headerName: "Target",
-        field: "target_name",
+      { headerName: 'Target',
+        field: 'target_name',
         autoHeight: true,
         width: 200,
         cellStyle: {
@@ -135,11 +135,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
-      { headerName: "Project",
-        field: "project_name",
+      { headerName: 'Project',
+        field: 'project_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -152,8 +152,8 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       }
     ];
 
@@ -166,7 +166,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
                           this.errorDialogService.openDialogForErrorResponse(
                             error,
                             ['message'],
-                            "The plasmid inventory is not available."
+                            'The plasmid inventory is not available.'
                           );
                           const noResults: IGridPlasmid[] = [];
                           return of(noResults);
@@ -176,9 +176,9 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
   // This formatter should be used for any field that was generated
   // by the back-end as a comma-separated list string for improved UI visibility.
-  longValueFormatter(params) {
-    const unspacedValue = params.value.replace(/,\s/g, ",");
-    const respacedValue = params.value.replace(/,/g, ", ");
+  longValueFormatter(params): string {
+    const unspacedValue = params.value.replace(/,\s/g, ',');
+    const respacedValue = unspacedValue.replace(/,/g, ', ');
     return respacedValue;
   }
 
@@ -200,7 +200,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     if (!this.searchSet.length) {
       return true;
     }
-    const cleanNodeField = nodeField.replace(/\s/g, "").toLowerCase();
+    const cleanNodeField = nodeField.replace(/\s/g, '').toLowerCase();
     for ( const searchValue of this.searchSet as string[] ) {
       if (cleanNodeField === searchValue) {
         return true;
@@ -209,7 +209,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  onReturnKeySearch(event: KeyboardEvent) {
+  onReturnKeySearch(event: KeyboardEvent): void {
     event.stopPropagation();
     event.preventDefault();
     const searchArgs = (event.target as HTMLInputElement).value;
@@ -224,7 +224,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     const rawSet: string[] = searchArgs.split(',');
     this.searchSet = [];
     for ( const value of rawSet as string[] ) {
-      const cleanedValue = value.replace(/\s/g, "").toLowerCase();
+      const cleanedValue = value.replace(/\s/g, '').toLowerCase();
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
@@ -242,7 +242,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
-  onRefresh() {
+  onRefresh(): void {
     // Reset the search args to "everything".
     this.searchSet = [];
 
@@ -258,7 +258,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
-  onRestore(_: FirstDataRenderedEvent) {
+  onRestore(_: FirstDataRenderedEvent): void {
     // Retrieve the last search state and set it here.
     this.searchSet = this.plasmidSearchStoreService.retrievePlasmidSearchState();
 
@@ -318,13 +318,13 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  OnDownloadModeChange(change: MatRadioChange) {
+  OnDownloadModeChange(change: MatRadioChange): void {
     this.downloadIconCursor = 'pointer';
     this.downloadIconOpacity = 1.0;
     this.downloadMode = change.value;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // Grid options can finally be set at this point.
     this.agGrid.gridOptions.animateRows = true;
 
@@ -347,18 +347,18 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
     this.agGrid.gridOptions.excelStyles = [
       {
-        id: "header",   // This specific id is required here for the headers.
+        id: 'header',   // This specific id is required here for the headers.
         font: {
           bold: true,
           size: 20
         }
       },
       {
-        id: "text-is-wrapped",
+        id: 'text-is-wrapped',
         alignment: {
           wrapText: true,
-          vertical: "Top",
-          horizontal: "Left"
+          vertical: 'Top',
+          horizontal: 'Left'
         }
       }
     ];
@@ -373,7 +373,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     };
   }
 
-  onSelectionChanged() {
+  onSelectionChanged(): void {
     // Check for pending Excel download. If so, ignore the row selection event and do nothing.
     if (!this.ignoreSelectionChange) {
       // Store the current target search state before going to the target details.
@@ -389,10 +389,10 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  CaptureCurrentSearchSet() {
+  CaptureCurrentSearchSet(): void {
     this.searchSet = [];
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
-      const cleanedValue = (rowNode.data as IGridPlasmid).plasmid_id.replace(/\s/g, "").toLowerCase();
+      const cleanedValue = (rowNode.data as IGridPlasmid).plasmid_id.replace(/\s/g, '').toLowerCase();
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
@@ -400,7 +400,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     this.plasmidSearchStoreService.storePlasmidSearchState(this.searchSet);
   }
 
-  onDownload() {
+  onDownload(): void {
     switch (this.downloadMode) {
       case 'excel':
         this.plasmidExcelDownload();
@@ -416,7 +416,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  plasmidExcelDownload() {
+  plasmidExcelDownload(): void {
     this.ignoreSelectionChange = true;
     let rowCount = 0;
 
@@ -435,7 +435,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       };
       this.agGrid.api.exportDataAsExcel(params);
     } else {
-      this.errorDialogService.openDialogForMessages("No plasmids have been chosen. Plasmid Export is cancelled. Try again.");
+      this.errorDialogService.openDialogForMessages('No plasmids have been chosen. Plasmid Export is cancelled. Try again.');
     }
 
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
@@ -445,7 +445,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
     setTimeout( () => { this.ignoreSelectionChange = false; }, 1000 );
   }
 
-  fastaDownload() {
+  fastaDownload(): void {
     const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
 
     if (downloadUrl) {
@@ -461,7 +461,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],
-            "FASTA downloads failed. See admin."
+            'FASTA downloads failed. See admin.'
           );
           return of(null);
         })
@@ -474,11 +474,11 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
         }
       });
     } else {
-      this.errorDialogService.openDialogForMessages("No plasmids have been chosen. FASTA download is cancelled. Try again.");
+      this.errorDialogService.openDialogForMessages('No plasmids have been chosen. FASTA download is cancelled. Try again.');
     }
   }
 
-  genbankDownload() {
+  genbankDownload(): void {
     const downloadUrl = this.buildPlasmidSequenceDownloadUrl();
 
     if (downloadUrl) {
@@ -494,7 +494,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],
-            "GenBank downloads failed. See admin."
+            'GenBank downloads failed. See admin.'
           );
           return of(null);
         })
@@ -507,7 +507,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
         }
       });
     } else {
-      this.errorDialogService.openDialogForMessages("No plasmids have been chosen. GenBank download is cancelled. Try again.");
+      this.errorDialogService.openDialogForMessages('No plasmids have been chosen. GenBank download is cancelled. Try again.');
     }
   }
 
