@@ -78,8 +78,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -92,8 +91,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: [],
@@ -106,8 +104,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -120,8 +117,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -134,8 +130,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -152,8 +147,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '24%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -166,8 +160,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -180,8 +173,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -194,8 +186,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '24%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -208,8 +199,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -226,8 +216,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '22%'
+          'font-weight': 'bold'
         }
       },
       {
@@ -238,22 +227,20 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
       },
       {
-        headerName: 'Residue Number',
+        headerName: 'Residue #',
         headerClass: 'target-detail-header',
         field: 'subunit_one_residue',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -266,8 +253,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '22%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -280,22 +266,20 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
       },
       {
-        headerName: 'Residue Number',
+        headerName: 'Residue #',
         headerClass: 'target-detail-header',
         field: 'subunit_two_residue',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '14%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
@@ -308,8 +292,7 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word',
-          'font-weight': 'bold',
-          width: '22%'
+          'font-weight': 'bold'
         },
         sortable: false,
         menuTabs: []
