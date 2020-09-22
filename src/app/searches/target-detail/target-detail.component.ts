@@ -5,14 +5,14 @@ import {
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, of, Subject } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of, Subject } from 'rxjs';
 import { catchError, map, take, takeUntil, shareReplay } from 'rxjs/operators';
 import { MatAccordion } from '@angular/material/expansion';
 
-import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module, ValueGetterParams } from "@ag-grid-enterprise/all-modules";
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { AllModules, Module, ValueGetterParams } from '@ag-grid-enterprise/all-modules';
 import { NguCarouselConfig } from '@ngu/carousel';
 
 import {
@@ -22,11 +22,11 @@ import {
   ISubunitInteraction,
   ITargetDetailHeader,
   IPostTranslationalModification
-} from "../../protein-expression.interface";
+} from '../../protein-expression.interface';
 import { AuthenticationService } from '../../services/authentication.service';
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
 import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.service';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 import { InteractionEditRendererComponent } from './interaction-edit-renderer.component';
 import { PtmEditRendererComponent } from './ptm-edit-renderer.component';
 import { InteractionAddDeleteRendererComponent } from './interaction-add-delete-renderer.component';
@@ -37,9 +37,9 @@ import { PtmAddDeleteRendererComponent } from './ptm-add-delete-renderer.compone
   styleUrls: ['./target-detail.component.scss']
 })
 export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild("targetHeaderGrid", { static: false }) targetHeaderGrid: AgGridAngular;
-  @ViewChild("subunitInteractionsGrid", { static: false }) subunitInteractionsGrid: AgGridAngular;
-  @ViewChild("ptmsGrid", { static: false }) ptmsGrid: AgGridAngular;
+  @ViewChild('targetHeaderGrid', { static: false }) targetHeaderGrid: AgGridAngular;
+  @ViewChild('subunitInteractionsGrid', { static: false }) subunitInteractionsGrid: AgGridAngular;
+  @ViewChild('ptmsGrid', { static: false }) ptmsGrid: AgGridAngular;
   @ViewChild('dnaSeqAccordion', { static: false }) dnaSeqAccordion: MatAccordion;
 
   private destroyed$ = new Subject();
@@ -100,9 +100,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     // Configure target header grid.
     this.targetHeaderColumnDefs = [
       {
-        headerName: "Target Name",
-        headerClass: "target-detail-header",
-        field: "target_name",
+        headerName: 'Target Name',
+        headerClass: 'target-detail-header',
+        field: 'target_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -114,9 +114,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Partner",
-        headerClass: "target-detail-header",
-        field: "partner",
+        headerName: 'Partner',
+        headerClass: 'target-detail-header',
+        field: 'partner',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -128,9 +128,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: [],
       },
       {
-        headerName: "Protein Class",
-        headerClass: "target-detail-header",
-        field: "protein_class_name",
+        headerName: 'Protein Class',
+        headerClass: 'target-detail-header',
+        field: 'protein_class_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -142,9 +142,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Project Name",
-        headerClass: "target-detail-header",
-        field: "project_name",
+        headerName: 'Project Name',
+        headerClass: 'target-detail-header',
+        field: 'project_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -156,9 +156,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Notes",
-        headerClass: "target-detail-header",
-        field: "notes",
+        headerName: 'Notes',
+        headerClass: 'target-detail-header',
+        field: 'notes',
         autoHeight: true,
         width: 400,
         cellStyle: {
@@ -174,13 +174,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     // Configure subunit interactions grid.
     this.subunitInteractionsColumnDefs = [
       {
-        field: "subunit_interaction_id",
+        field: 'subunit_interaction_id',
         hide: true
       },
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_one_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -191,9 +191,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_one_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -204,9 +204,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Interaction Type",
-        headerClass: "target-detail-header",
-        field: "interaction",
+        headerName: 'Interaction Type',
+        headerClass: 'target-detail-header',
+        field: 'interaction',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -217,9 +217,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_two_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -230,9 +230,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_two_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -243,8 +243,8 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "",
-        headerClass: "target-detail-header",
+        headerName: '',
+        headerClass: 'target-detail-header',
         valueGetter: (_: ValueGetterParams) => null,
         autoHeight: true,
         minWidth: 40,
@@ -254,8 +254,8 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         cellRendererFramework: InteractionEditRendererComponent
       },
       {
-        headerName: "",
-        headerClass: "target-detail-header",
+        headerName: '',
+        headerClass: 'target-detail-header',
         valueGetter: (_: ValueGetterParams) => null,
         autoHeight: true,
         minWidth: 40,
@@ -269,13 +269,13 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     // Configure post translational modifications grid.
     this.ptmsColumnDefs = [
       {
-        field: "subunit_ptm_id",
+        field: 'subunit_ptm_id',
         hide: true
       },
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_one_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -286,9 +286,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_one_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -299,9 +299,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Residue Number",
-        headerClass: "target-detail-header",
-        field: "subunit_one_residue",
+        headerName: 'Residue Number',
+        headerClass: 'target-detail-header',
+        field: 'subunit_one_residue',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -312,9 +312,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Subunit Name",
-        headerClass: "target-detail-header",
-        field: "subunit_two_name",
+        headerName: 'Subunit Name',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -325,9 +325,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Copy #",
-        headerClass: "target-detail-header",
-        field: "subunit_two_copy",
+        headerName: 'Copy #',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_copy',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -338,9 +338,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "Residue Number",
-        headerClass: "target-detail-header",
-        field: "subunit_two_residue",
+        headerName: 'Residue Number',
+        headerClass: 'target-detail-header',
+        field: 'subunit_two_residue',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -351,9 +351,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "PTM",
-        headerClass: "target-detail-header",
-        field: "ptm",
+        headerName: 'PTM',
+        headerClass: 'target-detail-header',
+        field: 'ptm',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -364,9 +364,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         menuTabs: []
       },
       {
-        headerName: "",
-        headerClass: "target-detail-header",
-        field: "option_1",
+        headerName: '',
+        headerClass: 'target-detail-header',
+        field: 'option_1',
         valueGetter: (_: ValueGetterParams) => null,
         autoHeight: true,
         minWidth: 40,
@@ -376,9 +376,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
         cellRendererFramework: PtmEditRendererComponent
       },
       {
-        headerName: "",
-        headerClass: "target-detail-header",
-        field: "option_2",
+        headerName: '',
+        headerClass: 'target-detail-header',
+        field: 'option_2',
         valueGetter: (_: ValueGetterParams) => null,
         autoHeight: true,
         minWidth: 40,
@@ -401,7 +401,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],
-            "Details for this target could not be found."
+            'Details for this target could not be found.'
           );
           const noResult: ITargetDetail = null;
           return of(noResult);
@@ -487,7 +487,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subunitsAreHovered = false;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // Responsive window behavior.
     this.targetHeaderGrid.api.sizeColumnsToFit();
     this.subunitInteractionsGrid.api.sizeColumnsToFit();
@@ -516,17 +516,17 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Go back to the current target search.
-  onBackToSearch() {
-    this.router.navigateByUrl("/home/search-targets/back");
+  onBackToSearch(): void {
+    this.router.navigateByUrl('/home/search-targets/back');
   }
 
   // Go inspect the biophysical properties.
-  onBiophysicalProperties() {
-    this.router.navigateByUrl("/home/target-property/" + this.currentTargetId);
+  onBiophysicalProperties(): void {
+    this.router.navigateByUrl('/home/target-property/' + this.currentTargetId);
   }
 
   // Add DNA genes to selected subunit.
-  onAddGenes(subunitName: string, genes: IGene[]) {
+  onAddGenes(subunitName: string, genes: IGene[]): void {
 
     // Call dialog for adding genes.
     this.updateDialogService.openDialogForAddingGenes(subunitName, genes)

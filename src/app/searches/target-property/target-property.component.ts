@@ -1,24 +1,24 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MatRadioChange, MatRadioButton } from '@angular/material/radio';
 
-import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module } from "@ag-grid-enterprise/all-modules";
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { AllModules, Module } from '@ag-grid-enterprise/all-modules';
 
-import { ITargetProperties, ITargetPropertyList, IGridBioProperty } from "../../protein-expression.interface";
-import { environment } from "../../../environments/environment";
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
+import { ITargetProperties, ITargetPropertyList, IGridBioProperty } from '../../protein-expression.interface';
+import { environment } from '../../../environments/environment';
+import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
 
 @Component({
   templateUrl: './target-property.component.html',
   styleUrls: ['./target-property.component.scss']
 })
 export class TargetPropertyComponent implements OnInit, AfterViewInit {
-  @ViewChild("proteinPropertiesButton", { static: false }) proteinPropertiesButton: MatRadioButton;
-  @ViewChild("targetPropertyGrid", { static: false }) targetPropertyGrid: AgGridAngular;
+  @ViewChild('proteinPropertiesButton', { static: false }) proteinPropertiesButton: MatRadioButton;
+  @ViewChild('targetPropertyGrid', { static: false }) targetPropertyGrid: AgGridAngular;
 
   currentTargetId: string;
   targetsPropertyUrl: string;
@@ -40,7 +40,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     private errorDialogService: ErrorDialogService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.currentTargetId = this.route.snapshot.paramMap.get('id');
 
     if (environment.inMemoryData) {
@@ -53,9 +53,9 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
 
     this.propertyColumnDefs = [
       {
-        headerName: "Property",
-        headerClass: "target-property-header",
-        field: "name",
+        headerName: 'Property',
+        headerClass: 'target-property-header',
+        field: 'name',
         autoHeight: true,
         width: 400,
         cellStyle: {
@@ -66,9 +66,9 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
         menuTabs: []
       },
       {
-        headerName: "Value",
-        headerClass: "target-property-header",
-        field: "value",
+        headerName: 'Value',
+        headerClass: 'target-property-header',
+        field: 'value',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -80,9 +80,9 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
         menuTabs: []
       },
       {
-        headerName: "Unit",
-        headerClass: "target-property-header",
-        field: "unit",
+        headerName: 'Unit',
+        headerClass: 'target-property-header',
+        field: 'unit',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -103,7 +103,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
           this.errorDialogService.openDialogForErrorResponse(
             error,
             ['message'],
-            "Biophysical properties for this target could not be found."
+            'Biophysical properties for this target could not be found.'
           );
           const noResult: ITargetProperties = null;
           return of(noResult);
@@ -111,7 +111,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       ).subscribe();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // Responsive window behavior, with debouncing.
     this.targetPropertyGrid.api.sizeColumnsToFit();
     let timeout;
@@ -127,7 +127,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     };
   }
 
-  activatePropertyListSelection(response: ITargetProperties) {
+  activatePropertyListSelection(response: ITargetProperties): void {
     this.propertyLists[0] = response.protein;
     let propListButtonId = 'propList' + 0;
     const proteinRadioButtonElement = document.getElementById(propListButtonId);
@@ -149,7 +149,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     this.OnPropertyListSelectionChange(change);
   }
 
-  OnPropertyListSelectionChange(change: MatRadioChange) {
+  OnPropertyListSelectionChange(change: MatRadioChange): void {
     const propertyListIndex = +change.value;
     const propertyList = this.propertyLists[propertyListIndex];
 
@@ -212,13 +212,13 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
   }
 
   // Go back to the current target search.
-  onBackToSearch() {
-    this.router.navigateByUrl("/home/search-targets/back");
+  onBackToSearch(): void {
+    this.router.navigateByUrl('/home/search-targets/back');
   }
 
   // Go back to the current target details.
-  onBackToDetails() {
-    this.router.navigateByUrl("/home/target-detail/" + this.currentTargetId);
+  onBackToDetails(): void {
+    this.router.navigateByUrl('/home/target-detail/' + this.currentTargetId);
   }
 
 }

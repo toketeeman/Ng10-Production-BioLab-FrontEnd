@@ -3,32 +3,32 @@ import {
   OnInit,
   ViewChild,
   AfterViewInit
-} from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Observable, of } from "rxjs";
+} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AgGridAngular } from "@ag-grid-community/angular";
-import { AllModules, Module, FirstDataRenderedEvent, CellClickedEvent } from "@ag-grid-enterprise/all-modules";
+import { AgGridAngular } from '@ag-grid-community/angular';
+import { AllModules, Module, FirstDataRenderedEvent, CellClickedEvent } from '@ag-grid-enterprise/all-modules';
 
-import { ErrorDialogService } from "../../dialogs/error-dialog/error-dialog.service";
-import { TargetSearchStoreService } from "../../services/target-search-store.service";
-import { IGridTarget } from "../../protein-expression.interface";
-import { environment } from "../../../environments/environment";
-import { PlasmidCountRenderer } from './plasmid-count-renderer.component';
+import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
+import { TargetSearchStoreService } from '../../services/target-search-store.service';
+import { IGridTarget } from '../../protein-expression.interface';
+import { environment } from '../../../environments/environment';
+import { PlasmidCountRendererComponent } from './plasmid-count-renderer.component';
 
 @Component({
-  templateUrl: "./search-targets.component.html",
-  styleUrls: ["./search-targets.component.scss"]
+  templateUrl: './search-targets.component.html',
+  styleUrls: ['./search-targets.component.scss']
 })
 export class SearchTargetsComponent implements OnInit, AfterViewInit {
-  @ViewChild("agGrid", { static: false }) agGrid: AgGridAngular;
+  @ViewChild('agGrid', { static: false }) agGrid: AgGridAngular;
 
   public modules: Module[] = AllModules;
   searchSet: string[] = [];
   rowData$: Observable<IGridTarget[]>;
-  rowSelection = "multiple";
+  rowSelection = 'multiple';
   targetsUrl: string;
   paginationPagesize: number;
   ignoreSelectionChange = false;
@@ -43,7 +43,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     private targetSearchStoreService: TargetSearchStoreService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.targetsUrl = environment.urls.targetsUrl;
 
     this.defaultColDef = {
@@ -52,12 +52,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
     this.columnDefs = [
       {
-        field: "target_id",
+        field: 'target_id',
         hide: true
       },
       {
-        headerName: "Target",
-        field: "target_name",
+        headerName: 'Target',
+        field: 'target_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -70,12 +70,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Partner",
-        field: "partner_name",
+        headerName: 'Partner',
+        field: 'partner_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -88,12 +88,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Class",
-        field: "class_name",
+        headerName: 'Class',
+        field: 'class_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -106,12 +106,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Subunits",
-        field: "subunit_count",
+        headerName: 'Subunits',
+        field: 'subunit_count',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -124,12 +124,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Gene Count",
-        field: "gene_count",
+        headerName: 'Gene Count',
+        field: 'gene_count',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -142,12 +142,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Project",
-        field: "project_name",
+        headerName: 'Project',
+        field: 'project_name',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -160,12 +160,12 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellClass: 'text-is-wrapped'
       },
       {
-        headerName: "Plasmid Count",
-        field: "plasmid_count",
+        headerName: 'Plasmid Count',
+        field: 'plasmid_count',
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
@@ -178,9 +178,9 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
           applyButton: false,
           clearButton: false
         },
-        menuTabs: ["filterMenuTab"],
-        cellRendererFramework: PlasmidCountRenderer,
-        cellClass: "text-is-wrapped"
+        menuTabs: ['filterMenuTab'],
+        cellRendererFramework: PlasmidCountRendererComponent,
+        cellClass: 'text-is-wrapped'
       }
     ];
 
@@ -193,7 +193,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
                           this.errorDialogService.openDialogForErrorResponse(
                             error,
                             ['message'],
-                            "The target inventory is not available."
+                            'The target inventory is not available.'
                           );
                           const noResults: IGridTarget[] = [];
                           return of(noResults);
@@ -217,7 +217,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     if (!this.searchSet.length) {
       return true;
     }
-    const cleanNodeField = nodeField.replace(/\s/g, "").toLowerCase();
+    const cleanNodeField = nodeField.replace(/\s/g, '').toLowerCase();
     for ( const searchValue of this.searchSet as string[] ) {
       if (cleanNodeField === searchValue) {
         return true;
@@ -226,7 +226,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  onReturnKeySearch(event: KeyboardEvent) {
+  onReturnKeySearch(event: KeyboardEvent): void {
     event.stopPropagation();
     event.preventDefault();
     const searchArgs = (event.target as HTMLInputElement).value;
@@ -238,7 +238,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     const rawSet: string[] = searchArgs.split(',');
     this.searchSet = [];
     for ( const value of rawSet as string[]) {
-      const cleanedValue = value.replace(/\s/g, "").toLowerCase();
+      const cleanedValue = value.replace(/\s/g, '').toLowerCase();
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
@@ -256,7 +256,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
-  onRefresh() {
+  onRefresh(): void {
     // Reset the search args to "show me everything".
     this.searchSet = [];
     this.targetSearchStoreService.resetTargetSearchSetState();
@@ -270,7 +270,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
-  onRestore(_: FirstDataRenderedEvent) {
+  onRestore(_: FirstDataRenderedEvent): void {
     // Retrieve the last search state and set it here.
     this.searchSet = this.targetSearchStoreService.retrieveTargetSearchState();
 
@@ -297,7 +297,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // Grid options can finally be set at this point.
     this.agGrid.gridOptions.animateRows = true;
 
@@ -320,18 +320,18 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
 
     this.agGrid.gridOptions.excelStyles = [
       {
-        id: "header",   // This specific id is required here for the headers.
+        id: 'header',   // This specific id is required here for the headers.
         font: {
           bold: true,
           size: 20
         }
       },
       {
-        id: "text-is-wrapped",
+        id: 'text-is-wrapped',
         alignment: {
           wrapText: true,
-          vertical: "Top",
-          horizontal: "Left"
+          vertical: 'Top',
+          horizontal: 'Left'
         }
       }
     ];
@@ -346,11 +346,11 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     };
   }
 
-  onSelectionChanged() {
+  onSelectionChanged(): void {
     // Store the current target search state before going to the target details.
     this.searchSet = [];
     this.agGrid.api.forEachNodeAfterFilterAndSort( (rowNode, index) => {
-      const cleanedValue = (rowNode.data as IGridTarget).target_name.replace(/\s/g, "").toLowerCase();
+      const cleanedValue = (rowNode.data as IGridTarget).target_name.replace(/\s/g, '').toLowerCase();
       if (cleanedValue.length) {
         this.searchSet.push(cleanedValue);
       }
@@ -366,7 +366,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/home/target-detail/' + (selectedRow as IGridTarget).target_id);
   }
 
-  onCellClicked(event: CellClickedEvent) {
+  onCellClicked(event: CellClickedEvent): void {
     const columnId = event.column.getColId();
     if (columnId === 'plasmid_count' ) {
       // Plasmid count value has been clicked.
@@ -380,7 +380,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onExcelExport() {
+  onExcelExport(): void {
     const params = {
       fileName: 'TargetsSearch',
       onlySelectedAllPages: true

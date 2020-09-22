@@ -17,7 +17,7 @@ export class InteractionAddDeleteRendererComponent implements ICellRendererAngul
 
   constructor(private updateDialogService: UpdateDialogService) { }
 
-  refresh(params: any): boolean {
+  refresh(_: any): boolean {
     throw new Error('Method not implemented.');
   }
 
@@ -28,11 +28,11 @@ export class InteractionAddDeleteRendererComponent implements ICellRendererAngul
     this.refreshTargetDetails = this.params.context.refreshTargetDetails; // Grab callback for refreshing target-details page after change.
   }
 
-  afterGuiAttached?(params?: import('@ag-grid-community/all-modules').IAfterGuiAttachedParams): void {
+  afterGuiAttached?(_?: import('@ag-grid-community/all-modules').IAfterGuiAttachedParams): void {
     throw new Error('Method not implemented.');
   }
 
-  onAddInteraction() {
+  onAddInteraction(): void {
     // Call dialog for adding an interaction.
     this.updateDialogService.openDialogForAddingInteraction(this.params)
       .subscribe((result: string) => {
@@ -45,7 +45,7 @@ export class InteractionAddDeleteRendererComponent implements ICellRendererAngul
       });
   }
 
-  onDeleteInteraction() {
+  onDeleteInteraction(): void {
     // Call dialog for deleting an interaction.
     this.updateDialogService.openDialogForDeletingInteraction(this.params)
       .subscribe((result: string) => {

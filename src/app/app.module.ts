@@ -52,7 +52,7 @@ import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.compon
 import { AddGenesDialogComponent } from './dialogs/update-dialog/add-genes-dialog/add-genes-dialog.component';
 import { PlasmidDetailComponent } from './searches/plasmid-detail/plasmid-detail.component';
 import { FeatureQualifierRendererComponent } from './searches/plasmid-detail/feature-qualifier-renderer.component';
-import { PlasmidCountRenderer } from './searches/search-targets/plasmid-count-renderer.component';
+import { PlasmidCountRendererComponent } from './searches/search-targets/plasmid-count-renderer.component';
 import { SearchPartsComponent } from './searches/search-parts/search-parts.component';
 import { PlasmidsRendererComponent } from './searches/search-parts/plasmids-renderer.component';
 import { AddInteractionDialogComponent } from './dialogs/update-dialog/add-interaction-dialog/add-interaction-dialog.component';
@@ -90,7 +90,7 @@ const appImports = [
   AgGridModule.withComponents([
     BrowserAnimationsModule,
     FeatureQualifierRendererComponent,
-    PlasmidCountRenderer,
+    PlasmidCountRendererComponent,
     PlasmidsRendererComponent,
     InteractionAddDeleteRendererComponent,
     PtmAddDeleteRendererComponent,
@@ -133,7 +133,7 @@ if (!environment.production && environment.inMemoryData) {
     ErrorDialogComponent,
     PlasmidDetailComponent,
     FeatureQualifierRendererComponent,
-    PlasmidCountRenderer,
+    PlasmidCountRendererComponent,
     PlasmidsRendererComponent,
     TargetDetailComponent,
     InteractionAddDeleteRendererComponent,

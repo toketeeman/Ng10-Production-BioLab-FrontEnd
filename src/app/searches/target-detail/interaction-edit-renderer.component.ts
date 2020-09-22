@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ICellRendererAngularComp } from "@ag-grid-community/angular";
+import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 
 import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.service';
@@ -16,8 +16,8 @@ export class InteractionEditRendererComponent implements ICellRendererAngularCom
 
   constructor(private updateDialogService: UpdateDialogService) { }
 
-  refresh(params: any): boolean {
-    throw new Error("Method not implemented.");
+  refresh(_: any): boolean {
+    throw new Error('Method not implemented.');
   }
 
   agInit(params: ICellRendererParams): void {
@@ -26,11 +26,11 @@ export class InteractionEditRendererComponent implements ICellRendererAngularCom
     this.refreshTargetDetails = this.params.context.refreshTargetDetails;   // Grab the callback for refreshing the page after change.
   }
 
-  afterGuiAttached?(params?: import("@ag-grid-community/all-modules").IAfterGuiAttachedParams): void {
-    throw new Error("Method not implemented.");
+  afterGuiAttached?(_?: import('@ag-grid-community/all-modules').IAfterGuiAttachedParams): void {
+    throw new Error('Method not implemented.');
   }
 
-  onEditInteraction() {
+  onEditInteraction(): void {
     // Call dialog for editing an interaction.
     this.updateDialogService.openDialogForEditingInteraction(this.params)
       .subscribe((result: string) => {

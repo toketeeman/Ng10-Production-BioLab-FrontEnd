@@ -16,7 +16,7 @@ export class PtmEditRendererComponent implements ICellRendererAngularComp {
 
   constructor(private updateDialogService: UpdateDialogService) { }
 
-  refresh(params: any): boolean {
+  refresh(_: any): boolean {
     throw new Error('Method not implemented.');
   }
 
@@ -26,7 +26,7 @@ export class PtmEditRendererComponent implements ICellRendererAngularComp {
     this.refreshTargetDetails = this.params.context.refreshTargetDetails;   // Grab the callback for refreshing the page after change.
   }
 
-  afterGuiAttached?(params?: import('@ag-grid-community/all-modules').IAfterGuiAttachedParams): void {
+  afterGuiAttached?(_?: import('@ag-grid-community/all-modules').IAfterGuiAttachedParams): void {
     throw new Error('Method not implemented.');
   }
 
