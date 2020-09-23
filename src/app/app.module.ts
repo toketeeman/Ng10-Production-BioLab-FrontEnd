@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NguCarouselModule } from '@ngu/carousel';
 import { AgGridModule } from '@ag-grid-community/angular';
 import { FileSaverModule } from 'ngx-filesaver';
+import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { InMemoryDataService } from './services/in-memory-data.service';
@@ -97,7 +98,10 @@ const appImports = [
     InteractionEditRendererComponent,
     PtmEditRendererComponent
   ]),
-  FileSaverModule
+  FileSaverModule,
+  BackButtonDisableModule.forRoot({
+    preserveScrollPosition: true
+  })
 ];
 
 console.log('STARTUP: PTDB is running in ' + environment.configuration + ' configuration mode.');
