@@ -59,8 +59,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '25%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -76,8 +75,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '25%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -93,8 +91,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '25%'
+          'overflow-wrap': 'break-word'
         },
         sortable: false,
         filter: 'agSetColumnFilter',
