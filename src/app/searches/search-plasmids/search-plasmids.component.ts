@@ -157,7 +157,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    this.paginationPagesize = 10;
+    this.paginationPagesize = 15;
 
     // Load the cache for the grid. This is our "working set" of plasmids.
     this.rowData$ = this.http.get<IGridPlasmid[]>(this.plasmidsUrl)
