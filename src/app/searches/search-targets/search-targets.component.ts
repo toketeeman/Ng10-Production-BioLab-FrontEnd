@@ -59,10 +59,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         headerName: 'Target',
         field: 'target_name',
         autoHeight: true,
+        width: 250,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '14%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -77,10 +77,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         headerName: 'Partner',
         field: 'partner_name',
         autoHeight: true,
+        width: 250,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '14%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -95,10 +95,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         headerName: 'Class',
         field: 'class_name',
         autoHeight: true,
+        width: 100,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '14%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -113,10 +113,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         headerName: 'Subunits',
         field: 'subunit_count',
         autoHeight: true,
+        width: 120,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '14%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -131,10 +131,10 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         headerName: 'Gene Count',
         field: 'gene_count',
         autoHeight: true,
+        width: 150,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '14%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -151,8 +151,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '14%'
+          'overflow-wrap': 'break-word'
         },
         sortable: true,
         filter: 'agSetColumnFilter',
@@ -169,8 +168,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         autoHeight: true,
         cellStyle: {
           'white-space': 'normal',
-          'overflow-wrap': 'break-word',
-          width: '14%'
+          'overflow-wrap': 'break-word'
         },
         sortable: false,
         filter: 'agSetColumnFilter',
