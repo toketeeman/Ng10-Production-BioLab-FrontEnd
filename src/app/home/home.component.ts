@@ -55,8 +55,10 @@ export class HomeComponent implements OnInit {
           }
 
           this.url = '/home/search-plasmids';
-        } else if (currentFullUrl.startsWith('/home/search-targets')) {   // This url suffixes a target id. Shed it.
+        } else if (currentFullUrl.startsWith('/home/search-targets')) {   // This url may have a suffix. Shed it.
           this.url = '/home/search-targets';
+        } else if (currentFullUrl.startsWith('/home/search-parts')) {   // This url may have a suffix. Shed it.
+          this.url = '/home/search-parts';
         }else {
           this.url = currentFullUrl;
         }
@@ -97,8 +99,7 @@ export class HomeComponent implements OnInit {
   }
 
   returnFromPlasmids(titlePhrase: string): void {
-    console.log('XXX  returnFromPlasmids', titlePhrase);
-
+    this.plasmidTitlePhraseService.resetPlasmidTitlePhrase();
     if (titlePhrase.includes('Part:')) {
       this.router.navigateByUrl('/home/search-parts/back-from-plasmids');
     }

@@ -7,15 +7,16 @@ import {
 } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, Subject } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 import { AgGridAngular } from '@ag-grid-community/angular';
 import { AllModules, Module, FirstDataRenderedEvent, CellClickedEvent } from '@ag-grid-enterprise/all-modules';
 
 import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
 import { PartSearchStoreService } from '../../services/part-search-store.service';
+import { ReturnFromPlasmidsPartStoreService } from '../../services/return-from-plasmids-part-store.service';
 import { IGridPart } from '../../protein-expression.interface';
 import { PlasmidsRendererComponent } from './plasmids-renderer.component';
 import { environment } from '../../../environments/environment';
@@ -39,10 +40,12 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute,
     private errorDialogService: ErrorDialogService,
     private partSearchStoreService: PartSearchStoreService,
-    private router: Router,
-    private plasmidsByPartStoreService: PlasmidsByPartStoreService
+    private plasmidsByPartStoreService: PlasmidsByPartStoreService,
+    private returnFromPlasmidsPartStoreService: ReturnFromPlasmidsPartStoreService
   ) {}
 
   ngOnInit(): void {
@@ -189,12 +192,35 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
   }
 
   onRestore(_: FirstDataRenderedEvent): void {
-    // Retrieve the last search state and set it here.
-    this.searchSet = this.partSearchStoreService.retrievePartSearchState();
+    const currentRouteUrl = this.route.snapshot.url;
+    const currentRouteUrlLength = currentRouteUrl.length;
+    const path = currentRouteUrl[currentRouteUrlLength - 1].path;
+
+    // Restore the search set.
+    if (path === 'back-from-plasmids') {
+      this.searchSet = this.returnFromPlasmidsPartStoreService.retrieveReturnSearchSetState();
+    } else {
+      this.searchSet = this.partSearchStoreService.retrievePartSearchState();
+    }
 
     // Trigger the restored part search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
+
+    // Now display the restored search state.
+    this.agGrid.gridOptions.columnApi
+      .setColumnsVisible([
+        'part_name', 'part_type', 'plasmids'
+      ], true);
+
+    // Finally set the grid to the last-searched page.
+    if (path === 'back-from-plasmids') {
+      const lastSearchedPageNumber = this.returnFromPlasmidsPartStoreService.retrieveReturnLastSearchedState();
+      this.agGrid.gridOptions.api.paginationGoToPage(lastSearchedPageNumber);
+    } else {
+      this.partSearchStoreService.resetPartLastSearchedState();
+      this.agGrid.gridOptions.api.paginationGoToPage(0);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -231,15 +257,22 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
   onCellClicked(event: CellClickedEvent): void {
     const columnId = event.column.getColId();
     if (columnId === 'plasmids') {
-      // Plasmids column has been clicked. Collect the plasmids array,
-      // store it, and go to plasmids search to show their details.
+      // Plasmids column has been clicked.
+
+      // Save the current search state for returning from the plasmids page.
+      this.returnFromPlasmidsPartStoreService.storeReturnState(this.searchSet, this.agGrid.api.paginationGetCurrentPage());
+
+      // Collect the plasmids array in the cell and store it to be used on plasmids page.
+      // and go to plasmids search to show their details.
       const plasmids = (event.node.data as IGridPart).plasmids;
-      const part_name = (event.node.data as IGridPart).part_name;
       this.plasmidsByPartStoreService.storePlasmidsByPartState(plasmids);
+
+      // Now go to plasmids page to search ONLY for plasmids related to the selected part.
+      const part_name = (event.node.data as IGridPart).part_name;
       this.router.navigateByUrl('/home/search-plasmids/by-part/' + part_name);
     }
 
-    // Some other field has been clicked. So ignnore it.
+    // Some other field has been clicked. So ignore it.
   }
 
 }

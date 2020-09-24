@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ReturnFromPlasmidsStoreService {
+export class ReturnFromPlasmidsTargetStoreService {
   private searchSetState: string[] = [];
   private lastSearchedPageNumberState = 0;  // Here internally from ag-Grid, indexed from 0. On display, indexed from 1.
 

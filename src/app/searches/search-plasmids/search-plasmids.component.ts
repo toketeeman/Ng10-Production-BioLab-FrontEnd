@@ -259,8 +259,18 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
   }
 
   onRestore(_: FirstDataRenderedEvent): void {
-    // Retrieve the last search state and set it here.
-    this.searchSet = this.plasmidSearchStoreService.retrievePlasmidSearchState();
+    const currentRouteUrl = this.route.snapshot.url;
+    const currentRouteUrlLength = currentRouteUrl.length;
+    const path = currentRouteUrl[currentRouteUrlLength - 1].path;
+    const targetName = this.route.snapshot.paramMap.get('targetName');
+    const partName = this.route.snapshot.paramMap.get('partName');
+
+    // Restore the search set.
+    if (path === 'back') {
+      this.searchSet = this.plasmidSearchStoreService.retrievePlasmidSearchState();
+    } else {
+      this.searchSet = [];
+    }
 
     // Trigger the restored target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
@@ -273,11 +283,7 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       ], true);
 
     // Finally, initially tune the grid according to the URL request.
-    const currentRouteUrl = this.route.snapshot.url;
-    const currentRouteUrlLength = currentRouteUrl.length;
-    const lastSegment = currentRouteUrl[currentRouteUrlLength - 1].path;
-
-    if (lastSegment === 'back') {
+    if (path === 'back') {
       // URL is requesting grid to return to last-searched page.
       const lastSearchedPageNumber = this.plasmidSearchStoreService.retrievePlasmidLastSearchedState();
       this.agGrid.gridOptions.api.paginationGoToPage(lastSearchedPageNumber);
@@ -286,9 +292,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
       this.plasmidSearchStoreService.resetPlasmidLastSearchedState();  // Not logically necessary, for secure state-syncing only.
 
       // Check now for special filtering requests and set up grid filtering accordingly.
-      const targetName = this.route.snapshot.paramMap.get('targetName');
-      const partName = this.route.snapshot.paramMap.get('partName');
-
       if (targetName) {
         // URL is requesting grid to initially filter on target name.
 
@@ -311,9 +314,6 @@ export class SearchPlasmidsComponent implements OnInit, AfterViewInit {
 
         // Grab current search set caused by the filtering.
         this.CaptureCurrentSearchSet();
-      } else {
-        // Default: URL is requesting normal plasmids search grid without initial filtering.
-        this.searchSet = [];
       }
     }
   }
