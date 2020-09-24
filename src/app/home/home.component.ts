@@ -45,13 +45,13 @@ export class HomeComponent implements OnInit {
           // Add plasmid title phrase if search for plasmids by target.
           if (currentFullUrl.includes('by-target')) {
             const targetName = (currentFullUrl.split('/').slice(-1)[0]).split('%20').join(' ');
-            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`[ Target: ${targetName} ]`);
+            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`Target: ${targetName}`);
           }
 
           // Add plasmid title phrase if search for plasmids by part.
           if (currentFullUrl.includes('by-part')) {
             const partName = (currentFullUrl.split('/').slice(-1)[0]).split('%20').join(' ');
-            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`[ Part: ${partName} ]`);
+            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`Part: ${partName}`);
           }
 
           this.url = '/home/search-plasmids';
@@ -94,6 +94,10 @@ export class HomeComponent implements OnInit {
     this.targetSearchStoreService.resetTargetLastSearchedState();
     this.plasmidSearchStoreService.resetPlasmidSearchSetState();
     this.plasmidSearchStoreService.resetPlasmidLastSearchedState();
+  }
+
+  returnFromPlasmids(titlePhrase: string): void {
+    console.log('XXX  returnFromPlasmids', titlePhrase);
   }
 
   disableForNonSubmitter(): boolean {

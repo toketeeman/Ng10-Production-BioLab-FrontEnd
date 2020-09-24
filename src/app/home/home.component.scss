@@ -12,17 +12,28 @@ header {
   margin: 0;
 }
 
-button:first-child {
+header button:first-child {
   margin-top: -5px;
 }
 
-button:last-child {
+header button:last-child {
   margin-top: -5px;
   margin-right: 40px;
 }
 
 .title-phrase {
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 400;
   padding-left: 20px;
+  background-color: green;
+  margin: 0 0 0 0;
+  position: relative;
+  left: 2.0rem;
+  bottom: 0.2rem;
 }
+
+h1 button span {
+  color: white;
+}
+
+

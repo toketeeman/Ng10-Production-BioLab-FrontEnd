@@ -7,7 +7,11 @@
   <ng-container [ngSwitch]="url">
     <h1 *ngSwitchCase="'/home'" class="header-title">Welcome to the Protein Target Database</h1>
     <h1 *ngSwitchCase="'/home/add-target'" class="header-title">Add a New Target</h1>
-    <h1 *ngSwitchCase="'/home/search-plasmids'" class="header-title">Search for Plasmids <span class="title-phrase">{{ titlePhrase$ | async }}</span></h1>
+    <h1 *ngSwitchCase="'/home/search-plasmids'" class="header-title">Search for Plasmids
+      <button mat-button class="title-phrase" *ngIf="(titlePhrase$ | async) as currentTitlePhrase" (click)="returnFromPlasmids(currentTitlePhrase)">
+        <span>{{ currentTitlePhrase }}</span>
+      </button>
+    </h1>
     <h1 *ngSwitchCase="'/home/plasmid-detail'" class="header-title">Plasmid Details</h1>
     <h1 *ngSwitchCase="'/home/search-targets'" class="header-title">Search for Targets</h1>
     <h1 *ngSwitchCase="'/home/target-detail'" class="header-title">Target Details</h1>

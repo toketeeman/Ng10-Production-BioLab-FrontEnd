@@ -166,6 +166,7 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
         headerName: 'Plasmid Count',
         field: 'plasmid_count',
         autoHeight: true,
+        width: 150,
         cellStyle: {
           'white-space': 'normal',
           'overflow-wrap': 'break-word'
