@@ -88,7 +88,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
         menuTabs: ['filterMenuTab']
       },
       {
-        headerName: 'Plasmids (Distinct)',
+        headerName: 'Plasmids',
         field: 'plasmids',
         autoHeight: true,
         cellStyle: {
