@@ -74,6 +74,11 @@ const routes: Routes = [
         component: PlasmidDetailComponent
       },
       {
+        path: 'search-targets/back-from-plasmids',
+        canActivate: [ViewAccessGuard],
+        component: SearchTargetsComponent
+      },
+      {
         path: 'search-targets/back',
         canActivate: [ViewAccessGuard],
         component: SearchTargetsComponent
@@ -90,6 +95,11 @@ const routes: Routes = [
       {
         path: 'target-property/:id',
         component: TargetPropertyComponent
+      },
+      {
+        path: 'search-parts/back-from-plasmids',
+        canActivate: [ViewAccessGuard],
+        component: SearchPartsComponent
       },
       {
         path: 'search-parts',

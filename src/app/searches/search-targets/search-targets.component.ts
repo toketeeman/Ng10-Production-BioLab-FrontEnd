@@ -14,6 +14,7 @@ import { AllModules, Module, FirstDataRenderedEvent, CellClickedEvent } from '@a
 
 import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
 import { TargetSearchStoreService } from '../../services/target-search-store.service';
+import { ReturnFromPlasmidsStoreService } from '../../services/return-from-plasmids-store.service';
 import { IGridTarget } from '../../protein-expression.interface';
 import { environment } from '../../../environments/environment';
 import { PlasmidCountRendererComponent } from './plasmid-count-renderer.component';
@@ -40,7 +41,8 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private errorDialogService: ErrorDialogService,
-    private targetSearchStoreService: TargetSearchStoreService
+    private targetSearchStoreService: TargetSearchStoreService,
+    private returnFromPlasmidsStoreService: ReturnFromPlasmidsStoreService
   ) {}
 
   ngOnInit(): void {
@@ -270,8 +272,17 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
   }
 
   onRestore(_: FirstDataRenderedEvent): void {
-    // Retrieve the last search state and set it here.
-    this.searchSet = this.targetSearchStoreService.retrieveTargetSearchState();
+    const currentRouteUrl = this.route.snapshot.url;
+    const currentRouteUrlLength = currentRouteUrl.length;
+    const path = currentRouteUrl[currentRouteUrlLength - 1].path;
+
+    if (path === 'back') {
+      this.searchSet = this.targetSearchStoreService.retrieveTargetSearchState();
+    } else if (path === 'back-from-plasmids') {
+      this.searchSet = this.returnFromPlasmidsStoreService.retrieveReturnSearchSetState();
+    } else {
+      this.searchSet = this.targetSearchStoreService.retrieveTargetSearchState();
+    }
 
     // Trigger the restored target search here.
     this.agGrid.gridOptions.api.setFilterModel(null);  // Cancels all on-going filtering.
@@ -284,15 +295,15 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
       ], true);
 
     // Finally set the grid to the last-searched page.
-    const currentRouteUrl = this.route.snapshot.url;
-    const currentRouteUrlLength = currentRouteUrl.length;
-    if (currentRouteUrl[currentRouteUrlLength - 1].path === 'back') {
-      // Set grid to last-searched page.
+    if (path === 'back') {
       const lastSearchedPageNumber = this.targetSearchStoreService.retrieveTargetLastSearchedState();
       this.agGrid.gridOptions.api.paginationGoToPage(lastSearchedPageNumber);
+    } else if (path === 'back-from-plasmids') {
+      const lastSearchedPageNumber = this.returnFromPlasmidsStoreService.retrieveReturnLastSearchedState();
+      this.agGrid.gridOptions.api.paginationGoToPage(lastSearchedPageNumber);
     } else {
-      // Reset target detail store last-searched page number to 0.
-      this.targetSearchStoreService.resetTargetLastSearchedState();  // Not logically necessary, for state-syncing only.
+      this.targetSearchStoreService.resetTargetLastSearchedState();
+      this.agGrid.gridOptions.api.paginationGoToPage(0);
     }
   }
 
@@ -369,6 +380,11 @@ export class SearchTargetsComponent implements OnInit, AfterViewInit {
     const columnId = event.column.getColId();
     if (columnId === 'plasmid_count' ) {
       // Plasmid count value has been clicked.
+
+      // Save the current search state for returning from the plasmids page.
+      this.returnFromPlasmidsStoreService.storeReturnState(this.searchSet, this.agGrid.api.paginationGetCurrentPage());
+
+      // Now go to plasmids page to search ONLY for plasmids related to the selected target.
       const targetName = (event.node.data as IGridTarget).target_name;
       this.router.navigateByUrl('/home/search-plasmids/by-target/' + targetName);
     } else {

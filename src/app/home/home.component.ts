@@ -98,6 +98,13 @@ export class HomeComponent implements OnInit {
 
   returnFromPlasmids(titlePhrase: string): void {
     console.log('XXX  returnFromPlasmids', titlePhrase);
+
+    if (titlePhrase.includes('Part:')) {
+      this.router.navigateByUrl('/home/search-parts/back-from-plasmids');
+    }
+    if (titlePhrase.includes('Target:')) {
+      this.router.navigateByUrl('/home/search-targets/back-from-plasmids');
+    }
   }
 
   disableForNonSubmitter(): boolean {
