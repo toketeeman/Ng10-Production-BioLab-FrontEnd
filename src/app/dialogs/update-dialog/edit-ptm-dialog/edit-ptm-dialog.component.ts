@@ -18,7 +18,6 @@ import { ISubunit, IPostTranslationalModification } from 'src/app/protein-expres
 import { ValidateNumberInput } from '../../../validators/numberInput.validator';
 
 @Component({
-  selector: 'app-edit-ptm-dialog',
   templateUrl: './edit-ptm-dialog.component.html',
   styleUrls: ['./edit-ptm-dialog.component.scss']
 })

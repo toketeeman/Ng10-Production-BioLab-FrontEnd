@@ -9,7 +9,6 @@ import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-delete-ptm-dialog',
   templateUrl: './delete-ptm-dialog.component.html',
   styleUrls: ['./delete-ptm-dialog.component.scss']
 })

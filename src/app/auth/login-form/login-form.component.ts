@@ -7,7 +7,6 @@ import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.serv
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
-  selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })

@@ -9,7 +9,6 @@ import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-delete-interaction-dialog',
   templateUrl: './delete-interaction-dialog.component.html',
   styleUrls: ['./delete-interaction-dialog.component.scss']
 })

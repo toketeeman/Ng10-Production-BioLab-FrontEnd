@@ -18,7 +18,6 @@ import { ISubunit } from 'src/app/protein-expression.interface';
 import { ValidateNumberInput } from '../../../validators/numberInput.validator';
 
 @Component({
-  selector: 'app-add-ptm-dialog',
   templateUrl: './add-ptm-dialog.component.html',
   styleUrls: ['./add-ptm-dialog.component.scss']
 })
