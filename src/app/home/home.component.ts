@@ -46,14 +46,14 @@ export class HomeComponent implements OnInit {
           if (currentFullUrl.includes('by-target')) {
             const targetName = (currentFullUrl.split('/').slice(-1)[0]).split('%20').join(' ');
             const truncatedTargetName = this.truncateString(targetName, 25);
-            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`Back to Target: ${truncatedTargetName}`);
+            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`Target: ${truncatedTargetName}`);
           }
 
           // Add plasmid title phrase if search for plasmids by part.
           if (currentFullUrl.includes('by-part')) {
             const partName = (currentFullUrl.split('/').slice(-1)[0]).split('%20').join(' ');
             const truncatedPartName = this.truncateString(partName, 25);
-            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`Back to Part: ${truncatedPartName}`);
+            this.plasmidTitlePhraseService.setPlasmidTitlePhrase(`Part: ${truncatedPartName}`);
           }
 
           this.url = '/home/search-plasmids';
