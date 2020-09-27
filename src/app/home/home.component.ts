@@ -93,6 +93,11 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/home/search-parts');
   }
 
+  goToTools(): void {
+    this.resetStores();
+    this.router.navigateByUrl('/home/tools');
+  }
+
   resetStores(): void {
     this.targetSearchStoreService.resetTargetSearchSetState();
     this.targetSearchStoreService.resetTargetLastSearchedState();

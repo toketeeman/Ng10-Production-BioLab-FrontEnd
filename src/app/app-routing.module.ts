@@ -19,6 +19,7 @@ import { SearchTargetsComponent } from './searches/search-targets/search-targets
 import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
 import { TargetPropertyComponent } from './searches/target-property/target-property.component';
 import { SearchPartsComponent } from './searches/search-parts/search-parts.component';
+import { ToolsComponent } from './tools/tools.component';
 
 const routes: Routes = [
   {
@@ -106,6 +107,12 @@ const routes: Routes = [
         canActivate: [ViewAccessGuard],
         component: SearchPartsComponent
       },
+      {
+        path: 'tools',
+        canActivate: [ViewAccessGuard],
+        component: ToolsComponent
+      },
+
     ]
   },
   { path: '', redirectTo: 'home/add-target', pathMatch: 'full' },
