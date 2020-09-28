@@ -33,7 +33,6 @@ export class ToolsComponent implements OnInit {
 
 
 
-    
     return;
   }
 }
