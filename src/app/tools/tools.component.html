@@ -21,6 +21,11 @@
       <textarea formControlName="sequence" placeholder=" Paste or type your sequence here."></textarea>
     </div>
 
+    <div fxLayout="row" fxLayoutAlign="start center" style="width: 100%;">
+      <button mat-button style="margin-left: 5%" (click)="sequenceForm.reset()">Cancel</button>
+      <button mat-button style="margin-left: 5%" (click)="onSubmitSequence()" [disabled]="!sequenceForm.valid">Properties</button>
+    </div>
+
   </div>
 </form>
 

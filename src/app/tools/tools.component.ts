@@ -28,4 +28,8 @@ export class ToolsComponent implements OnInit {
   onChangeSequenceType(): void {
     return;
   }
+
+  onSubmitSequence(): void {
+    return;
+  }
 }

@@ -6,3 +6,13 @@ textarea {
   height: 400px;
   width: 400px;
 }
+
+button[mat-button] {
+  margin: 30px 20px 20px 0px;
+  background-color: #b3b3b3;
+  font-weight: bold;
+}
+
+button[mat-button]:disabled {
+  opacity: 0.5;
+}
