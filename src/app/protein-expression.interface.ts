@@ -160,6 +160,23 @@ export interface IGridPart {
   plasmids: string[];
 }
 
+export interface ISequenceProperties {
+  amino_acid_sequence: string;
+  avg_molecular_weight_ox: string;
+  monoisotopic_weight_ox: string;
+  avg_molecular_weight_red: string;
+  monoisotopic_weight_red: string;
+  isoelectric_point: string;
+  gravy: string;
+  aromaticity: string;
+  e280_mass_ox: string;
+  e280_mass_red: string;
+  e214_mass: string;
+  e280_molar_ox: string;
+  e280_molar_red: string;
+  e214_molar: string;
+}
+
 
 
 
