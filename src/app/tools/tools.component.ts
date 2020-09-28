@@ -30,6 +30,10 @@ export class ToolsComponent implements OnInit {
   }
 
   onSubmitSequence(): void {
+
+
+
+    
     return;
   }
 }

@@ -25,6 +25,7 @@ export const environment = {
     targetsDetailUrl: 'api/v1/absci-targets/target-detail-view/',
     targetsPropertyUrl: 'api/v1/absci-targets/target-biophysical-properties-view/',
     partsUrl: 'api/v1/absci-targets/parts-view/',
+    sequencePropertiesUrl: 'api/v1/absci-targets/biophysical-properties-view/',
     plasmidSequenceDownloadUrl: 'api/v1/absci-targets/plasmid-sequence-download/',
     currentRolesUrl: 'api/v1/users/current-user-permissions/'
   }

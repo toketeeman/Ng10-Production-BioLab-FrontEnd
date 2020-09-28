@@ -32,6 +32,7 @@ export const environment = {
     targetsDetailUrl: 'api/targetsDetail',
     targetsPropertyUrl: 'api/targetsProperty',
     partsUrl: 'api/parts',
+    sequencePropertiesUrl: 'api/biophysical-properties-view',
     plasmidSequenceDownloadUrl: 'api/plasmid-sequence-download',
     currentRolesUrl: 'api/currentRoles'
   }
