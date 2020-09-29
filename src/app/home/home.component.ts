@@ -61,7 +61,9 @@ export class HomeComponent implements OnInit {
           this.url = '/home/search-targets';
         } else if (currentFullUrl.startsWith('/home/search-parts')) {   // This url may have a suffix. Shed it.
           this.url = '/home/search-parts';
-        }else {
+        }else if (currentFullUrl.startsWith('/home/tools')) {   // This url may have a suffix. Shed it.
+          this.url = '/home/tools';
+        } else {
           this.url = currentFullUrl;
         }
       }
