@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 
 import { HttpClient, HttpEvent, HttpResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -29,6 +29,7 @@ export class ToolsComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     private errorDialogService: ErrorDialogService,
     private toolsSequencePropertyStoreService: ToolsSequencePropertyStoreService
   ) { }
@@ -41,6 +42,28 @@ export class ToolsComponent implements OnInit {
       sequence_type: ['', Validators.required],
       sequence: ['', Validators.required]
     });
+
+    // Restore the form value if coming back from sequence properties page.
+    const currentRouteUrl = this.route.snapshot.url;
+    const currentRouteUrlLength = currentRouteUrl.length;
+    const path = currentRouteUrl[currentRouteUrlLength - 1].path;
+    if (path === 'back-from-sequence-property') {
+      const propertiesData: any =  this.toolsSequencePropertyStoreService.retrieveToolsSequencePropertyState();
+      if (propertiesData.selectionType === 'DNA') {
+        this.sequenceForm.patchValue({
+          sequence_type: propertiesData.selectionType,
+          sequence: propertiesData.enteredDNASequence
+        });
+      } else {
+        this.sequenceForm.patchValue({
+          sequence_type: propertiesData.selectionType,
+          sequence: (propertiesData.returnedSequenceProperties as ISequenceProperties).amino_acid_sequence
+        });
+      }
+    }
+
+    // Reset the tools-sequence-property store.
+    this.toolsSequencePropertyStoreService.resetToolsSequencePropertyState();
   }
 
   onSubmitSequence(): void {
