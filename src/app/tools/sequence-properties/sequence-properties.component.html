@@ -1,1 +1,29 @@
-<p>sequence-properties works!</p>
+<header fxLayout="row" fxLayoutAlign="start center">
+  <div>
+    <button mat-button (click)="onBackToTools()">Back To Tools</button>
+  </div>
+</header>
+
+<div fxLayout="row" fxLayoutAlign="start center" style="width: 100%">
+
+  <div fxLayout="column" fxLayoutAlign="start start" style="width: 25%; margin-left: 5%;">
+    <div>
+      <h3>Amino Acid</h3>
+    </div>
+    <div class="aa-sequence">{{ AASequence }}</div>
+  </div>
+
+  <div style="width: 60%; margin-left: 5%; margin-top: 20px;">
+    <ag-grid-angular
+      #sequencePropertyGrid
+      style="width: 100%"
+      class="ag-theme-balham"
+      [rowData]="propertyListGridData"
+      [domLayout]="domLayout"
+      [columnDefs]="propertyColumnDefs"
+      [modules]="modules"
+    >
+    </ag-grid-angular>
+  </div>
+
+</div>

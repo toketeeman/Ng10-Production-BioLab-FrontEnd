@@ -52,7 +52,7 @@ export class AuthenticationService {
           // Put (only) the array of roles for the user into session storage.
           sessionStorage.setItem('currentRoles', JSON.stringify(roles));
         }),
-        catchError(error => {
+        catchError(_ => {
           this.errorDialogService.openDialogForMessages(
             'Roles database is not available. See admin.'
           );

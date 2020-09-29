@@ -20,6 +20,7 @@ import { TargetDetailComponent } from './searches/target-detail/target-detail.co
 import { TargetPropertyComponent } from './searches/target-property/target-property.component';
 import { SearchPartsComponent } from './searches/search-parts/search-parts.component';
 import { ToolsComponent } from './tools/tools.component';
+import { SequencePropertiesComponent } from './tools/sequence-properties/sequence-properties.component';
 
 const routes: Routes = [
   {
@@ -108,11 +109,20 @@ const routes: Routes = [
         component: SearchPartsComponent
       },
       {
+        path: 'tools/back-from-sequence-property',
+        canActivate: [ViewAccessGuard],
+        component: ToolsComponent
+      },
+      {
         path: 'tools',
         canActivate: [ViewAccessGuard],
         component: ToolsComponent
       },
-
+      {
+        path: 'sequence-property',
+        canActivate: [ViewAccessGuard],
+        component: SequencePropertiesComponent
+      }
     ]
   },
   { path: '', redirectTo: 'home/add-target', pathMatch: 'full' },
