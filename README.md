@@ -36,6 +36,12 @@ To build a docker image containing a production build of this application, run:
 docker build --file -t ptdbfe10 Dockerfile-prod .
 ```
 
+To test the production build, you can run:
+
+```
+docker run -dit -p 8080:80 ptdbfr10
+```
+
 To run your dev environment out of a Docker container instead of using your local environment, run:
 
 ```
