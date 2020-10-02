@@ -169,6 +169,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "protein-expression-front-end"
+    }
+  },
+  "defaultProject": "protein-expression-front-end",
+  "cli": {
+    "analytics": "ee49c270-af99-468b-bb36-529daac1e47c"
+  }
 }

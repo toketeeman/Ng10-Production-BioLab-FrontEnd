@@ -27,3 +27,18 @@ Note: There is NO application-specific end-to-end testing implemented other than
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Docker
+
+To build a docker image containing a production build of this application, run:
+
+```
+docker build --file -t ptdbfe10 Dockerfile-prod .
+```
+
+To run your dev environment out of a Docker container instead of using your local environment, run:
+
+```
+docker build -t ptdbfe10 .
+docker run  -v .:/app -p 4200:4200 -it ptdbfe10
+```
