@@ -1,0 +1,38 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+      - development
+      - docker
+
+env:
+  REPO_NAME: docker.pkg.github.com/abscibio/protein_expression_front_end_angular_10
+  IMAGE_NAME: protein-expression-frontend
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Git checkout
+      uses: actions/checkout@v2
+
+    - name: Docker Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: docker.pkg.github.com
+        username: $GITHUB_ACTOR
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Docker build tag push
+      run: |
+        export IMAGE_VERSION=$(git log -1 --pretty=%h)
+        export IMAGE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        export IMAGE_FULL_NAME="$REPO_NAME/$IMAGE_NAME-$IMAGE_BRANCH"
+        docker build . --file Dockerfile --tag $IMAGE_FULL_NAME:$IMAGE_VERSION --tag $IMAGE_FULL_NAME:latest
+        docker push $IMAGE_FULL_NAME:$IMAGE_VERSION
+        docker push $IMAGE_FULL_NAME:latest
