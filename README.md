@@ -33,7 +33,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 To build a docker image containing a production build of this application, run:
 
 ```
-docker build --file -t ptdbfe10 Dockerfile-prod .
+docker build --file Dockerfile-prod -t ptdbfe10 .
 ```
 
 To test the production build, you can run:
