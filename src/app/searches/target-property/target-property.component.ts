@@ -1,43 +1,50 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { MatRadioChange, MatRadioButton } from '@angular/material/radio';
 
 import { AgGridAngular } from '@ag-grid-community/angular';
 import { AllModules, Module } from '@ag-grid-enterprise/all-modules';
 
-import { ITargetProperties, ITargetPropertyList, IGridBioProperty } from '../../protein-expression.interface';
+import { ITargetProperties, ITargetPropertyList, IGridBioProperty, ISubunit } from '../../protein-expression.interface';
 import { environment } from '../../../environments/environment';
 import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
+import { TargetPropertyStoreService } from '../../services/target-property-store.service';
+import { ValidateNumberInput } from '../../validators/numberInput.validator';
 
 @Component({
   templateUrl: './target-property.component.html',
   styleUrls: ['./target-property.component.scss']
 })
 export class TargetPropertyComponent implements OnInit, AfterViewInit {
-  @ViewChild('proteinPropertiesButton', { static: false }) proteinPropertiesButton: MatRadioButton;
   @ViewChild('targetPropertyGrid', { static: false }) targetPropertyGrid: AgGridAngular;
 
+  fullProteinProperties: ITargetPropertyList;
+  targetName: string;
+  subunits: ISubunit[];
+  subunitForm: FormGroup;
+  isEntry = true;
   currentTargetId: string;
   targetsPropertyUrl: string;
-  proteinName = '';
-  subunitNames: string[] = [];
-  propertySelectionMode: string;
   propertyListGridData$: Observable<IGridBioProperty[]>;
   public modules: Module[] = AllModules;
   public domLayout;
   propertyColumnDefs;
-  propertyLists: ITargetPropertyList[] = [];
-  isProteinAlone = true;
-
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private fb: FormBuilder,
     private http: HttpClient,
-    private errorDialogService: ErrorDialogService
+    private errorDialogService: ErrorDialogService,
+    private targetPropertyStoreService: TargetPropertyStoreService
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +55,24 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     } else {
       this.targetsPropertyUrl = environment.urls.targetsPropertyUrl + '?target_id=' + this.currentTargetId;
     }
+
+    // Get current target name and subunits from the target property store service.
+    const propertyStoreState = this.targetPropertyStoreService.retrieveTargetPropertyState();
+    this.targetName = propertyStoreState.target_name;
+    this.subunits = propertyStoreState.subunits;
+
+    // Use it to generate and pre-populate the reactive form for the subunit copy # controls.
+    this.subunitForm = this.fb.group({});
+    for (const subunit of this.subunits) {
+      this.subunitForm.addControl(
+        subunit.subunit_name,
+        new FormControl(
+          subunit.copies.toString(),
+          [Validators.required, ValidateNumberInput, Validators.min(0), Validators.max(subunit.copies)])
+      );
+    }
+
+    console.log('XXX subunitForm: ', JSON.stringify(this.subunitForm.value));
 
     this.domLayout = 'autoHeight';
 
@@ -94,10 +119,12 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    this.http.get<ITargetProperties>(this.targetsPropertyUrl)
+    this.http.post<any>(this.targetsPropertyUrl, null)
       .pipe(
         tap((response: ITargetProperties) => {
-          this.activatePropertyListSelection(response);
+          // Initial population of properties for entire protein molecule here.
+          this.PopulateProperties(response.protein);
+          this.fullProteinProperties = response.protein;
         }),
         catchError(error => {
           this.errorDialogService.openDialogForErrorResponse(
@@ -109,9 +136,36 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
           return of(noResult);
         })
       ).subscribe();
+
+    // const response = {
+    //   protein: {
+    //     name: 'Heavy Fat Protein',
+    //     avg_molecular_weight_ox: '83469.9230',
+    //     monoisotopic_weight_ox: '83502.4876',
+    //     avg_molecular_weight_red: '7.2296',
+    //     monoisotopic_weight_red: '8.1096',
+    //     isoelectric_point: '-0.21',
+    //     gravy: '-8.500',
+    //     aromaticity: '-9.9',
+    //     e280_mass_ox: '60390',
+    //     e280_mass_red: '83456',
+    //     e214_mass: '4355',
+    //     e280_molar_ox: '6732',
+    //     e280_molar_red: '43722',
+    //     e214_molar: '824289'
+    //   }
+    // };
+
+    // this.PopulateProperties(response.protein);
+    // this.fullProteinProperties = response.protein;
+
   }
 
   ngAfterViewInit(): void {
+    // Change the property value column header to indicate full protein properties.
+    const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
+    columnDef.headerName = 'Property (All Subunits)';
+
     // Responsive window behavior, with debouncing.
     this.targetPropertyGrid.api.sizeColumnsToFit();
     let timeout;
@@ -127,32 +181,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     };
   }
 
-  activatePropertyListSelection(response: ITargetProperties): void {
-    this.propertyLists[0] = response.protein;
-    let propListButtonId = 'propList' + 0;
-    const proteinRadioButtonElement = document.getElementById(propListButtonId);
-    proteinRadioButtonElement.style.visibility = 'visible';
-
-    if (response.subunits.length >= 2) {
-      this.isProteinAlone = false;
-      let subunitIndex = 1;
-      for ( const subunitPropertyList of response.subunits ) {
-        this.propertyLists[subunitIndex] = subunitPropertyList;
-        propListButtonId = 'propList' + subunitIndex++;
-        document.getElementById(propListButtonId).style.visibility = 'visible';
-      }
-    }
-
-    this.proteinPropertiesButton.checked = true;
-    const change: MatRadioChange = new MatRadioChange(null, null);
-    change.value = '0';
-    this.OnPropertyListSelectionChange(change);
-  }
-
-  OnPropertyListSelectionChange(change: MatRadioChange): void {
-    const propertyListIndex = +change.value;
-    const propertyList = this.propertyLists[propertyListIndex];
-
+  PopulateProperties(propertyList: ITargetPropertyList): void {
     const gridPropertyList: IGridBioProperty[] = [];
     gridPropertyList.push({ name: 'Average Molecular Weight (Oxidized)',
                             value: propertyList.avg_molecular_weight_ox,
@@ -198,17 +227,86 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
                             unit: null});
 
     this.propertyListGridData$ = of(gridPropertyList);
+  }
 
-    // Change the property value column header appropriately.
-    if (!this.isProteinAlone) {
-      const columnDef = this.targetPropertyGrid.api.getColumnDef('value');
-      if (!propertyListIndex) {
-        columnDef.headerName = 'Value for ALL copies';
-      } else {
-        columnDef.headerName = 'Value for THIS copy';
-      }
-      this.targetPropertyGrid.api.refreshHeader();
+  onUpdate(): void {
+    // Grab the form value and generate the payload for retrieving the properties.
+    const subunitNames = Object.keys(this.subunitForm.value);
+    const propertiesRequestBody: any = [];
+    for ( const subunitName of subunitNames ) {
+      propertiesRequestBody.push({
+        subunit_name: subunitName,
+        copies: this.subunitForm.value[subunitName]
+      });
     }
+
+    console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
+
+    // Change column header here to indicate selection mode.
+    const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
+    columnDef.headerName = 'Property (SELECTED Subunits)';
+    this.targetPropertyGrid.api.refreshHeader();
+
+    // Retrieve the properties from backend.
+    this.http.post<any>(
+      this.targetsPropertyUrl,
+      propertiesRequestBody
+    )
+      .pipe(
+        tap((response: any) => {
+          // Re-population of properties for entire protein molecule here.
+          this.PopulateProperties(response.protein);
+        }),
+        catchError(error => {
+          this.errorDialogService.openDialogForErrorResponse(
+            error,
+            ['message'],
+            'Biophysical properties for this target could not be found.'
+          );
+          const noResult: ITargetProperties = null;
+          return of(noResult);
+        })
+      ).subscribe();
+
+    // const response = {
+    //   protein: {
+    //     name: 'ABC-123',
+    //     avg_molecular_weight_ox: '13469.9230',
+    //     monoisotopic_weight_ox: '13502.4876',
+    //     avg_molecular_weight_red: '7.2296',
+    //     monoisotopic_weight_red: '6.1096',
+    //     isoelectric_point: '-0.21',
+    //     gravy: '-3.500',
+    //     aromaticity: '-9.9',
+    //     e280_mass_ox: '60390',
+    //     e280_mass_red: '13456',
+    //     e214_mass: '1355',
+    //     e280_molar_ox: '6732',
+    //     e280_molar_red: '43722',
+    //     e214_molar: '824289'
+    //   }
+    // };
+
+    // this.PopulateProperties(response.protein);
+
+    // return;
+  }
+
+  onRestore(): void {
+    // Reset the copy # values to full protein values.
+    for (const subunit of this.subunits) {
+      this.subunitForm.patchValue({
+        [subunit.subunit_name]: subunit.copies
+      });
+    }
+
+    // Change the property value column header to indicate full protein properties.
+    const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
+    columnDef.headerName = 'Property (ALL Subunits)';
+    this.targetPropertyGrid.api.refreshHeader();
+
+    // Re-populate the properties to full protein values.
+    this.PopulateProperties(this.fullProteinProperties);
   }
 
   // Go back to the current target search.

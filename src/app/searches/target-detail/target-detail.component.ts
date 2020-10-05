@@ -24,6 +24,7 @@ import {
   IPostTranslationalModification
 } from '../../protein-expression.interface';
 import { AuthenticationService } from '../../services/authentication.service';
+import { TargetPropertyStoreService } from '../../services/target-property-store.service';
 import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
 import { UpdateDialogService } from '../../dialogs/update-dialog/update-dialog.service';
 import { environment } from '../../../environments/environment';
@@ -73,6 +74,7 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private authenticationService: AuthenticationService,
+    private targetPropertyStoreService: TargetPropertyStoreService,
     private errorDialogService: ErrorDialogService,
     private updateDialogService: UpdateDialogService,
     private route: ActivatedRoute,
@@ -527,6 +529,9 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Go inspect the biophysical properties.
   onBiophysicalProperties(): void {
+    // Before leaving, store the subunits for use in the target biophysical page.
+    this.targetPropertyStoreService.storeTargetPropertyState(this.targetDetailHeader.target_name, this.subunits);
+
     this.router.navigateByUrl('/home/target-property/' + this.currentTargetId);
   }
 
