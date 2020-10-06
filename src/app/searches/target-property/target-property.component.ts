@@ -142,6 +142,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     // Change the property value column header to indicate full protein properties.
     const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
     columnDef.headerName = 'Property (All Subunits)';
+    this.targetPropertyGrid.api.refreshHeader();
 
     // Responsive window behavior, with debouncing.
     this.targetPropertyGrid.api.sizeColumnsToFit();
