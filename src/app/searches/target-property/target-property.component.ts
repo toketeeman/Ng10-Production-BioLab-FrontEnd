@@ -219,7 +219,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       });
     }
 
-    console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
+    // console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
 
     // Change column header here to indicate selection mode.
     const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
