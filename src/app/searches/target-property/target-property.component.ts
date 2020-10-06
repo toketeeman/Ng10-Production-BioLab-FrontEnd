@@ -278,6 +278,11 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     return this.truncateString(name, 20);
   }
 
+  // Reduce the length variability of target names.
+  displayTargetName(name: string): string {
+    return this.truncateString(name, 22);
+  }
+
   // Reduce length of string as specified.
   truncateString(text: string, maxLength: number): string {
     if (text.length > maxLength) {
