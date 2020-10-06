@@ -273,4 +273,18 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/home/target-detail/' + this.currentTargetId);
   }
 
+  // Reduce the length variability of subunit names.
+  displaySubunitName(name: string): string {
+    return this.truncateString(name, 20);
+  }
+
+  // Reduce length of string as specified.
+  truncateString(text: string, maxLength: number): string {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength - 3) + '...';
+    } else {
+      return text;
+    }
+  }
+
 }

@@ -19,8 +19,8 @@
             <div style="width: 35%; margin-right: 0;">
               <input type="number" style="width: 45%;" [formControlName]="subunit.subunit_name" class="formControl">
             </div>
-            <div style="width: 50%; text-align: left; margin-left: 0;">
-              {{ subunit.subunit_name }}
+            <div style="width: 50%; text-align: left; margin-left: 0; font-size: 10pt; font-weight: bold;">
+              {{ displaySubunitName(subunit.subunit_name) }}
             </div>
           </div>
           <div *ngIf="subunitForm['controls'][subunit.subunit_name].errors?.min" class="errorMessage">
