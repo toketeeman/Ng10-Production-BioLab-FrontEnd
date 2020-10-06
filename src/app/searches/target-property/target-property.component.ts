@@ -72,7 +72,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       );
     }
 
-    console.log('XXX subunitForm: ', JSON.stringify(this.subunitForm.value));
+    // console.log('XXX subunitForm: ', JSON.stringify(this.subunitForm.value));
 
     this.domLayout = 'autoHeight';
 
@@ -136,29 +136,6 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
           return of(noResult);
         })
       ).subscribe();
-
-    // const response = {
-    //   protein: {
-    //     name: 'Heavy Fat Protein',
-    //     avg_molecular_weight_ox: '83469.9230',
-    //     monoisotopic_weight_ox: '83502.4876',
-    //     avg_molecular_weight_red: '7.2296',
-    //     monoisotopic_weight_red: '8.1096',
-    //     isoelectric_point: '-0.21',
-    //     gravy: '-8.500',
-    //     aromaticity: '-9.9',
-    //     e280_mass_ox: '60390',
-    //     e280_mass_red: '83456',
-    //     e214_mass: '4355',
-    //     e280_molar_ox: '6732',
-    //     e280_molar_red: '43722',
-    //     e214_molar: '824289'
-    //   }
-    // };
-
-    // this.PopulateProperties(response.protein);
-    // this.fullProteinProperties = response.protein;
-
   }
 
   ngAfterViewInit(): void {
@@ -240,7 +217,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       });
     }
 
-    console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
+    // console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
 
     // Change column header here to indicate selection mode.
     const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
@@ -267,29 +244,6 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
           return of(noResult);
         })
       ).subscribe();
-
-    // const response = {
-    //   protein: {
-    //     name: 'ABC-123',
-    //     avg_molecular_weight_ox: '13469.9230',
-    //     monoisotopic_weight_ox: '13502.4876',
-    //     avg_molecular_weight_red: '7.2296',
-    //     monoisotopic_weight_red: '6.1096',
-    //     isoelectric_point: '-0.21',
-    //     gravy: '-3.500',
-    //     aromaticity: '-9.9',
-    //     e280_mass_ox: '60390',
-    //     e280_mass_red: '13456',
-    //     e214_mass: '1355',
-    //     e280_molar_ox: '6732',
-    //     e280_molar_red: '43722',
-    //     e214_molar: '824289'
-    //   }
-    // };
-
-    // this.PopulateProperties(response.protein);
-
-    // return;
   }
 
   onRestore(): void {
