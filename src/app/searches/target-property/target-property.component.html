@@ -29,6 +29,9 @@
           <div *ngIf="subunitForm['controls'][subunit.subunit_name].errors?.max" class="errorMessage">
             Range is 1 - {{ subunitForm['controls'][subunit.subunit_name].errors?.max.max }}.
           </div>
+          <div *ngIf="subunitForm.errors?.notAllZero" class="errorMessage">
+            Total copies cannot be 0.
+          </div>
         </div>
       </div>
     </form>

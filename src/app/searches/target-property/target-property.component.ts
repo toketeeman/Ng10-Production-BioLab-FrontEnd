@@ -18,6 +18,7 @@ import { environment } from '../../../environments/environment';
 import { ErrorDialogService } from '../../dialogs/error-dialog/error-dialog.service';
 import { TargetPropertyStoreService } from '../../services/target-property-store.service';
 import { ValidateNumberInput } from '../../validators/numberInput.validator';
+import { NotAllZeroSubunitCopies } from '../../validators/notAllZeroSubunitCopies.validator';
 
 @Component({
   templateUrl: './target-property.component.html',
@@ -71,8 +72,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
           [Validators.required, ValidateNumberInput, Validators.min(0), Validators.max(subunit.copies)])
       );
     }
-
-    // console.log('XXX subunitForm: ', JSON.stringify(this.subunitForm.value));
+    this.subunitForm.setValidators(NotAllZeroSubunitCopies(this.subunits));
 
     this.domLayout = 'autoHeight';
 
@@ -218,8 +218,6 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
         copies: this.subunitForm.value[subunitName]
       });
     }
-
-    // console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
 
     // Change column header here to indicate selection mode.
     const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
