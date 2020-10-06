@@ -119,7 +119,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    this.http.post<any>(this.targetsPropertyUrl, null)
+    this.http.post<any>(this.targetsPropertyUrl, {})
       .pipe(
         tap((response: ITargetProperties) => {
           // Initial population of properties for entire protein molecule here.
@@ -135,7 +135,8 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
           const noResult: ITargetProperties = null;
           return of(noResult);
         })
-      ).subscribe();
+      )
+      .subscribe( (_) => this.onRestore() );
   }
 
   ngAfterViewInit(): void {
@@ -218,7 +219,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
       });
     }
 
-    // console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
+    console.log('XXX propertiesRequestBody: ', JSON.stringify(propertiesRequestBody));
 
     // Change column header here to indicate selection mode.
     const columnDef = this.targetPropertyGrid.api.getColumnDef('name');
