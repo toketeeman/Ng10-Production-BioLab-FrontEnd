@@ -254,6 +254,12 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     };
   }
 
+  onSelectionChanged(): void {
+    // Now compute the destination of the details and go there.
+    const selectedRow: IGridPart = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
+    this.router.navigateByUrl('/home/part-detail/' + (selectedRow as IGridPart).part_name);
+  }
+
   onCellClicked(event: CellClickedEvent): void {
     const columnId = event.column.getColId();
     if (columnId === 'plasmids') {
@@ -270,9 +276,14 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
       // Now go to plasmids page to search ONLY for plasmids related to the selected part.
       const part_name = (event.node.data as IGridPart).part_name;
       this.router.navigateByUrl('/home/search-plasmids/by-part/' + part_name);
+    } else {
+      // Some other field has been clicked. Process it to route to associated part details page in the normal way.
+      // Note: Even though only the cell click is captured, ag-Grid nevertheless still "selects" the row in which
+      // the cell resides.
+      this.onSelectionChanged();
     }
 
-    // Some other field has been clicked. So ignore it.
+
   }
 
 }

@@ -64,6 +64,7 @@ import { EditPtmDialogComponent } from './dialogs/update-dialog/edit-ptm-dialog/
 import { DeletePtmDialogComponent } from './dialogs/update-dialog/delete-ptm-dialog/delete-ptm-dialog.component';
 import { ToolsComponent } from './tools/tools.component';
 import { SequencePropertiesComponent } from './tools/sequence-properties/sequence-properties.component';
+import { PartDetailComponent } from './searches/part-detail/part-detail.component';
 
 const appImports = [
   BrowserModule,
@@ -157,7 +158,8 @@ if (!environment.production && environment.inMemoryData) {
     EditPtmDialogComponent,
     DeletePtmDialogComponent,
     ToolsComponent,
-    SequencePropertiesComponent
+    SequencePropertiesComponent,
+    PartDetailComponent
   ],
   imports: appImports,
   providers: [

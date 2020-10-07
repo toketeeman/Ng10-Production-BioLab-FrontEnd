@@ -19,6 +19,7 @@ import { SearchTargetsComponent } from './searches/search-targets/search-targets
 import { TargetDetailComponent } from './searches/target-detail/target-detail.component';
 import { TargetPropertyComponent } from './searches/target-property/target-property.component';
 import { SearchPartsComponent } from './searches/search-parts/search-parts.component';
+import { PartDetailComponent } from './searches/part-detail/part-detail.component';
 import { ToolsComponent } from './tools/tools.component';
 import { SequencePropertiesComponent } from './tools/sequence-properties/sequence-properties.component';
 
@@ -107,6 +108,10 @@ const routes: Routes = [
         path: 'search-parts',
         canActivate: [ViewAccessGuard],
         component: SearchPartsComponent
+      },
+      {
+        path: 'part-detail/:id',
+        component: PartDetailComponent
       },
       {
         path: 'tools/back-from-sequence-property',
