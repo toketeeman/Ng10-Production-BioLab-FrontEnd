@@ -105,6 +105,11 @@ const routes: Routes = [
         component: SearchPartsComponent
       },
       {
+        path: 'search-parts/back',
+        canActivate: [ViewAccessGuard],
+        component: SearchPartsComponent
+      },
+      {
         path: 'search-parts',
         canActivate: [ViewAccessGuard],
         component: SearchPartsComponent
