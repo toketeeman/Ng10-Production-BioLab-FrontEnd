@@ -26,6 +26,13 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    // Angular does not recognize the browser refresh button. DO NOT USE REFRESH!
+    window.addEventListener('keyup', this.disableF5);
+    window.addEventListener('keydown', this.disableF5);
+    window.addEventListener('beforeunload', this.disableRefresh);
+
+
     this.isAuthenticated = !!this.authenticationService.getToken();
 
     this.titlePhrase$ = this.plasmidTitlePhraseService.getPlasmidTitlePhrase();
@@ -137,5 +144,16 @@ export class HomeComponent implements OnInit {
     } else {
       return text;
     }
+  }
+
+  disableF5(e): void {
+    if ((e.which || e.keyCode) === 116) {
+      e.preventDefault();
+    }
+  }
+
+  disableRefresh(e): void {
+    e.preventDefault();
+    e.returnValue = false;
   }
 }
