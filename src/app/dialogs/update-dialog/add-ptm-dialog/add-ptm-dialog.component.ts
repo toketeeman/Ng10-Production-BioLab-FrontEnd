@@ -55,19 +55,18 @@ export class AddPtmDialogComponent implements OnInit {
   createPtm(): FormGroup {
     return this.fb.group({
       subunit_one: ['', Validators.required],
-      subunit_one_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
-      subunit_one_residue: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
+      subunit_one_copy: new FormControl({ value: '', disabled: true }),
+      subunit_one_residue: new FormControl({ value: '', disabled: true }),
       subunit_two: ['', Validators.required],
-      subunit_two_copy: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
-      subunit_two_residue: new FormControl({ value: '', disabled: true }, [Validators.required, ValidateNumberInput]),
+      subunit_two_copy: new FormControl({ value: '', disabled: true }),
+      subunit_two_residue: new FormControl({ value: '', disabled: true }),
       ptm: ['', Validators.required]
     });
   }
 
   updateCopyRange(
     subunitId: string,
-    index: number,
-    controlArray: FormArray,
+    controlGroup: FormGroup,
     controlName: 'subunit_one_copy' | 'subunit_two_copy'
   ): void {
     const id = parseInt(subunitId, 10);
@@ -76,9 +75,10 @@ export class AddPtmDialogComponent implements OnInit {
 
     // Set the maximum range of the appropriate copy number control to the subunit's number of copies.
     const controlsKey = 'controls';
-    const control = controlArray.at(index)[controlsKey][controlName] as FormControl;
+    const control = controlGroup[controlsKey][controlName] as FormControl;
     control.enable();
     control.setValidators([
+      Validators.required,
       ValidateNumberInput,
       Validators.min(1),
       Validators.max(copyNumber)
@@ -87,8 +87,7 @@ export class AddPtmDialogComponent implements OnInit {
 
   updateResidueRange(
     subunitId: string,
-    index: number,
-    controlArray: FormArray,
+    controlGroup: FormGroup,
     controlName: 'subunit_one_residue' | 'subunit_two_residue'
   ): void {
     const id = parseInt(subunitId, 10);
@@ -98,9 +97,10 @@ export class AddPtmDialogComponent implements OnInit {
 
     // Set the maximum range of the appropriate residue number control to the length of the subunit's AA sequence.
     const controlsKey = 'controls';
-    const control = controlArray.at(index)[controlsKey][controlName] as FormControl;
+    const control = controlGroup[controlsKey][controlName] as FormControl;
     control.enable();
     control.setValidators([
+      Validators.required,
       ValidateNumberInput,
       Validators.min(1),
       Validators.max(residueLength)
@@ -109,13 +109,12 @@ export class AddPtmDialogComponent implements OnInit {
 
   updateCopyAndResidueRanges(
     subunitId: string,
-    index: number,
-    controlArray: FormArray,
+    controlGroup: FormGroup,
     copyControlName: 'subunit_one_copy' | 'subunit_two_copy',
     residueControlName: 'subunit_one_residue' | 'subunit_two_residue'
   ): void {
-    this.updateCopyRange(subunitId, index, controlArray, copyControlName);
-    this.updateResidueRange(subunitId, index, controlArray, residueControlName);
+    this.updateCopyRange(subunitId, controlGroup, copyControlName);
+    this.updateResidueRange(subunitId, controlGroup, residueControlName);
   }
 
   // Possible additional validators here.

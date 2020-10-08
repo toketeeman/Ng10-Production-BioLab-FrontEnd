@@ -11,7 +11,7 @@
           <div style="width: 30%">Subunit Name</div>
           <div style="width: 30%">
             <select formControlName="subunit_one"
-                (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_one_copy', 'subunit_one_residue')">
+                (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_one_copy', 'subunit_one_residue')">
               <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
             </select>
           </div>
@@ -51,7 +51,7 @@
           <div style="width: 30%">Subunit Name</div>
           <div style="width: 30%">
             <select formControlName="subunit_two"
-                (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_two_copy', 'subunit_two_residue')">
+                (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_two_copy', 'subunit_two_residue')">
               <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
             </select>
           </div>
