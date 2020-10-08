@@ -22,26 +22,31 @@ export function PTMBonding(
     if (!control || control.value === '' || control.invalid) {
       return null;
     }
+
     controlName = subunitOneCopy;
     control = formGroup.controls[controlName];
     if (!control || control.value === '' || control.invalid) {
       return null;
     }
+
     controlName = subunitOneResidue;
     control = formGroup.controls[controlName];
     if (!control || control.value === '' || control.invalid) {
       return null;
     }
+
     controlName = subunitTwo;
     control = formGroup.controls[controlName];
     if (!control || control.value === '' || control.invalid) {
       return null;
     }
+
     controlName = subunitTwoCopy;
     control = formGroup.controls[controlName];
     if (!control || control.value === '' || control.invalid) {
       return null;
     }
+
     controlName = subunitTwoResidue;
     control = formGroup.controls[controlName];
     if (!control || control.value === '' || control.invalid) {
