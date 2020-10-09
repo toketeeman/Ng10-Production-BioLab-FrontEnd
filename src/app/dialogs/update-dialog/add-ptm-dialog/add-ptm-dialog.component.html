@@ -7,13 +7,15 @@
     <div formArrayName="ptmsArray" *ngFor="let ptm of ptmsArray.controls; let i = index;">
       <div [formGroupName]="i" fxLayout="column" fxLayoutAlign="start center">
 
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div style="width: 30%">Subunit Name</div>
-          <div style="width: 30%">
-            <select formControlName="subunit_one"
-                (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_one_copy', 'subunit_one_residue')">
-              <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
-            </select>
+        <div fxLayout="column" fxLayoutAlign="start" style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 30%">Subunit Name</div>
+            <div style="width: 30%">
+              <select formControlName="subunit_one"
+                  (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_one_copy', 'subunit_one_residue')">
+                <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -45,15 +47,20 @@
           <div *ngIf="ptm['controls'].subunit_one_residue.errors?.max" class="errorMessage">
             Range is 1 - {{ ptm['controls'].subunit_one_residue.errors?.max.max }}.
           </div>
+          <div *ngIf="ptm.errors?.residueOneCysteine" class="errorMessage">
+            Must be a cysteine.
+          </div>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div style="width: 30%">Subunit Name</div>
-          <div style="width: 30%">
-            <select formControlName="subunit_two"
-                (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_two_copy', 'subunit_two_residue')">
-              <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
-            </select>
+        <div fxLayout="column" fxLayoutAlign="start"  style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 30%">Subunit Name</div>
+            <div style="width: 30%">
+              <select formControlName="subunit_two"
+                  (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_two_copy', 'subunit_two_residue')">
+                <option *ngFor="let subunit of subunits" [value]="subunit.subunit_id">{{ subunit.subunit_name }}</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -85,14 +92,22 @@
           <div *ngIf="ptm['controls'].subunit_two_residue.errors?.max" class="errorMessage">
             Range is 1 - {{ ptm['controls'].subunit_two_residue.errors?.max.max }}.
           </div>
+          <div *ngIf="ptm.errors?.residueTwoCysteine" class="errorMessage">
+            Must be a cysteine.
+          </div>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div style="width: 30%">PTM Type</div>
-          <div style="width: 30%">
-            <select formControlName="ptm">
-              <option value="disulfide_bond">Disulfide bond</option>
-            </select>
+        <div fxLayout="column" fxLayoutAlign="start" style="padding-left: 0; padding-top: 0">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div style="width: 30%">PTM Type</div>
+            <div style="width: 30%">
+              <select formControlName="ptm">
+                <option value="disulfide_bond">Disulfide bond</option>
+              </select>
+            </div>
+          </div>
+          <div *ngIf="ptm.errors?.distinctBondPoints" class="errorMessage">
+            Binding locations must differ.
           </div>
         </div>
 

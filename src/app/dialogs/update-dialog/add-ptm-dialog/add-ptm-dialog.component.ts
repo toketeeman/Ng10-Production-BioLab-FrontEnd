@@ -16,6 +16,7 @@ import { ICellRendererParams } from '@ag-grid-enterprise/all-modules';
 import { environment } from '../../../../environments/environment';
 import { ISubunit } from 'src/app/protein-expression.interface';
 import { ValidateNumberInput } from '../../../validators/numberInput.validator';
+import { PTMBonding } from '../../../validators/ptmBonding.validator';
 
 @Component({
   templateUrl: './add-ptm-dialog.component.html',
@@ -53,15 +54,26 @@ export class AddPtmDialogComponent implements OnInit {
   }
 
   createPtm(): FormGroup {
-    return this.fb.group({
-      subunit_one: ['', Validators.required],
-      subunit_one_copy: new FormControl({ value: '', disabled: true }),
-      subunit_one_residue: new FormControl({ value: '', disabled: true }),
-      subunit_two: ['', Validators.required],
-      subunit_two_copy: new FormControl({ value: '', disabled: true }),
-      subunit_two_residue: new FormControl({ value: '', disabled: true }),
-      ptm: ['', Validators.required]
-    });
+    const ptmFormGroup =
+      this.fb.group({
+        subunit_one: ['', Validators.required],
+        subunit_one_copy: new FormControl({ value: '', disabled: true }),       // Validators injected later.
+        subunit_one_residue: new FormControl({ value: '', disabled: true }),    // Validators injected later.
+        subunit_two: ['', Validators.required],
+        subunit_two_copy: new FormControl({ value: '', disabled: true }),       // Validators injected later.
+        subunit_two_residue: new FormControl({ value: '', disabled: true }),    // Validators injected later.
+        ptm: ['', Validators.required]
+      });
+    ptmFormGroup.setValidators(
+      PTMBonding(
+        this.subunits,
+        'subunit_one',
+        'subunit_one_copy',
+        'subunit_one_residue',
+        'subunit_two',
+        'subunit_two_copy',
+        'subunit_two_residue'));
+    return ptmFormGroup;
   }
 
   updateCopyRange(
