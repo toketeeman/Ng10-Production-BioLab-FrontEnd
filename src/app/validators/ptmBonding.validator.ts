@@ -12,8 +12,6 @@ export function PTMBonding(
   subunitTwoResidue: string
 ): ValidatorFn {
   return (formGroup: FormGroup): ValidationErrors | null => {
-    // console.log('XXX Values: ', JSON.stringify(formGroup.value));
-
     // Check the individual validity of the low-level form controls.
     // If any invalidity or incompleteness, don't do any further
     // higher-level validation.
