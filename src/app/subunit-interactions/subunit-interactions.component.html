@@ -121,7 +121,7 @@
 
             <div [ngClass]="{'ptm-subunit-one-align': !i}" style="padding-left: 0; padding-top: 0">
               <select formControlName="subunit_one"
-                  (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_one_copy', 'subunit_one_residue')">
+                  (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_one_copy', 'subunit_one_residue')">
                 <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
               </select>
             </div>
@@ -160,6 +160,9 @@
               <div *ngIf="ptm['controls'].subunit_one_residue.errors?.max" class="errorMessage">
                 Range is 1 - {{ ptm['controls'].subunit_one_residue.errors?.max.max }}.
               </div>
+              <div *ngIf="ptm.errors?.residueOneCysteine" class="errorMessage">
+                Must be a cysteine.
+              </div>
             </div>
           </div>
 
@@ -170,7 +173,7 @@
 
             <div [ngClass]="{'ptm-subunit-two-align': !i}" style="padding-left: 0; padding-top: 0">
               <select formControlName="subunit_two"
-                  (change)="updateCopyAndResidueRanges($event.target.value, i, ptmsArray, 'subunit_two_copy', 'subunit_two_residue')">
+                  (change)="updateCopyAndResidueRanges($event.target.value, ptm, 'subunit_two_copy', 'subunit_two_residue')">
                 <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
               </select>
             </div>
@@ -209,6 +212,9 @@
               <div *ngIf="ptm['controls'].subunit_two_residue.errors?.max" class="errorMessage">
                 Range is 1 - {{ ptm['controls'].subunit_two_residue.errors?.max.max }}.
               </div>
+              <div *ngIf="ptm.errors?.residueTwoCysteine" class="errorMessage">
+                Must be a cysteine.
+              </div>
             </div>
           </div>
 
@@ -221,6 +227,9 @@
               <select formControlName="ptm">
                 <option value="disulfide_bond">Disulfide bond</option>
               </select>
+            </div>
+            <div *ngIf="ptm.errors?.distinctBondPoints" class="errorMessage">
+              Locations must differ.
             </div>
           </div>
 
@@ -243,7 +252,6 @@
     </form>
 
   <button mat-button (click)="onReset()">Cancel</button>
-  <!-- API call, on success navigates to success screen. on error, load form with data and error message alert -->
   <button mat-button [disabled]="!interactionForm.valid" (click)="onSubmit()">Save</button>
 
 </div>
