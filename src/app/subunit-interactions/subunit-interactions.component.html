@@ -19,7 +19,7 @@
 
             <div [ngClass]="{'subunit-subunit-one-align': !i}" style="padding-left: 0; padding-top: 0">
               <select formControlName="subunit_one"
-                  (change)="updateCopyRange($event.target.value, i, subunitsArray, 'subunit_one_copy')">
+                  (change)="updateCopyRange($event.target.value, subunit, 'subunit_one_copy')">
                 <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
               </select>
             </div>
@@ -62,7 +62,7 @@
 
             <div [ngClass]="{'subunit-subunit-two-align': !i}" style="padding-left: 0; padding-top: 0">
               <select formControlName="subunit_two"
-                  (change)="updateCopyRange($event.target.value, i, subunitsArray, 'subunit_two_copy')">
+                  (change)="updateCopyRange($event.target.value, subunit, 'subunit_two_copy')">
                 <option *ngFor="let unit of subunits" [value]="unit.subunit_id">{{ unit.subunit_name }}</option>
               </select>
             </div>
