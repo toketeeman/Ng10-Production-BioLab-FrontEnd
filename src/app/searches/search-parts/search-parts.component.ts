@@ -175,6 +175,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
 
     // Go back to first page on search button.
+    this.partSearchStoreService.resetPartLastSearchedState();
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
@@ -188,6 +189,7 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     this.agGrid.gridOptions.api.onFilterChanged();     // Fire trigger.
 
     // Go back to first page on refresh button.
+    this.partSearchStoreService.resetPartLastSearchedState();
     this.agGrid.gridOptions.api.paginationGoToPage(0);
   }
 
@@ -197,7 +199,10 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
     const path = currentRouteUrl[currentRouteUrlLength - 1].path;
 
     // Restore the search set.
-    if (path === 'back-from-plasmids') {
+    if (path === 'back') {
+      const lastSearchedPageNumber = this.partSearchStoreService.retrievePartLastSearchedState();
+      this.agGrid.gridOptions.api.paginationGoToPage(lastSearchedPageNumber);
+    } else if (path === 'back-from-plasmids') {
       this.searchSet = this.returnFromPlasmidsPartStoreService.retrieveReturnSearchSetState();
     } else {
       this.searchSet = this.partSearchStoreService.retrievePartSearchState();
@@ -214,7 +219,10 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
       ], true);
 
     // Finally set the grid to the last-searched page.
-    if (path === 'back-from-plasmids') {
+    if (path === 'back') {
+      const lastSearchedPageNumber = this.partSearchStoreService.retrievePartLastSearchedState();
+      this.agGrid.gridOptions.api.paginationGoToPage(lastSearchedPageNumber);
+    } else if (path === 'back-from-plasmids') {
       const lastSearchedPageNumber = this.returnFromPlasmidsPartStoreService.retrieveReturnLastSearchedState();
       this.agGrid.gridOptions.api.paginationGoToPage(lastSearchedPageNumber);
     } else {
@@ -255,9 +263,15 @@ export class SearchPartsComponent implements OnInit, AfterViewInit {
   }
 
   onSelectionChanged(): void {
+    // Capture current page number as last-searched page number.
+    const lastSearchedPageNumber = this.agGrid.api.paginationGetCurrentPage();
+    this.partSearchStoreService.storePartLastSearchedState(lastSearchedPageNumber);
+
     // Now compute the destination of the details and go there.
     const selectedRow: IGridPart = this.agGrid.gridOptions.api.getSelectedRows()[0];  // Here, always an array of one row.
-    this.router.navigateByUrl('/home/part-detail/' + (selectedRow as IGridPart).part_name);
+
+    // NOTE: "Uncomment this line below to gain access to the Parts Details page when it has been fully implemented (GitHub Issue #84).
+    // this.router.navigateByUrl('/home/part-detail/' + (selectedRow as IGridPart).part_name);
   }
 
   onCellClicked(event: CellClickedEvent): void {
