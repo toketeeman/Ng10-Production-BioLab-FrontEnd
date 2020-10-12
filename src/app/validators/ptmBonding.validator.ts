@@ -9,7 +9,8 @@ export function PTMBonding(
   subunitOneResidue: string,
   subunitTwo: string,
   subunitTwoCopy: string,
-  subunitTwoResidue: string
+  subunitTwoResidue: string,
+  subunitPTMType: string
 ): ValidatorFn {
   return (formGroup: FormGroup): ValidationErrors | null => {
     // Check the individual validity of the low-level form controls.
@@ -46,6 +47,12 @@ export function PTMBonding(
     }
 
     controlName = subunitTwoResidue;
+    control = formGroup.controls[controlName];
+    if (!control || control.value === '' || control.invalid) {
+      return null;
+    }
+
+    controlName = subunitPTMType;
     control = formGroup.controls[controlName];
     if (!control || control.value === '' || control.invalid) {
       return null;

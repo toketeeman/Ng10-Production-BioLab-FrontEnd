@@ -72,7 +72,8 @@ export class AddPtmDialogComponent implements OnInit {
         'subunit_one_residue',
         'subunit_two',
         'subunit_two_copy',
-        'subunit_two_residue'));
+        'subunit_two_residue',
+        'ptm'));
     return ptmFormGroup;
   }
 
