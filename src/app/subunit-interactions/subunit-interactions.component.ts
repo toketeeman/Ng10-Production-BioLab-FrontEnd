@@ -296,31 +296,4 @@ export class SubunitInteractionsComponent implements OnInit {
     return this.alertService.confirmDeactivation('Discard changes?');
   }
 
-
-  // KEEP THIS HELPFUL ROUTINE FOR DEBUGGING FORMS!
-  //
-  // How to use it:
-  // >  console.log('All invalid controls : ', this.findInvalidControlsRecursive(this.myForm));
-  //
-  //  Returns an array of invalid control/group names, or a zero-length array if
-  //  no invalid controls/groups where found. (Uncomment the code below.)
-  // findInvalidControlsRecursive(formToInvestigate: FormGroup|FormArray): string[] {
-  //   const invalidControls: string[] = [];
-  //   const recursiveFunc = (form: FormGroup|FormArray) => {
-  //     Object.keys(form.controls).forEach(field => {
-  //       const control = form.get(field);
-  //       if (control.invalid) {
-  //         invalidControls.push(field);
-  //       }
-  //       if (control instanceof FormGroup) {
-  //         recursiveFunc(control);
-  //       } else if (control instanceof FormArray) {
-  //         recursiveFunc(control);
-  //       }
-  //     });
-  //   };
-  //   recursiveFunc(formToInvestigate);
-  //   return invalidControls;
-  // }
-
 }
