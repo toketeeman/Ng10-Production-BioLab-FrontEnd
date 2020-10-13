@@ -7,13 +7,12 @@
 
 <div class="target-detail-room" style="width: 100%;" fxLayout="column" fxLayoutGap="20px">
 
-  <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
+  <div style="width: 100%; height: 120px;" fxLayout="row" fxLayoutAlign="center">
     <ag-grid-angular
       #targetHeaderGrid
-      style="width: 90%;"
+      style="width: 90%; height: 100%"
       class="ag-theme-balham"
       [rowData]="targetHeaderData"
-      [domLayout]="domLayout"
       [defaultColDef]="defaultColDef"
       [columnDefs]="targetHeaderColumnDefs"
       [modules]="modules"
@@ -116,13 +115,12 @@
     <h3>Subunit Interactions</h3>
   </div>
 
-  <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
+  <div style="width: 100%; height: 120px;" fxLayout="row" fxLayoutAlign="center">
     <ag-grid-angular
       #subunitInteractionsGrid
-      style="width: 90%;"
+      style="width: 90%; height: 100%"
       class="ag-theme-balham"
       [rowData]="subunitInteractionsData"
-      [domLayout]="domLayout"
       [defaultColDef]="defaultColDef"
       [columnDefs]="subunitInteractionsColumnDefs"
       [modules]="modules"
@@ -134,13 +132,12 @@
     <h3>Post Translational Modifications</h3>
   </div>
 
-  <div style="width: 100%;" fxLayout="row" fxLayoutAlign="center">
+  <div style="width: 100%; height: 120px;" fxLayout="row" fxLayoutAlign="center">
     <ag-grid-angular
       #ptmsGrid
-      style="width: 90%;"
+      style="width: 90%; height: 100%"
       class="ag-theme-balham"
       [rowData]="ptmsData"
-      [domLayout]="domLayout"
       [defaultColDef]="defaultColDef"
       [columnDefs]="ptmsColumnDefs"
       [modules]="modules"

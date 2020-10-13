@@ -45,7 +45,6 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private destroyed$ = new Subject();
   public modules: Module[] = AllModules;
-  public domLayout;
   detailData$: Observable<ITargetDetail>;
   targetDetailHeader: ITargetDetailHeader;          // Total target details fetched from DB.
   targetHeaderData: ITargetDetailHeader[];          // UI-bound data.
@@ -91,8 +90,6 @@ export class TargetDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.targetsDetailUrl = environment.urls.targetsDetailUrl + '?target_id=' + this.currentTargetId;
     }
-
-    this.domLayout = 'autoHeight';
 
     // Shared by all grids.
     this.defaultColDef = {
