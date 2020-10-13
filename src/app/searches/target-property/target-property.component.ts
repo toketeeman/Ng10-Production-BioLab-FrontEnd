@@ -275,12 +275,12 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
 
   // Reduce the length variability of subunit names.
   displaySubunitName(name: string): string {
-    return this.truncateString(name, 20);
+    return this.truncateString(name, 40);
   }
 
   // Reduce the length variability of target names.
   displayTargetName(name: string): string {
-    return this.truncateString(name, 22);
+    return this.truncateString(name, 40);
   }
 
   // Reduce length of string as specified.
