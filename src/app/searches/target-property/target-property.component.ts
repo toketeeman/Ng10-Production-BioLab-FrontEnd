@@ -288,7 +288,7 @@ export class TargetPropertyComponent implements OnInit, AfterViewInit {
     if (text.length > maxLength) {
       return text.substring(0, maxLength - 3) + '...';
     } else {
-      return text;
+      return text.padEnd(maxLength, ' ');
     }
   }
 
