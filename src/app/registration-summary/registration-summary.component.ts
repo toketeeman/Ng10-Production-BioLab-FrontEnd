@@ -37,7 +37,6 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
 
   private destroyed$ = new Subject();
   public modules: Module[] = AllModules;
-  public domLayout;
   detailData$: Observable<ITargetDetail>;
   targetHeaderData: ITargetDetailHeader[];          // UI-bound data.
   subunitInteractionsData: ISubunitInteraction[];   // UI-bound data.
@@ -66,7 +65,6 @@ export class RegistrationSummaryComponent implements OnInit, AfterViewInit, OnDe
   ) {}
 
   ngOnInit(): void {
-    this.domLayout = 'autoHeight';
 
     // Configure target header grid.
     this.targetHeaderColumnDefs = [
